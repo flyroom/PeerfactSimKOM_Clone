@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 /bin
 /outputs/*
 measured_data.xml
 mod_measured_data.xml
+=======
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+>>>>>>> refs/remotes/choose_remote_name/master

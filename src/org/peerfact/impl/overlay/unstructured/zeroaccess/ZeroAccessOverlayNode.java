@@ -219,6 +219,8 @@ public class ZeroAccessOverlayNode extends
 			getL_round_robin_counter = (getL_round_robin_counter++)
 					% bootstrapInfos.size();
 		}
+		
+		
 
 		GetLOperation getLOperation = new GetLOperation(this,
 				bootstrapInfo, new OperationCallback<Object>() {
