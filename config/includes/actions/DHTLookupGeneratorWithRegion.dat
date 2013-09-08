@@ -1,0 +1,7 @@
+# action file for DHTLookupGenerator
+
+all 1s-120m JoinLeaveOverlayNode:join callback
+region 1s-120m JoinLeaveOverlayNode:join callback
+
+all 120m startLookups
+region 120m startLookups

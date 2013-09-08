@@ -1,0 +1,5 @@
+# Column meanings (format):
+# Host-Id(String) timepoint(long) opName(String) parameters(list of Strings?)
+server 10s goOnline
+eu_clients 20s-40s goOnline
+

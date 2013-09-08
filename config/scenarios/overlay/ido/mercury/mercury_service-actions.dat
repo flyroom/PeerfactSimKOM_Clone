@@ -1,0 +1,8 @@
+#Scenario Ideal
+GlasgowCity 1s join callback
+LatinAmerica 1m-5m join callback
+#Germany 29m-50m join callback
+#Florida 49m-60m join callback
+#NewYork 59m-70m join callback
+
+#Germany 50m-55m leave callback

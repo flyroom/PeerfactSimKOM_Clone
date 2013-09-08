@@ -1,0 +1,67 @@
+# Supported operations for filesharing clients can be found in the interface ...impl.application.filesharing.FileSharingClient
+#
+# Supported operations for the server can be found in ...impl.overlay.dht.centralized.ServerNode as there is NO APPLICATION in the server
+#
+# Column meanings (format):
+# Host-Id(String) timepoint(number with unit) methodName(String) parameters(list of Strings)
+# Note that the methodName can be qualified with the component class name, e.g. ServerNode:join
+# if no qualifying component name is provided the default one is used. 
+
+_ECHO 1s "Simulation Started - Join gestarted"
+
+Group1 1s join callback
+Group2 2s-3s join callback
+Group3 3s-6s join callback
+Group4 7s-10s join callback
+Group5 10s-19s join callback
+Group6 10s-20s join callback
+Group7 10s-20s join callback
+Group8 10s-20s join callback
+Group9 20s-30s join callback
+Group10 20s-30s join callback
+Group11 20s-30s join callback
+Group12 20s-30s join callback
+Group13 20s-30s join callback
+
+
+#Group6 180s sendQueryOnce
+#Group6 180s fail false
+
+
+
+#Group1 180s sendQueryOnce
+#Group2 180s sendQueryOnce
+#Group3 180s sendQueryOnce
+#Group4 180s sendQueryOnce
+#Group5 180s sendQueryOnce
+#Group6 180s sendQueryOnce
+#Group7 180s sendQueryOnce
+#Group8 180s sendQueryOnce
+#Group9 180s sendQueryOnce
+#Group10 180s sendQueryOnce
+#Group11 180s sendQueryOnce
+#Group12 180s sendQueryOnce
+#Group13 180s sendQueryOnce
+
+#Group9 100s-109s join callback
+#Group10 100s-109s join callback
+#Group11 100s-109s join callback
+#Group12 100s-109s join callback
+#Group13 100s-109s join callback
+
+#Group10 160s-169s join callback
+#Group11 160s-169s join callback
+#Group12 160s-169s join callback
+#Group13 160s-169s join callback
+#Group8 210s leave false
+#Group9 210s leave false
+#Group10 210s leave false
+#Group11 210s leave false
+#Group12 210s leave false
+#Group13 210s leave false
+
+#Group9 200s fail false
+#Group10 202s fail false
+#Group11 204s fail false
+#Group12 206s fail false
+#Group13 208s fail false

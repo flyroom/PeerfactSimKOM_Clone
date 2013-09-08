@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- ratio and Leadtime are self-explantory.  Possibilities are for the type of the node are listed below.  -->
+<!--""MaliciousLookupOperationWrongForwardingToDirectSuccessor" /> -->
+<!--"MaliciousLookupOperationWrongForwardingToDirectPredecessor" /> -->
+<!--"MaliciousLookupOperationWrongForwardingToClosestFingertableSuccessor" /> -->
+<!--"MaliciousLookupOperationNoForwarding"  -->
+<Overlay
+		class="org.peerfact.impl.overlay.dht.chord.maliciouschord.components.MaliciousChordNodeFactory"
+		port="123" ratioOfMaliciousNodes="0.5" typeOfMaliciousLookupOperations="MaliciousLookupOperationNoForwarding" leadTimeForMaliciousNodes="40">
+</Overlay>

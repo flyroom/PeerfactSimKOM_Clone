@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<Default>
+		<Variable name="seed" value="12" />
+		<Variable name="size" value="2500" />
+		<Variable name="finishTime" value="30m" />
+		<Variable name="actions" value="config/scenarios/overlay/ido/mercury/mercury-actions.dat" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+		<Variable name="CHURN_MEAN_SESSION_LENGTH" value="5m" />
+		<Variable name="PACKAGE_LOSS_RATIO" value="0.1" />
+		<Variable name="churnStart" value="10m" />
+		<Variable name="churnFinish" value="30m" />
+		<!-- Variable for enabling churn -->
+		<Variable name="churn" value="true" />
+		
+		<!-- Config Evaluation -->
+		<Variable name="STATISTIC_OUTPUT_FILE" value="mercury_TO_SET" />
+		<Variable name="INTERVAL_BETWEEN_STATISTIC_GENERATIONS" value="1s" />
+		<Variable name="STATISTIC_TABLE_NAME" value="statistics" />
+		<Variable name="EXPERIMENT_NAME" value="TO_SET"/>
+		<Variable name="START_ANALYZER" value="8m" />
+		
+		<!-- Config Application -->
+		<Variable name="MOVE_SPEED_LIMIT" value="4" />
+		<Variable name="WORLD_DIMENSION_X" value="1200" />
+		<Variable name="WORLD_DIMENSION_Y" value="1200" />
+		<Variable name="SPEED_CHANGING_RATE_PER_MOVE" value="0.025" />
+		<Variable name="INTERVAL_BETWEEN_MOVE" value="200ms" />
+		
+	</Default>
+
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime" realTime="true" />
+
+<NetLayer class="org.peerfact.impl.network.modular.ModularNetLayerFactory" downBandwidth="122880" upBandwidth="32768" useRegionGroups="false" useInOrderDelivery="false" preset="Fundamental">
+  <MeasurementDB class="org.peerfact.impl.network.modular.db.NetMeasurementDB" file="data/mod_measured_data.xml" />
+   <PacketSizing class="org.peerfact.impl.network.modular.st.packetSizing.IPv4Header"/>
+   <Fragmenting class="org.peerfact.impl.network.modular.st.fragmenting.IPv4Fragmenting"/>
+   <TrafficControl class="org.peerfact.impl.network.modular.st.trafCtrl.BoundedTrafficQueue"/>
+   <!--<TrafficControl class="org.peerfact.impl.network.modular.st.trafCtrl.NoTrafficControl"/>-->
+   <PLoss class="org.peerfact.impl.network.modular.st.ploss.PingErPacketLoss"/>
+    <!-- <PLoss class="org.peerfact.impl.network.modular.st.ploss.StaticPacketLoss" ratio="$PACKAGE_LOSS_RATIO"/> -->
+   <Latency class="org.peerfact.impl.network.modular.st.latency.GNPLatency"/>
+   <Jitter class="org.peerfact.impl.network.modular.st.jitter.PingErJitter"/>
+   <Positioning class="org.peerfact.impl.network.modular.st.positioning.GNPPositioning"/>
+ </NetLayer>
+	
+	
+	
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<Overlay class="org.peerfact.impl.overlay.ido.mercury.MercuryIDONodeFactory" />
+		
+	<MercuryService class="org.peerfact.impl.service.mercury.MercuryServiceFactory" 
+		port="400"
+		timeBetweenMaintenance="1s"
+		timeToCollectNotifications="200ms"
+		DHTOverlay="chord">
+		<Attribute 
+			class="org.peerfact.impl.service.mercury.MercuryAttributePrimitive" 
+			name="x" 
+			type="Integer"
+			rangemin="0"
+			rangemax="$WORLD_DIMENSION_X"
+			subscriptionExpiresAfter="1500ms" />
+		<Attribute 
+			class="org.peerfact.impl.service.mercury.MercuryAttributePrimitive" 
+			name="y" 
+			type="Integer"
+			rangemin="0"
+			rangemax="$WORLD_DIMENSION_Y"
+			subscriptionExpiresAfter="1500ms" />
+	</MercuryService>
+	
+	<Application class="org.peerfact.impl.application.ido.IDOApplicationFactory" 
+		intervalBetweenMove="$INTERVAL_BETWEEN_MOVE">
+				<MoveModel class="org.peerfact.impl.application.ido.moveModels.RandomPathMoveModel" 
+			worldDimensionX="$WORLD_DIMENSION_X" 
+			worldDimensionY="$WORLD_DIMENSION_Y"
+			moveSpeedLimit="$MOVE_SPEED_LIMIT" />
+		<PositionDistribution class="org.peerfact.impl.application.ido.moveModels.RandomPositionDistribution"
+			worldDimensionX="$WORLD_DIMENSION_X" 
+			worldDimensionY="$WORLD_DIMENSION_Y" />
+	</Application>
+	
+	
+	<Monitor class="org.peerfact.impl.common.DefaultMonitor"
+		start="0m" stop="$finishTime">
+		
+		<Analyzer class="org.peerfact.impl.overlay.dht.chord.base.analyzer.ChordStructureAnalyzer" />
+		
+		<Analyzer class="org.peerfact.impl.overlay.dht.chord.base.analyzer.ChordLookupOperationAnalyzer" />
+		<Analyzer class="org.peerfact.impl.overlay.dht.chord.base.analyzer.metric.MessageCounter"/>
+		<Analyzer class="org.peerfact.impl.overlay.dht.chord.base.analyzer.ChordOverlayAnalyzer"
+			scheduleTime="5m" 
+			lookupStats = "true"
+			messageStats = "false"
+			stabilizeStats = "true"
+			peerStats = "true" />
+		<Analyzer class="org.peerfact.impl.service.mercury.analyzer.MessageAnalyzer" />
+		<!-- <Analyzer class="org.peerfact.impl.overlay.ido.visualization.VisWindow"
+				worldDimensionX="1200"
+				worldDimensionY="1200"
+				AOI="200" />
+		<Analyzer class="org.peerfact.impl.overlay.ido.evaluation.EvaluationControlAnalyzer" 
+            experimentName="$EXPERIMENT_NAME" 
+            sampleStatisticRate="$INTERVAL_BETWEEN_STATISTIC_GENERATIONS">
+            <IDOOracle class="org.peerfact.impl.service.mercury.ido.MercuryIDOOracle"/>
+            <IAnalyzerOutputWriter class="org.peerfact.impl.overlay.ido.evaluation.writer.SQLDBWriter" 
+            	outputFile="$STATISTIC_OUTPUT_FILE" 
+            	tableName="statistics">
+            	<DBMSConnector class="org.peerfact.impl.overlay.ido.evaluation.writer.MySQLConnector"/>
+            	</IAnalyzerOutputWriter>  -->
+        </Analyzer>
+			 <Analyzer class="org.peerfact.impl.vis.analyzer.VisAnalyzer">
+	        	<OverlayAdapter class="org.peerfact.impl.overlay.dht.chord.chord.vis.ChordAdapter"/>
+	       </Analyzer>
+        
+			
+	</Monitor>
+
+	<LookupGenerator class="org.peerfact.impl.overlay.dht.chord.base.analyzer.generator.LookupGenerator"
+	start="50m"/>
+		
+	<HostBuilder
+		class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+		
+		<!-- LatinAmerica max Groupsize = 6838 -->
+		<Group size="2500" groupID="LatinAmerica">
+			<NetLayer />
+			<TransLayer />
+			<MercuryService />
+			<Overlay />
+			<Properties enableChurn="$churn" />
+			<Application />
+		</Group>
+
+	</HostBuilder>
+	
+	<ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator"
+		start="$churnStart" stop="$churnFinish">
+		<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+			churnFactor="0.5" meanSessionLength="$CHURN_MEAN_SESSION_LENGTH" />
+	</ChurnGenerator>
+	
+	<GlobalOracle class="org.peerfact.impl.util.oracle.GlobalOracle" />
+	
+	<!-- <Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions"
+		componentClass="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNode" />-->
+		
+	
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions" componentClass="org.peerfact.impl.application.ido.IDOApplication">
+	</Scenario>
+		
+</Configuration>

@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<Default>
+		<Variable name="seed" value="12" />
+		<Variable name="size" value="250" />
+		<Variable name="finishTime" value="100m" />
+		<Variable name="actions" value="config/scenarios/overlay/ido/central-ido/ido-actions.dat" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+		<Variable name="churnStart" value="10m" />
+		<Variable name="churnFinish" value="200m" />
+		
+		<Variable name="pSenseProperties" value="config/scenarios/overlay/ido/pSense/pSense.properties" />
+		<Variable name="MOVE_SPEED_LIMIT" value="4" />
+		<Variable name="WORLD_DIMENSION_X" value="1200" />
+		<Variable name="WORLD_DIMENSION_Y" value="1200" />
+		<Variable name="SPEED_CHANGING_RATE_PER_MOVE" value="0.02" />
+		
+		<Variable name="statisticOutputPath" value="outputs/psense/visualization" />
+		<Variable name="intervalBetweenStatisticGeneration" value="5s" />
+		
+	</Default>
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime" realTime="true" />
+
+	<!-- <NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+		gnpFile="$gnpDataFile">
+		<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel"
+			usePingErRttData="false" usePingErJitter="false" usePingErPacketLoss="false" />
+		<BandwidthDetermination
+			class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+	</NetLayer> -->
+	
+	<!-- Here I assume a bandwidth of a normal DSL 1000 Link (Downstream: 120kBps=122880Bps, Upstream: 16kBps=16384Bps -->
+	<!-- <NetLayer class="org.peerfact.impl.network.simple.SimpleNetFactory" downBandwidth="122880" upBandwidth="16384">
+		<LatencyModel class="org.peerfact.impl.network.simple.SimpleStaticLatencyModel" latency="35"/>
+	</NetLayer> -->
+	
+
+ <NetLayer class="org.peerfact.impl.network.modular.ModularNetLayerFactory" downBandwidth="122880" upBandwidth="16384" useRegionGroups="false" useInOrderDelivery="true" preset="Fundamental">
+  
+   <PacketSizing class="org.peerfact.impl.network.modular.st.packetSizing.IPv4Header"/>
+   <Fragmenting class="org.peerfact.impl.network.modular.st.fragmenting.NoFragmenting"/>
+   <TrafficControl class="org.peerfact.impl.network.modular.st.trafCtrl.BoundedTrafficQueue" maxTimeSend="3s" maxTimeReceive="3s"/>
+   <!--<TrafficControl class="org.peerfact.impl.network.modular.st.trafCtrl.NoTrafficControl"/>-->
+   <PLoss class="org.peerfact.impl.network.modular.st.ploss.StaticPacketLoss" ratio="0.000"/>
+   <Latency class="org.peerfact.impl.network.modular.st.latency.StaticLatency" propagationDelay="30ms"/>
+   <Jitter class="org.peerfact.impl.network.modular.st.jitter.NoJitter"/>
+   <Positioning class="org.peerfact.impl.network.modular.st.positioning.TorusPositioning"/>
+ </NetLayer>
+ 
+	
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+	
+	<NodeFactory class="org.peerfact.impl.overlay.ido.psense.PSenseNodeFactory" properties="$pSenseProperties">
+		<BootstrapManager class="org.peerfact.impl.overlay.ido.psense.PSenseBootstrapManager"/>
+	</NodeFactory>	
+	
+	<ApplicationFactory class="org.peerfact.impl.application.ido.IDOApplicationFactory" 
+		intervalBetweenMove="200ms">
+				<MoveModel class="org.peerfact.impl.application.ido.moveModels.RandomPathMoveModel" 
+			worldDimensionX="$WORLD_DIMENSION_X" 
+			worldDimensionY="$WORLD_DIMENSION_Y"
+			moveSpeedLimit="$MOVE_SPEED_LIMIT"/>
+		<PositionDistribution class="org.peerfact.impl.application.ido.moveModels.RandomPositionDistribution"
+			worldDimensionX="$WORLD_DIMENSION_X" 
+			worldDimensionY="$WORLD_DIMENSION_Y"/>
+	</ApplicationFactory>
+
+	 <Monitor class="org.peerfact.impl.common.DefaultMonitor"
+		start="0m" stop="$finishTime">
+		<Analyzer class="org.peerfact.impl.overlay.ido.psense.visualization.VisWindow" worldDimensionX="$WORLD_DIMENSION_X" worldDimensionY="$WORLD_DIMENSION_Y"/>
+		<!--<Analyzer
+			class="org.peerfact.impl.overlay.ido.evaluation.EvaluationControlAnalyzer" experimentName="blaba" sampleStatisticRate="$intervalBetweenStatisticGeneration">
+			<IDOOracle class="org.peerfact.impl.overlay.ido.psense.PSenseOracle"/>
+			<IAnalyzerOutputWriter class="org.peerfact.impl.overlay.ido.evaluation.writer.SqliteDBWriter" outputFile="pSense" tableName="statistics"/> 
+		</Analyzer>-->
+	</Monitor>
+
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+
+		<!-- LatinAmerica max Groupsize = 6838 -->
+		<Group size="250" groupID="LatinAmerica">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<ApplicationFactory />
+			<Properties enableChurn="false" />
+		</Group>
+
+
+	</HostBuilder>
+
+	<GlobalOracle class="org.peerfact.impl.util.oracle.GlobalOracle" />
+
+	<ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator"
+		start="$churnStart" stop="$churnFinish">
+		<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+			churnFactor="0.5" meanSessionLength="50m" />
+	</ChurnGenerator>
+
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions" componentClass="org.peerfact.impl.application.ido.IDOApplication">
+	</Scenario>
+		
+</Configuration>

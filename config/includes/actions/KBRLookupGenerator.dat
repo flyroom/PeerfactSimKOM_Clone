@@ -1,0 +1,5 @@
+# action file for KBRLookupGenerator
+
+all 1s-120m JoinLeaveOverlayNode:join callback
+
+all 120m startLookups

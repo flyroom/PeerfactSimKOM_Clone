@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+	actionsFile="config/includes/actions/UnstructuredActions.dat"
+	componentClass="org.peerfact.impl.overlay.unstructured.heterogeneous.common.AbstractGnutellaLikeNode">
+</Scenario>

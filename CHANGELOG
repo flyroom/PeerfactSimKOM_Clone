@@ -1,0 +1,339 @@
+===========================================================
+2012-11-21 PeerfactSim.KOM - Community Edition
+===========================================================
+
+This version of PeerfactSim.KOM - Community Edition is based on PeerfactSim.KOM v4.0 - Fork UPB (2012-11-18).
+Please note, this is a fork of PeerfactSim.KOM maintained by the open source community (see: http://www.peerfact.org).
+The fork has been started in 2011 to support people working with p2p problems on a non-commercial basis.
+However, we engage in close discussions with the initial developers of PeerfactSim.KOM (http://peerfactsim.com)
+at Technische Universität Darmstadt.
+ 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with no functional extensions. It inherits and combines all public changes made at the
+Technische Universität of Darmstadt, University of Paderborn and University of Düsseldorf since 2011.
+
+
+
+===========================================================
+2012-11-18 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20121118
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2012-11-05).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 1: New 
+======================================
+Libraries:
+ - updated versions
+ - added JavaDoc reference
+
+Part 2: Improvements 
+======================================
+General:
+ - small changes in the gnuplot scripts
+ - small errors, naming issues fixed
+
+
+
+===========================================================
+2012-11-05 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20121105
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2012-10-08).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 1: New 
+======================================
+Analyzers:
+ - automatic export of gnuplot scripts
+ - automatic generation of plots
+
+Part 2: Improvements 
+======================================
+General:
+ - update of all maintained configuration files
+ - small errors fixed
+
+
+
+===========================================================
+2012-10-08 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20121008
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2012-07-26).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 1: New 
+======================================
+Analyzers:
+ - an analyzer for all unstructured overlays integrated
+ - a statistic metric for all important statistical values
+Project structure:
+ - simplified and cleaned
+ - removed obsolete code and configurations
+
+Part 2: Improvements 
+======================================
+Overlays:
+ - Gia and Gnutella06 are working correctly and integrated in FileSharing application
+ - all unstructured overlays are now running with sample configuration files
+General:
+ - include supplementary network coordinate files in project
+ - many warnings are fixed
+ - lots of renames and deletes
+ - not maintained code is marked
+
+
+
+===========================================================
+2012-07-26 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20120726
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2012-05-24).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 1: New 
+======================================
+New overlay:
+ - a malicious pastry variant with attacks
+
+Part 2: Improvements 
+======================================
+Overlays:
+ - further improvements in the DHT overlays
+ - all unstructured overlays are now running with sample configuration files
+Analyzers:
+ - analyzers now supporting a metric based evaluation
+ - furthermore peer based evaluations are now possible
+
+
+
+===========================================================
+2012-05-24 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20120524
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2012-25-04).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 1: New 
+======================================
+New Application:
+ - a new FileSharing application which combines the power of the old ones
+
+Part 2: Improvements 
+======================================
+Overlays:
+ - Pastry is reworked and several bugs and issues are solved
+
+
+
+===========================================================
+2012-04-25 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20120425
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2011-12-02).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 1: New 
+======================================
+New overlays:
+ - EpiChord
+ - CaReChord (a churn-aware Re-Chord)
+ - MaliciousChord (Chord with malicious nodes in it)
+Service:
+ - PAST is available as a replication service for dht
+Monitoring:
+ - All Analyzers have default implementations now
+ - For each DefaultAnalyzer a corresponding gnuplot script is available
+ - Specific DHT and KBR analyzers
+Configuration:
+ - A new (general) dht configuration file (dht.xml) with includes and parameters (which combines all functionality for DHT)
+ 
+Part 2: Improvements 
+======================================
+Overlays:
+ - All DHT overlays implement KBR and DHT interfaces (with the exception of Kademlia)
+ - Napster and centralized are now named after their corresponding functions (CentralizedIndex and CentralizedStorage)
+General:
+ - Many warnings are fixed (more than 700)
+ - Package structure is optimized and simplified
+ - Helpful classes are now concentrated in an own package
+ - HashMaps and HashSets are now LinkedHashMaps and LinkedHashSets (which makes the simulator deterministic)
+ - Deletion of deprecated code
+
+
+
+===========================================================
+2011-12-02 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20111202 
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2011-10-21).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 1: New 
+======================================
+New overlay:
+ - We implemented adaptive chord as new chord variant
+Monitoring and benchmarking:
+ - a centralized dht, a simple file sharing application and many new analyzers added (incl. many configurations for running simulations)
+ 
+Part 2: Improvements 
+======================================
+Chord Overlay Structure:
+ - rename of the default chord from "chord2" to "chord"
+Analyzer Output:
+ - The output files of all analyzer are created in a similar folder structure for an easier handling
+Example configurations:
+ - all example configurations are refactored (new structure, new configurations, all errors fixed, new gnuplot scripts)
+International support:
+ - all content is now in English (including all comments in the source code)
+ 
+
+
+===========================================================
+2011-10-21 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20111021 
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 - Fork UPB (2011-08-18).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+
+Part 2: Improvements 
+======================================
+
+Chord Overlay Structure
+ - In order to support various Chord variants, a Chord superclass has been created. Now the original Chord and the ReChord implementations are Sub-classes of it 
+ 
+
+
+===========================================================
+2011-08-18 PeerfactSim.KOM v4.0 - Fork UPB - ver. 20110818 
+===========================================================
+
+This version of PeerfactSim.KOM is based on PeerfactSim.KOM v4.0 (2011-05-06).
+Please note, this is a fork of PeerfactSim.KOM maintained at the University of Paderborn (see: http://www.peerfact.org). The fork has been initiated in July 2011 to support timely dissemination of scholarly and technical work which is created by the users of PeerfactSim.KOM at the University of Paderborn on a non-commercial basis. However, we engage in close discussions with the main developers of PeerfactSim.KOM (http://peerfactsim.com) at Technische Universität Darmstadt. 
+For questions regarding this fork, please visit http://www.peerfact.org or write us an email: <info@peerfact.org>
+
+This current version comes with following extensions:
+
+Part 1: New 
+======================================
+New overlay:
+ - We implemented Re-Chord based on "S. Kniesburges, A. Koutsopoulos and C. Scheideler. Re-Chord: A Self-stabilizing Chord Overlay Network. In 23rd Annual ACM Symposium on Parallelism in Algorithms and Architectures (SPAA), 2011."
+ This overlay is a self-stabilizing variant of Chord which is able to create a Chord ring out of every connected graph. Re-Chord uses virtual nodes instead of direct fingers and thus, various node types are used.
+
+Part 2: Improvements 
+======================================
+Graphical User Interface: 
+ - In order to support an international user community, we changed the language in the GUI from (partially) German to English. 
+ - We added a visualization for Re-Chord, both normal and virtual peers, marked and unmarked edges are shown.
+
+Extended application:
+ - We extended the application "filesharing2" to support file sizes. Together with the network layer, a realistic transmission speed is derived and peers might get congested. 
+
+
+
+======================================
+2011-05-06 PeerfactSim.KOM v4.0
+======================================
+
+This the next version of PeerfactSim.KOM, containing new models to simulate for the application-, overlay-, and network-layer.
+Additionally, we tried to improve the performance to run larger simulations with better memory consumption and short simulation duration.
+The license of the whole project was shifted from the GPL v2 to GPL v3. You will find a short abstract of the license in each file, while LICENSE in the root folder contains the complete text of the GPL v3.
+
+For questions or problems please write to the newly create email address <peerfact@kom.tu-darmstadt.de>
+
+Part1: New models
+======================================
+Application Layer: On the application layer, the simulator consists of a simple filesharing application. In this application peers can store references to files and can them lookup, based on a chosen probability function.
+Service Layer: We introduced a complete new layer, which is inbetween the application and overlay layer. At this layer, we included a tree-based monitoring solution SkyNet.KOM, which can already manage the overlay (currently only Chord). In addition, the Service Layer consists of a gossip-based monitoring solution.
+Overlay Layer: At the overlay layer, we started to implement a new class of overlays called Information Dissemination Overlays (IDOs). This class already includes VON and pSense. Besides this class, a dimensional version of CAN was added to the class of DHT-overlays.
+Network Layer: At the network layer, we designed the so-called Modular Network Layer, which allows for a modular construction of the Network Layer based on different strategies. These strategies consist of aspects, such as packet loss, packet sizing, latency, jitter and so on. Existing implementations of these strategies contain the concepts from the SimpleNetLayer- and GNPNetLayer-Model.
+Utilities:
+(1) The xml-files for the configuration of a simulation can now be configured by including other configuration files. This means that we can include other xml-files, which define e.g. the monitoring-part for a simulation, in new configuration files.
+(2) Simulations that are run on systems with screens enable the live-monitoring of executed simulations through a separate monitoring window. In addition, the configuration-file for a simulation can be chosen through a GUI. Just use de.tud.kom.p2psim.GUIRunner. For headless systems use de.tud.kom.p2psim.SimulatorRunner.
+
+Part2: Improved models:
+======================================
+Overlay Layer:
+(1) Chord was modified to allow for a better performance in scenarios with churn, e.g., you can now specify how many predecessor and successors are stored per peer. In addition the analyzer de.tud.kom.p2psim.impl.overlay.dht.chord2.analyzer.ChordStructureAnalyzer allows to trace the structure of the during a topology. Just add this analyzer to the monitoring-element within a configuration-file.
+(2) Pastry was modified and now applies to the new simulator structure, which was already created during the last update of the simulator.
+(3) Gnutella 0.6 and GIA share now a common subset of implementing classes, as parts of these two unstructured overlays are similar.
+
+Part3: Improved Performance:
+======================================
+(1) By a static assignment of the different TransInfo-classes, memory consumption was considerably improved
+(2) The Modular Network Layer uses its own relational database model, which improves the memory consumption and increases the simulation speed, when simulating underlay models that rely on measurements to calculate latency, message loss etc.
+
+
+
+======================================
+2007-12-04 PeerfactSim.KOM v3.0
+======================================
+This is a new refactored version of the simulator, which is officially called 3.0.
+Please read this changelog information, especially if you encounter
+any troubles.
+
+If something is unclear about it (or some info seems to be missing) please write to the mailing list peerfactsim@kom.tu-darmstadt.de
+
+The refactored version of the simulator was developed in the branch
+Refactoring_Messages_Operations_Churn, it means that after an update you still can go back to the previous simulator version called: Root_Refactoring_Messages_Operations_Churn
+
+
+Part 1: Small Conceptional Changes
+======================================
+A) Usage of Java Generics (where appropriate)
+B) Splitting of event handling in listeners (mainly for requests and status) and callbacks for operations and messages (in order to emulate the request-reply behavior in asynchronous processing)
+C) added Churn
+D) refactored the package structure:
+    D1) Simulator runner class is now located in p2psim package
+E) removed most of the singletons: now there is one main singleton - Simulator.class, which acts as facade and offers access to most required functions (like scheduling, virtual time etc.)
+F) Virtual time is now divided in units (seconds, milliseconds etc.) - you can access those via the Simulator's constants
+G) This time can now also be specified in the config files, e.g. now you say "10s" for 10 seconds delay which is the
+same as calling "10*Simulator.SECOND_UNIT" in the program code.
+
+PART 2: Functional changes
+==========================================
+1) Dummy overlay was deleted, now the only example (or reference) overlay will be the dht.centralized, where you can see how to work with layers, operations and timeouts properly
+
+2) We tried to refactor the structure of the JUnit tests as much as possible, mainly to remove duplicate codes. Now there is a quite comfortable Test hierarchy (starting with the SimulatorTest) offering comfortable functionality for your own tests
+
+Obstacles:
+1) the main issue should be that many classes changed their packages, where renamed or even merged together. This means that many imports will become wrong and your compiler may show a lot of errors due to wrong import declarations.
+There are several ways to handle this efficient.
+    a) For each class use the "Organize imports" function of Eclipse, accessible via the Ctrl-Shift-O shortcut, which will fix them automatically or ask you to select one for ambitious imports
+    b) Simultaneous Search-and-Replace for the whole project. This function is not very comfortable in Eclipse so if you know a nice tool to do this - please share your knowledge with us :)
+    In Eclipse you can do this via "Search"->"File", here you can insert the wrong line, e.g. "import de.tud.p2psim.OLDPACKAGE.FOO" as the search string, set file pattern to *.java, the scope to "Choose"->Your project name and press "Replace". In the appearing dialog you can put the line to replace with, e.g "import de.tud.p2psim.NEWPACKAGE.NEWNAME_OF_FOO" and then to select "Replace All" or to go throgh the files and decide what to do via "Replace", "Skip" etc.
+    The bad thing about this way is that you have to do this for each replacement line individually. A nice tool would be able to read from a file with the replacement mappings and perform them automatically. Yes, we could write a script or even a java program to do this, so if you have time to do this, please, share your code with us.

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Default>
+		<Variable name="seed" value="0"/>
+		<Variable name="size" value="6"/>
+		<Variable name="actions" value="config/includes/actions/ConfigTest.dat"/>
+	</Default>
+	
+	<Description>
+	A simple test file to test the configuration of the simulator.
+	</Description>
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator" static="getInstance" seed="$seed" finishAt="300000000">	
+	</SimulatorCore>
+	
+	<NetLayer
+		class="org.peerfact.impl.network.simple.SimpleNetFactory">
+		<LatencyModel class="org.peerfact.impl.network.simple.SimpleStaticLatencyModel" latency="10"/>
+	</NetLayer>
+	
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder" experimentSize="$size">
+       <Host groupID="server">
+		   <Properties enableChurn="false"/>
+		   <NetLayer/>
+	   </Host>
+	   
+	   <Group size="5" groupID="eu_clients">	   
+		   <NetLayer/>
+	   </Group>
+
+   </HostBuilder>
+
+	<!-- SCENARIO ACTIONS: there are at least two ways to specify actions:
+	here in the XML file or in external CSV file -->
+<!-- Currently there is no support for operations in the network layer
+   <Scenario class="org.peerfact.impl.scenario.DOMScenarioFactory">
+   	  <Action hostID="server" time="10">goOnline</Action>
+   	  <Action hostID="eu_clients" time="20-40">goOnline</Action>
+   </Scenario>   
+-->
+    <Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory" 
+   	actionsFile="$actions" componentClass="org.peerfact.api.network.NetLayer"/>
+</Configuration>

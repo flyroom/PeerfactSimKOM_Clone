@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<!-- Description of the Simulation -->
+	<Description>Simulation of Gnutella 0.6 with 100 nodes without churn
+	</Description>
+	<!-- Here the variables are defined. They can be referred as "&variable-name" 
+		and overridden via -->
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="size" value="100" />
+		<Variable name="finishTime" value="200m" />
+		<Variable name="actions" value="config/scenarios/overlay/unstructured/gnutella06/Gnutella06-actions.dat" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+
+	</Default>
+
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime"
+		statusInterval="1h">
+	</SimulatorCore>
+
+<!-- 	<NetLayer class="org.peerfact.impl.network.simple.SimpleNetFactory" downBandwidth="200" upBandwidth="100">
+		<LatencyModel class="org.peerfact.impl.network.simple.SimpleStaticLatencyModel" latency="10"/>
+	</NetLayer> -->
+
+	<NetLayer
+		class="org.peerfact.impl.network.gnp.GnpBitmapNetLayerFactory"
+		downBandwidth="50" upBandwidth="25" PbaPeriod="1"
+		experimentSize="$size" bitmapPath="config/scenarios/overlay/unstructured/gnutella06/worldmap.bmp" ><!-- "config/visualization/GIA-MAP.bmp" --> 
+		<LatencyModel 
+			class="org.peerfact.impl.network.gnp.GnpLatencyModel" />
+		<BandwidthManager 
+			class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerPeriodical" />   
+	</NetLayer>
+
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<ComponentFactory
+		class="org.peerfact.impl.overlay.unstructured.gnutella.gnutella06.Gnutella06Factory" />
+
+	<Monitor class="org.peerfact.impl.common.DefaultMonitor"
+		start="0m" stop="$finishTime">
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultNetAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultOperationAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultTransAnalyzer" />        		
+	</Monitor>
+
+
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+
+
+	   	 <Group groupID="France" size="20">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	    
+	   	<Group groupID="Germany" size="20">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	   
+	   <Group groupID="World" size="20">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group> 
+	    
+	   <Group groupID="Japan" size="20">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	    
+	   	<Group groupID="Florida" size="20">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	   
+<!-- 	   <Group groupID="Group6" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group> 
+
+	   <Group groupID="Group7" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	    
+	   	<Group groupID="Group8" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	   
+	   <Group groupID="Group9" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group> 
+	    
+	   <Group groupID="Group10" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	    
+	   	<Group groupID="Group11" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	   
+	   <Group groupID="Group12" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>
+	    
+	    <Group groupID="Group13" size="10">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <ComponentFactory />
+	    </Group>  -->
+
+	   
+   </HostBuilder>
+
+
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions"
+		componentClass="org.peerfact.impl.overlay.unstructured.gnutella.gnutella06.AbstractGnutella06Node">
+	</Scenario>
+</Configuration>

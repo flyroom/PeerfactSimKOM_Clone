@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ResourceSpace
+	class="org.peerfact.impl.application.filesharing.documents.DocumentSpace"
+	static="getInstance">
+
+	<ResourceSet
+		class="org.peerfact.impl.application.filesharing.documents.ZipfDocumentSet"
+		name="files" size="100" zipfExp="0.7" meanReorderIntvl="600" maxFilesize="50000"/>
+</ResourceSpace>
+

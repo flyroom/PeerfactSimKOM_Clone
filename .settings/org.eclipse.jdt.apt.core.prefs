@@ -1,0 +1,4 @@
+#Tue May 29 20:57:25 CEST 2007
+eclipse.preferences.version=1
+org.eclipse.jdt.apt.aptEnabled=false
+org.eclipse.jdt.apt.genSrcDir=.apt_generated

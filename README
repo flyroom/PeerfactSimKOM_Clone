@@ -1,0 +1,150 @@
+--------------------------------
+PeerfactSim.KOM-CommunityEdition
+--------------------------------
+
+PeerfactSim.KOM is a simulator for large scale distributed networked systems
+aiming at the thoroughly evaluation of interdependencies in multi-layered p2p
+systems. The simulator is written in Java, is event-based and mainly used in
+p2p research projects. Its main focus is on p2p overlay networks (like Chord,
+CAN, Pastry, Kademlia, Gnutella 0.4/0.6, GIA) which are simulated up to 100,000
+nodes on a set of verified networking layers. The networking layer supports
+models based on global network positioning measurements in a modular way, as
+well as further networking design options (like mobile or density based
+networks). On top of the p2p overlays a set of services (like replication,
+monitoring or publish/subscribe) can be used to enhance the functionality of
+the overlays.
+
+Various applications (like file sharing or document indexing) are typically
+used as main workload generator for the overlays. These applications themselves
+implement valid usage patterns based on observations in real world applications.
+The evaluation of the simulated network is supported through complex analyzers
+that observe the actions in the simulation and generate extensive statistics
+and corresponding Gnuplot scripts and graphs. The simulator is fully
+customizable, extendable and open to be be used for any kind of scientific
+evaluation.
+
+The simulator has been initially developed at the TU Darmstadt at the Multimedia
+Communications Lab (KOM) under the guidance of Prof. Dr.-Ing. Ralf Steinmetz.
+It has been further extended and maintained at the University of Paderborn
+(UPB) and the University of Düsseldorf (HHU) under the guidance of Jun.-Prof.
+Dr.-Ing. Kalman Graffi. Based on these extensions of the simulator, a community
+version of the simulator has been released on http://www.peerfact.org,
+supported by Google Code (http://http://code.google.com/p/peerfactsimkom-community)
+and Google Groups (http://groups.google.com/group/peerfactsim-kom) to promote and
+support the work on the simulator with the open source community.
+
+The community and I wish you success and joy using PeerfactSim.KOM - Community Edition,
+
+Jun.-Prof. Dr.-Ing. Kalman Graffi
+
+
+---------------
+Getting started
+---------------
+
+To run the simulator you need the JDK 1.6 and optionally Eclipse as IDE, for modifying
+the code. If you want automatic plots, Gnuplot has to be configured in the path variable
+of the operating system.
+
+As first step you have to compile the  project. The preferred way is to use
+Eclipse. Open Eclipse, import the project into your workspace and build it. Otherwise
+you can use ANT as tool, then use the included script build.xml.
+Now the simulator is ready to use.
+
+There are several ways to start the simulator, the two most important should be presented:
+
+
+Run with GUI
+
+Starting the simulator using a GUI is the most practical way for a first success. You can
+start the GUI with the script in the main folder (runGui.bat or runGui.sh) or if you use
+Eclipse by running the main class GUIRunner.
+
+The GUI should appear on your screen. On the right side of the window, a list of
+configurations is presented. You can choose a configuration file to use in the simulation.
+On the left side of the window you can choose a seed for initializing the random number
+generator and set some variables depending on the configuration file. With the button
+"Start Simulation" the simulation will begin and you see the simulation progress in a new
+window.
+
+
+Run from console
+
+You can also start the simulations with scripts. This is even advisable to use on machines
+without graphical user interface, for example dedicated simulation servers. To start a
+simulation you should use run.bat or run.sh with the relative configuration file path as
+first parameter. Further parameters can be used for simulation parameters.
+
+
+Run batch
+
+As last variant you can start batch simulations. Similar to the console mode, it is advisable
+to use on machines without graphical user interface, for example dedicated simulation
+servers. To start a batch simulation you should use runBatch.bat or run.sh. The first
+parameter is the number of parallel threads which should be used for the simulations, the
+second parameter is the number of repetitions for each configuration. Then the relative
+configuration file path follows and further parameters can be used for simulation parameters.
+Each of the further parameters can contain multiple values (separated by comma) which will
+generate multiple different configurations.
+
+
+After the simulation ends, you find statistics on the simulation and the final simulation
+results in the outputs folder. These files have been generated through so called "analyzers",
+which are hooked into the code of the protocols and are informed about current happenings
+in the simulation. These analyzers are informed at relevant points in the protocols and log
+the events in order to form statistics. Statistics on the happenings are written periodically
+in the dat-files in the outputs folder. Depending on the used analyzers, different tabulator
+separated files can be found ordered in folders by the simulation. If gnuplot was configured
+you find also produced plots in this folder.
+
+
+----------------
+Project Overview
+----------------
+
+- config:	configuration files for the simulations
+- icons:	images of the graphical user interface
+- lib:		used external libraries (see NOTICE)
+- outputs:	all results produced by the simulations
+- src:		the whole source code of the simulator
+- test:		the source code for tests
+
+- build.xml		ant build file
+- run.bat		windows script to start simulations
+- run.sh		linux script to start simulations
+- runGui.bat	windows script for graphical user interface
+- runGui.sh		linux script for graphical user interface
+- runBatch.bat	windows script to start batch simulations
+- runBatch.sh	linux script to start batch simulations
+
+
+-------------------
+Further information
+-------------------
+
+- Website (with detailed documentations): http://www.peerfact.org
+- Discussions:	http://groups.google.com/group/peerfactsim-kom
+- Repository:	http://http://code.google.com/p/peerfactsimkom-community
+
+
+------------
+Bibliography
+------------
+
+- K. Graffi: PeerfactSim.KOM – A Peer-to-Peer System Simulator:
+  Experiences and Lessons Learned, In Proc. of IEEE International
+  Conference on Peer-to-Peer Computing (IEEE P2P ’11), 2011
+
+- D. Stingl, C. Groß, J. Rückert, L. Nobach, A. Kovacevic, R. Steinmetz:
+  PeerfactSim.KOM: A Simulation Framework for Peer-to-Peer Systems, In
+  Proc. of the IEEE International Conference on High Performance Computing
+  & Simulation (IEEE HPCS ’11), 2011
+
+- A. Kovacevic, S. Kaune, P. Mukherjee, N. Liebau, R. Steinmetz:
+  Benchmarking Platform for Peer-to-Peer Systems, In it – Information
+  Technology (Methods and Applications of Informatics and Information
+  Technology), 2007
+
+- A. Kovacevic, S. Kaune, H. Heckel, A. Mink, K. Graffi, O. Heckmann, R. Steinmetz: 
+  PeerfactSim.KOM - A Simulator for Large-Scale Peer-to-Peer Networks, Technische 
+  Universität Darmstadt, Germany, Technical Report Tr-2006-06, 2006

@@ -1,0 +1,7 @@
+# action file for FileSharing
+
+all 1s-120m FileSharingApplication:join
+
+all 120m-180m FileSharingApplication:publishResourcesFromSet files 100
+
+all 180m FileSharingApplication:lookupResourceFromSetPeriodically files 10m

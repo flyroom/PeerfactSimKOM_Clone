@@ -1,0 +1,9 @@
+_ECHO 1s "Simulation Started"
+
+France 1s registerBootstrap
+Europe 7s registerBootstrap
+
+Idaho 2s startScheduleGetL 10s
+Minnesota 5s startScheduleGetL 12s
+Queensland 10s startScheduleGetL 10s
+LatinAmerica 13s startScheduleGetL 10s

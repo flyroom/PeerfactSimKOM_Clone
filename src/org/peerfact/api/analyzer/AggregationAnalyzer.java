@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2012-2013 Open Source Community - <http://www.peerfact.org>
+ * Copyright (c) 2011-2012 University of Paderborn - UPB
+ * Copyright (c) 2005-2011 KOM - Multimedia Communications Lab
+ *
+ * This file is part of PeerfactSim.KOM.
+ * 
+ * PeerfactSim.KOM is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ * 
+ * PeerfactSim.KOM is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with PeerfactSim.KOM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+package org.peerfact.api.analyzer;
+
+import org.peerfact.api.common.Host;
+import org.peerfact.api.service.aggr.AggregationResult;
+
+/**
+ * The AggregationAnalyzer receive notifications when a aggregation query is
+ * executed or the query is finished with success or failure.
+ * 
+ * @author Christoph Muenker
+ * @version 1.0, 03/10/2011
+ */
+public interface AggregationAnalyzer extends Analyzer {
+	/**
+	 * Informs about the start of an aggregation query.
+	 * 
+	 * @param host
+	 *            The host, that starts the query
+	 * @param identifier
+	 *            the identifier of the value for which an aggregation
+	 *            result shall be returned.
+	 * @param UID
+	 *            An unique identifier for this query.
+	 */
+	public void aggregationQueryStarted(Host host, Object identifier,
+			Object UID);
+
+	/**
+	 * Informs about the success of an aggregation query.
+	 * 
+	 * @param host
+	 *            The host, that starts the query
+	 * @param identifier
+	 *            the identifier of the value for which an aggregation
+	 *            result shall be returned.
+	 * @param UID
+	 *            The unique identifier for this query
+	 * @param result
+	 *            The result of the aggregation query
+	 */
+	public void aggregationQuerySucceeded(Host host, Object identifier,
+			Object UID, AggregationResult result);
+
+	/**
+	 * Informs about the fail of an aggregation query.
+	 * 
+	 * @param host
+	 *            The host, that starts the query
+	 * @param identifier
+	 *            the identifier of the value for which an aggregation
+	 *            result shall be returned.
+	 * @param UID
+	 *            The unique identifier for this query
+	 */
+	public void aggregationQueryFailed(Host host, Object identifier,
+			Object UID);
+}

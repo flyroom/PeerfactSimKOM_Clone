@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="style" value="s" />
+		<Variable name="nodeFactory"
+			value="org.peerfact.impl.overlay.dht.kademlia.kademlia.components.KademliaNodeFactory" />
+		<Variable name="description" value="HX-20-v5-4h" />
+		<Variable name="size" value="256" />
+		<Variable name="churnStart" value="60m" />
+		<Variable name="measurementStart" value="120m" />
+		<Variable name="finishTime" value="300m" />
+		<Variable name="measurementHours" value="2.0" />
+		<Variable name="actions" value="config/scenarios/overlay/dht/kademlia/kademlia2-actions.dat" />
+		<Variable name="configPath" value="config/scenarios/overlay/dht/kademlia/kademlia.properties" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+	</Default>
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator" static="getInstance" seed="$seed" finishAt="$finishTime" />
+	
+	<NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory" gnpFile="$gnpDataFile" downBandwidth="200" upBandwidth="100">
+		<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel" />
+	</NetLayer>
+	
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory"/>
+	
+	<KademliaSetup class="org.peerfact.impl.overlay.dht.kademlia.base.KademliaSetup" static="getInstance" configPath="$configPath">
+	 <NodeFactory class="$nodeFactory" />
+	  
+	 <Workload class="org.peerfact.impl.overlay.dht.kademlia.base.WorkloadGenerator" />
+	 
+	 <Monitor class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.KademliaMonitor" start="$measurementStart" stop="$finishTime">
+         <Analyzer class="org.peerfact.impl.application.filesharing2.OperationDumper" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.OperationDelayAndOutcomeAnalyzer" restrictToSubtypesOf="org.peerfact.impl.overlay.dht.kademlia.base.operations.AbstractLookupOperation" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.TrafficAnalyzer" duration="$measurementHours" numberOfHosts="$size"/>
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.HourlyTrafficAnalyzer" numberOfHosts="$size" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.DataLookupSuccessAnalyzer" outputFileDescr="datalookup" style="$style" description="$description" seed="$seed" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.KClosestNodesLookupSuccessAnalyzer" outputFileDescr="kclosestnodeslookup" style="$style" description="$description" seed="$seed" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.KademliaOperationTrafficAnalyzer" outputFile="outputs/hoperationtraffic.txt"/>
+     </Monitor>
+    </KademliaSetup>
+	
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder" experimentSize="$size">
+	    <Group size="128" groupID="France">
+		   <NetLayer />
+		   <TransLayer />
+		   <NodeFactory />
+		   <Properties enableChurn="true" />
+		</Group>
+		
+		<Group size="128" groupID="Germany">
+		   <NetLayer />
+		   <TransLayer />
+		   <NodeFactory />
+		   <Properties enableChurn="true" />
+		</Group>
+   </HostBuilder>
+          
+   <NodeFactory TriggerInitialRTBuild="" />
+
+   <ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator" start="$churnStart" stop="$finishTime">
+		<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel" churnFactor="0.5" meanSessionLength="60m" />
+   </ChurnGenerator>
+   
+   <Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory" 
+   	actionsFile="$actions" componentClass="org.peerfact.impl.overlay.dht.kademlia.base.components.AbstractKademliaNode" />
+</Configuration>

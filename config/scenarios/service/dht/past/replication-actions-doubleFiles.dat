@@ -1,0 +1,7 @@
+UnitedStates 1m-60m FilesharingApplication:join
+
+
+UnitedStates 61m-120m FilesharingApplication:publishResourcesFromSet files1 20
+UnitedStates 61m-120m FilesharingApplication:publishResourcesFromSet files2 20
+UnitedStates 180m FilesharingApplication:lookupResourceFromSetPeriodically files1 10m
+UnitedStates 180m FilesharingApplication:lookupResourceFromSetPeriodically files2 10m

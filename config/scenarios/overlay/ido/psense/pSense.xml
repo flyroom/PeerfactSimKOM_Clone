@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<Default>
+		<Variable name="seed" value="12" />
+		<Variable name="size" value="100" />
+		<Variable name="finishTime" value="30m" />
+		<Variable name="actions" value="config/scenarios/overlay/ido/overlay-info-dissemination-actions.dat" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+		
+		<Variable name="pSenseProperties" value="config/scenarios/overlay/ido/pSense/pSense.properties" />
+		<Variable name="MOVE_SPEED_LIMIT" value="4" />
+		<Variable name="WORLD_DIMENSION_X" value="1200" />
+		<Variable name="WORLD_DIMENSION_Y" value="1200" />
+		<Variable name="SPEED_CHANGING_RATE_PER_MOVE" value="0.02" />
+	</Default>
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime" />
+
+
+	<NetLayer class="org.peerfact.impl.network.modular.ModularNetLayerFactory" downBandwidth="122880" upBandwidth="16384" useRegionGroups="false" useInOrderDelivery="true">
+	   <PacketSizing class="org.peerfact.impl.network.modular.st.packetSizing.IPv4Header"/>
+	   <Fragmenting class="org.peerfact.impl.network.modular.st.fragmenting.NoFragmenting"/>
+	   <TrafficControl class="org.peerfact.impl.network.modular.st.trafCtrl.BoundedTrafficQueue" maxTimeSend="3s" maxTimeReceive="3s"/>
+	   <PLoss class="org.peerfact.impl.network.modular.st.ploss.StaticPacketLoss" ratio="0.02"/>
+	   <Latency class="org.peerfact.impl.network.modular.st.latency.StaticLatency" propagationDelay="30ms"/>
+	   <Jitter class="org.peerfact.impl.network.modular.st.jitter.NoJitter"/>
+	   <Positioning class="org.peerfact.impl.network.modular.st.positioning.TorusPositioning"/>
+	</NetLayer>
+ 
+	
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+	
+	<NodeFactory class="org.peerfact.impl.overlay.ido.psense.PSenseNodeFactory" properties="$pSenseProperties">
+		<BootstrapManager class="org.peerfact.impl.overlay.ido.psense.PSenseBootstrapManager"/>
+	</NodeFactory>	
+	
+	<!-- Application with RandomPathMoveModel/RandomWaypointMoveModel -->
+	<Application class="org.peerfact.impl.application.ido.IDOApplicationFactory" 
+		intervalBetweenMove="200ms">
+			<MoveModel class="org.peerfact.impl.application.ido.moveModels.RandomPathMoveModel" 
+				worldDimensionX="$WORLD_DIMENSION_X" 
+				worldDimensionY="$WORLD_DIMENSION_Y"
+				moveSpeedLimit="$MOVE_SPEED_LIMIT"
+			/>
+		<PositionDistribution class="org.peerfact.impl.application.ido.moveModels.RandomPositionDistribution"
+			worldDimensionX="$WORLD_DIMENSION_X" 
+			worldDimensionY="$WORLD_DIMENSION_Y"/>
+	</Application>
+
+	 <Monitor class="org.peerfact.impl.common.DefaultMonitor"
+		start="0m" stop="$finishTime">
+				<!--<Analyzer
+			class="org.peerfact.impl.overlay.ido.evaluation.EvaluationControlAnalyzer" experimentName="blaba" sampleStatisticRate="$intervalBetweenStatisticGeneration">
+			<IDOOracle class="org.peerfact.impl.overlay.ido.psense.PSenseOracle"/>
+			<IAnalyzerOutputWriter class="org.peerfact.impl.overlay.ido.evaluation.writer.SqliteDBWriter" outputFile="pSense" tableName="statistics"/> 
+		</Analyzer>-->
+	</Monitor>
+
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+		
+		<!-- Create one Group with the the size $size	-->
+		<Group size="$size" groupID="ExampleGroup">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<Properties enableChurn="false" />
+		</Group>
+
+	</HostBuilder>
+
+	<GlobalOracle class="org.peerfact.impl.util.oracle.GlobalOracle" />
+
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions" componentClass="org.peerfact.impl.application.ido.IDOApplication">
+	</Scenario>
+		
+</Configuration>

@@ -1,0 +1,388 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<Default>
+		<!-- General settings for the simulation -->
+		<Variable name="seed" value="176" />
+		<Variable name="size" value="10000" />
+		<Variable name="actions" value="config/monitoring/skyeye/skynetOnNapster_pyramidSim-actions.dat" />
+		<Variable name="skynetProperties" value="monitoring/skyeye/skynet_BF4_UI60s.properties" /> <!--MISSING  -->
+		<Variable name="end" value="1000m" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+		
+		<!-- Variable for enabling churn -->
+		<Variable name="churn" value="false" />
+		
+		<!-- Variables to define churn strength -->
+		<Variable name="churnRateA" value="0.2" />
+		<Variable name="churnRateB" value="0.3" />
+		<Variable name="churnRateC" value="0.4" />
+		
+		<Variable name="meanSessionLenghtA" value="60m" />
+		<Variable name="meanSessionLenghtB" value="60m" />
+		<Variable name="meanSessionLenghtC" value="60m" />
+		
+
+		<!-- Variables for the settings of SkyNetBatchSimulation -->
+		<Variable name="protectFormerSimulations" value="false" />
+
+		<!--
+			Variables for the StatisticWriter to write training- or test-files
+		-->
+		<Variable name="training" value="true" />
+		<Variable name="append" value="false" />
+	</Default>
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$end">
+	</SimulatorCore>
+
+	<NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+		gnpFile="$gnpDataFile" PbaPeriod="1">
+		<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel"
+			usePingErRttData="false" usePingErJitter="false" usePingErPacketLoss="true" />
+		<BandwidthDetermination
+			class="org.peerfact.impl.network.bandwidthDetermination.RandomizedBandwidthDetermination"
+			maxDownBandwidth="1000000" />
+	</NetLayer>
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<Overlay
+		class="org.peerfact.impl.overlay.dht.centralizedindex.NapsterClientServerFactory"
+		port="400" />
+
+	<SkyNet class="org.peerfact.impl.skynet.SkyNetNodeFactory"
+		port="500" simulationSize="$size">
+	</SkyNet>
+	<SkyNetPropertiesReader
+		class="org.peerfact.impl.skynet.SkyNetPropertiesReader" static="getInstance"
+		propertiesFile="$skynetProperties">
+	</SkyNetPropertiesReader>
+	<SkyNetBatchSimulator
+		class="org.peerfact.impl.skynet.SkyNetBatchSimulator" static="getInstance"
+		protectFormerSimulations="$protectFormerSimulations" churn="$churn"
+		simulationType="Napster" simulationSeed="$seed" simulationSize="$size"
+		simulationDuration="$end">
+	</SkyNetBatchSimulator>
+	<User />
+	<Monitor class="org.peerfact.impl.skynet.analyzing.SkyNetMonitor"
+		start="1m" stop="$end">
+		<Analyzer
+			class="org.peerfact.impl.skynet.analyzing.analyzers.NetLayerAnalyzer"
+			simulationSize="$size" />
+		<Analyzer
+			class="org.peerfact.impl.skynet.analyzing.analyzers.OPAnalyzer"
+			simulationSize="$size" />
+		<Analyzer
+			class="org.peerfact.impl.skynet.analyzing.analyzers.ChurnStatisticsAnalyzer"
+			simulationSize="$size">
+			<AnalyzerDelegator
+				class="org.peerfact.impl.skynet.overlay2SkyNet.NapsterAnalyzerDelegator" />
+		</Analyzer>
+	</Monitor>
+	<HostBuilder class="org.peerfact.impl.skynet.SkyNetHostBuilder"
+		experimentSize="$size">
+		<Host groupID="Peru">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="true" />
+			<Properties enableChurn="false" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="1"
+				upBandwidthPercentage="0" />
+		</Host>
+		
+		<!-- <Group id="Australia" maxsize="2393"> -->
+		<Group groupID="Australia" size="9">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="false" />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+		
+		<!-- <Group id="Brazil" maxsize="2628"> -->
+		<Group groupID="Brazil" size="23">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="false" />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+		
+		<!--Fourth Group Japan max Groupsize = 4406 -->
+		<Group groupID="Japan" size="67">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="false" />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+		
+		<!-- <Group id="Taiwan" maxsize="5549"> -->
+		<Group groupID="Taiwan" size="230">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="false" />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+		
+		<!-- <Group id="LatinAmerica" maxsize="6838"> -->
+		<Group groupID="LatinAmerica" size="670">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="false" />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+		
+		<!-- <Group id="Europe" maxsize="10060"> -->
+		<Group groupID="Europe" size="2300">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="false" />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+
+		<!-- <Group id="UnitedStates" maxsize="77368"> -->
+		<Group groupID="UnitedStates" size="6700">
+			<NetLayer />
+			<TransLayer />
+			<Overlay isServer="false" />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+
+	</HostBuilder>
+	<StatisticWriter
+		class="org.peerfact.impl.skynet.analyzing.writers.StatisticWriter"
+		start="1m" stop="$end" training="$training" churn="$churn" append="$append" />
+	<QueryAnalyzer
+		class="org.peerfact.impl.skynet.analyzing.analyzers.QueryAnalyzer"
+		start="1m" stop="$end" simulationSize="$size" />
+
+	<!-- Start of exponential churn definition 
+		Info: 
+			* There are 7 stable phases - with 10,33,100,330,1000,3300 and 10000 peers.
+			* Each phase has 3 churn phases with churn rates A, B, C and meanSessionLengths A, B, C
+	-->
+	
+	<!-- Phase1 -->
+		<!-- t_start = endOfFirstJoin + oneSlot = 30s+10s = 40s 
+			 t_end = t_start + oneSlot = 40s + 10s = 50s -->
+		<Churn_Phase1_A class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="40s" stop="50s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateA" meanSessionLength="$meanSessionLenghtA" />
+		</Churn_Phase1_A>
+		
+		<!-- t_start = endOfChurnA + oneSlot = 50s+10s = 60s 
+			 t_end = t_start + oneSlot = 60s + 10s = 70s -->
+		<Churn_Phase1_B class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="60s" stop="70s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateB" meanSessionLength="$meanSessionLenghtB" />
+		</Churn_Phase1_B>	
+		
+		<!-- t_start = endOfChurnB + oneSlot = 60s+10s = 70s 
+			 t_end = t_start + oneSlot = 70s + 10s = 80s -->
+		<Churn_Phase1_C class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="70s" stop="80s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateC" meanSessionLength="$meanSessionLenghtC" />
+		</Churn_Phase1_C>	
+		
+	<!-- Phase2 -->
+		<!-- t_start = endOfSecondJoin + oneSlot = 169s+33s = 202s 
+			 t_end = t_start + oneSlot = 202s + 33s = 235s -->
+		<Churn_Phase2_A class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="202s" stop="235s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateA" meanSessionLength="$meanSessionLenghtA" />
+		</Churn_Phase2_A>
+		
+		<!-- t_start = endOfChurnA + oneSlot = 235s+33s = 268s 
+			 t_end = t_start + oneSlot = 268s + 33s = 301s -->
+		<Churn_Phase2_B class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="268s" stop="301s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateB" meanSessionLength="$meanSessionLenghtB" />
+		</Churn_Phase2_B>	
+		
+		<!-- t_start = endOfChurnB + oneSlot = 301s+33s = 334s 
+			 t_end = t_start + oneSlot = 334s + 33s = 367s -->
+		<Churn_Phase2_C class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="334s" stop="367s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateC" meanSessionLength="$meanSessionLenghtC" />
+		</Churn_Phase2_C>				
+
+	<!-- Phase3 -->
+		<!-- t_start = endOfThirdJoin + oneSlot = 601s+100s = 701s 
+			 t_end = t_start + oneSlot = 701s + 100s = 801s -->
+		<Churn_Phase3_A class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="701s" stop="801s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateA" meanSessionLength="$meanSessionLenghtA" />
+		</Churn_Phase3_A>
+		
+		<!-- t_start = endOfChurnA + oneSlot = 801s+100s = 901s 
+			 t_end = t_start + oneSlot = 901s + 100s = 1001s -->
+		<Churn_Phase3_B class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="901s" stop="1001s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateB" meanSessionLength="$meanSessionLenghtB" />
+		</Churn_Phase3_B>	
+		
+		<!-- t_start = endOfChurnB + oneSlot = 1001s+100s = 1101s 
+			 t_end = t_start + oneSlot = 1101s + 100s = 1201s -->
+		<Churn_Phase3_C class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="1101s" stop="1201s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateC" meanSessionLength="$meanSessionLenghtC" />
+		</Churn_Phase3_C>
+		
+	<!-- Phase4 -->
+		<!-- t_start = endOfFourthJoin + oneSlot = 1991s+330s = 2321s 
+			 t_end = t_start + oneSlot = 2321s + 330s = 2651s -->
+		<Churn_Phase4_A class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="2321s" stop="2651s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateA" meanSessionLength="$meanSessionLenghtA" />
+		</Churn_Phase4_A>
+		
+		<!-- t_start = endOfChurnA + oneSlot = 2651s+330s = 2981s 
+			 t_end = t_start + oneSlot = 2981s + 330s = 3311s -->
+		<Churn_Phase4_B class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="2981s" stop="3311s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateB" meanSessionLength="$meanSessionLenghtB" />
+		</Churn_Phase4_B>	
+		
+		<!-- t_start = endOfChurnB + oneSlot = 3311s+330s = 3641s 
+			 t_end = t_start + oneSlot = 3641s + 330s = 3971s -->
+		<Churn_Phase4_C class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="3641s" stop="3971s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateC" meanSessionLength="$meanSessionLenghtC" />
+		</Churn_Phase4_C>
+		
+	<!-- Phase5 -->
+		<!-- t_start = endOfFifthJoin + oneSlot = 6311s+1000s = 7311s 
+			 t_end = t_start + oneSlot = 7311s + 1000s = 8311s -->
+		<Churn_Phase5_A class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="7311s" stop="8311s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateA" meanSessionLength="$meanSessionLenghtA" />
+		</Churn_Phase5_A>
+		
+		<!-- t_start = endOfChurnA + oneSlot = 8311s+1000s = 9311s 
+			 t_end = t_start + oneSlot = 9311s + 1000s = 10311s -->
+		<Churn_Phase5_B class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="9311s" stop="10311s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateB" meanSessionLength="$meanSessionLenghtB" />
+		</Churn_Phase5_B>	
+		
+		<!-- t_start = endOfChurnB + oneSlot = 10311s+1000s = 11311s 
+			 t_end = t_start + oneSlot = 11311s + 1000s = 12311s -->
+		<Churn_Phase5_C class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="11311s" stop="12311s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateC" meanSessionLength="$meanSessionLenghtC" />
+		</Churn_Phase5_C>
+	
+	<!-- Phase6 -->
+		<!-- t_start = endOfSixthJoin + oneSlot = 15811s+1000s = 16811s 
+			 t_end = t_start + oneSlot = 16811s + 1000s = 17811s -->
+		<Churn_Phase6_A class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="16811s" stop="17811s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateA" meanSessionLength="$meanSessionLenghtA" />
+		</Churn_Phase6_A>
+		
+		<!-- t_start = endOfChurnA + oneSlot = 17811+1000s = 18811s 
+			 t_end = t_start + oneSlot = 18811s + 1000s = 19811s -->
+		<Churn_Phase6_B class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="18811s" stop="19811s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateB" meanSessionLength="$meanSessionLenghtB" />
+		</Churn_Phase6_B>	
+		
+		<!-- t_start = endOfChurnB + oneSlot = 19811s+1000s = 20811s 
+			 t_end = t_start + oneSlot = 20811s + 1000s = 21811s -->
+		<Churn_Phase6_C class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="20811s" stop="21811s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateC" meanSessionLength="$meanSessionLenghtC" />
+		</Churn_Phase6_C>	
+		
+	<!-- Phase7 -->
+		<!-- t_start = endOfSeventhJoin + oneSlot = 26311s+1000s = 27311s 
+			 t_end = t_start + oneSlot = 27311s + 1000s = 28311s -->
+		<Churn_Phase7_A class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="27311s" stop="28311s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateA" meanSessionLength="$meanSessionLenghtA" />
+		</Churn_Phase7_A>
+		
+		<!-- t_start = endOfChurnA + oneSlot = 28311s+1000s = 29311s 
+			 t_end = t_start + oneSlot = 29311s + 1000s = 30311s -->
+		<Churn_Phase7_B class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="29311s" stop="30311s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateB" meanSessionLength="$meanSessionLenghtB" />
+		</Churn_Phase7_B>	
+		
+		<!-- t_start = endOfChurnB + oneSlot = 30311s+1000s = 31311s 
+			 t_end = t_start + oneSlot = 31311s + 1000s = 32311s -->
+		<Churn_Phase7_C class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="31311s" stop="32311s">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnRateC" meanSessionLength="$meanSessionLenghtC" />
+		</Churn_Phase7_C>		
+	
+	<!-- End of exponential churn definition -->
+
+	
+	<!-- Start of KAD churn definition -->
+	
+		<!-- t_start = endofSeventhJoin + 7slots + 2000s = 27311s + 7000s + 2000s = 36311s
+			 t_end = ? -->
+		<!-- <Churn_kad_1 class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="36311s" stop="$end">
+			<ChurnModel class="org.peerfact.impl.churn.KadChurnModel" />
+		</Churn_kad_1> -->
+		
+		<!-- ... TODO: How to let KAD only effect x% of peers? -->
+	
+	<!-- End of KAD churn definition -->
+	
+	
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions" componentClass="org.peerfact.impl.overlay.dht.centralizedindex.components.CIClientNode"
+		additionalClasses="org.peerfact.impl.skynet.components.SkyNetNode">
+		<!-- <ParamParser class="org.peerfact.impl.overlay.cd.DocumentParser" /> -->
+	<ParamParser
+			class="org.peerfact.impl.overlay.dht.choprd.base.util.OverlayKeyParser" />
+	</Scenario>
+</Configuration>

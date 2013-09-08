@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+	actionsFile="config/includes/actions/FileSharing.dat"
+	componentClass="org.peerfact.impl.application.filesharing.FileSharingApplication"
+	additionalClasses="org.peerfact.api.overlay.JoinLeaveOverlayNode">
+</Scenario>

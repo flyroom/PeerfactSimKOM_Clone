@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Overlay class="org.peerfact.impl.overlay.dht.pastry.malicious.RTPPastryNodeFactory">
+</Overlay>
+	

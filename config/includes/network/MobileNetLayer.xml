@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NetLayer class="org.peerfact.impl.network.mobile.MobileNetFactory"
+	downBandwidth="500"
+	upBandwidth="100"
+	resolution="10">
+	<LatencyModel
+		class="org.peerfact.impl.network.mobile.MobileLatencyModel" />
+	<MovementModel
+		class="org.peerfact.impl.network.mobile.movementmodel.RandomWaypointModel" />
+</NetLayer>

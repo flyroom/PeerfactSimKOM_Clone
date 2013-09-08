@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gnp>
+  <GroupLookup>
+     <!-- Fake data, just for test purposes -->    
+    <Group id="EastAsia" maxsize="1">
+      <IPs value="3658219521"/>
+    </Group>
+    <Group id="World" maxsize="8">
+      <IPs value="302120961,1107886081,3658219521,1074266113,201654273,2534146049,1359347713,2852716545"/>
+    </Group>
+    <Group id="Switzerland" maxsize="1">
+      <IPs value="1359347713"/>
+    </Group>
+    <Group id="Hebei" maxsize="1">
+      <IPs value="3658219521"/>
+    </Group>
+    <Group id="UnitedStates" maxsize="5">
+      <IPs value="302120961,1107886081,1074266113,201654273,2852716545"/>
+    </Group>
+    <Group id="Italy" maxsize="1">
+      <IPs value="2534146049"/>
+    </Group>
+    <Group id="Aargau" maxsize="1">
+      <IPs value="1359347713"/>
+    </Group>
+    <Group id="Massachusetts" maxsize="1">
+      <IPs value="302120961"/>
+    </Group>
+    <Group id="Virginia" maxsize="1">
+      <IPs value="201654273"/>
+    </Group>
+    <Group id="Pennsylvania" maxsize="1">
+      <IPs value="1074266113"/>
+    </Group>
+    <Group id="Europe" maxsize="2">
+      <IPs value="2534146049,1359347713"/>
+    </Group>
+    <Group id="China" maxsize="1">
+      <IPs value="3658219521"/>
+    </Group>
+    <Group id="Texas" maxsize="1">
+      <IPs value="2852716545"/>
+    </Group>
+    <Group id="Basilicata" maxsize="1">
+      <IPs value="2534146049"/>
+    </Group>
+    <Group id="NewYork" maxsize="1">
+      <IPs value="1107886081"/>
+    </Group>
+    <Group id="NorthAmerica" maxsize="5">
+      <IPs value="302120961,1107886081,1074266113,201654273,2852716545"/>
+    </Group>
+    <Group id="ISP_City_Test1" maxsize="1">
+      <IPs value="11111111"/>
+    </Group>
+    <Group id="ISP_City_Test2" maxsize="1">
+      <IPs value="22222222"/>
+    </Group>
+    <Group id="Region_Test1" maxsize="1">
+      <IPs value="33333333"/>
+    </Group>
+    <Group id="Region_Test2" maxsize="1">
+      <IPs value="44444444"/>
+    </Group>   
+    
+     <!-- Real measurement data -->
+     
+    <Group id="Hessen_DA1" maxsize="1">
+      <IPs value="2360698881"/>
+    </Group>
+    
+    <Group id="Hessen_DA2" maxsize="1">
+      <IPs value="2360696955"/>
+    </Group>
+    
+    <Group id="Hessen_KA" maxsize="1">
+      <IPs value="2368989953"/>
+    </Group>
+
+    <Group id="Berlin_1" maxsize="1">
+      <IPs value="2370840577"/>
+    </Group>
+    
+    <Group id="Berlin_2" maxsize="1">
+      <IPs value="2687342849"/>
+    </Group>
+    
+    <Group id="Johannesburg" maxsize="1">
+      <IPs value="2832289544"/>
+    </Group>
+    
+    <Group id="California" maxsize="1">
+      <IPs value="1079072601"/>
+    </Group>
+    
+     <Group id="Oregon" maxsize="1">
+      <IPs value="1119970129"/>
+    </Group>
+    
+     <Group id="North_Carolina_1" maxsize="1">
+      <IPs value="1142034113"/>
+    </Group>
+    
+     <Group id="North_Carolina_2" maxsize="1">
+      <IPs value="1117575515"/>
+    </Group>
+    
+   </GroupLookup>
+  
+  <Hosts>
+      <!-- Fake data, just for test purposes -->
+    
+    <Host ip="302120961" continentalArea="North America" countryCode="US" region="Massachusetts" city="Cambridge" isp="Massachusetts Institute of Technology" longitude="-71.10279846191406" latitude="42.364593505859375" coordinates="0"/>
+    <Host ip="1107886081" continentalArea="North America" countryCode="US" region="New York" city="New York" isp="INTELLISPACE" longitude="-74.00789642333984" latitude="40.713897705078125" coordinates="0"/>
+    <Host ip="3658219521" continentalArea="East Asia" countryCode="CN" region="Hebei" city="Hebei" isp="CNCGROUP Hebei province network" longitude="115.27499389648438" latitude="39.88969421386719" coordinates="0"/>
+    <Host ip="1074266113" continentalArea="North America" countryCode="US" region="Pennsylvania" city="Coudersport" isp="Level 3 Communications" longitude="-77.9343032836914" latitude="41.7991943359375" coordinates="0"/>
+    <Host ip="2534146049" continentalArea="Europe" countryCode="IT" region="Basilicata" city="Balvano" isp="NOC Infostrada" longitude="15.516693115234375" latitude="40.649993896484375" coordinates="0"/>
+    <Host ip="201654273" continentalArea="North America" countryCode="US" region="Virginia" city="Richmond" isp="AT&amp;T WorldNet Services" longitude="-77.543701171875" latitude="37.62730407714844" coordinates="0"/>
+    <Host ip="1359347713" continentalArea="Europe" countryCode="CH" region="Aargau" city="Brugg" isp="Green Connection AG" longitude="8.199996948242188" latitude="47.483306884765625" coordinates="0"/>
+    <Host ip="2852716545" continentalArea="North America" countryCode="US" region="Texas" city="Houston" isp="Keystone International" longitude="-95.53800201416016" latitude="29.868804931640625" coordinates="0"/>
+   
+    <Host ip="11111111" continentalArea="North America" countryCode="US" region="Texas" city="Darmstadt" isp="Telekom" longitude="-85.53800201416016" latitude="39.868804931640625" coordinates="0"/>
+    <Host ip="22222222" continentalArea="North America" countryCode="US" region="Texas" city="Darmstadt" isp="Telekom" longitude="-75.53800201416016" latitude="49.868804931640625" coordinates="0"/>
+ 
+    <Host ip="33333333" continentalArea="North America" countryCode="US" region="Hessen" city="*Darmstadt" isp="TelekomA" longitude="-89.53800201416016" latitude="12.868804931640625" coordinates="0"/>
+    <Host ip="44444444" continentalArea="North America" countryCode="US" region="Hessen" city="-Darmstadt" isp="TelekomB" longitude="-23.53800201416016" latitude="38.868804931640625" coordinates="0"/>
+    
+     <!-- Real measurement data -->
+     
+    <Host ip="2360698881" continentalArea="Europe" countryCode="DE" region="Hessen" city="Darmstadt" isp="Gesellschaft fuer Schwerionenforschung mbH (GSI)" longitude="8.649398803710938" latitude="49.87060546875" coordinates="1148.4558233193268,1077.2316279540287,1077.2316279540287,1077.2316279540287,1077.2316279540287"/>
+    <Host ip="2360696955" continentalArea="Europe" countryCode="DE" region="Hessen" city="Darmstadt" isp="Gesellschaft fuer Schwerionenforschung mbH (GSI)" longitude="8.649398803710938" latitude="49.87060546875" coordinates="1150.9654526753327,1063.218041507783,1063.218041507783,1063.218041507783,1063.218041507783"/>
+    <Host ip="2368989953" continentalArea="Europe" countryCode="DE" region="Hessen" city="Kassel" isp="Universitaet Kassel" longitude="9.5" latitude="51.31669616699219" coordinates="1161.94992326506,1076.324515278507,1076.324515278507,1076.324515278507,1076.324515278507"/>
+  
+    <Host ip="2370840577" continentalArea="Europe" countryCode="DE" region="Berlin" city="Berlin" isp="MDC fuer Molekulare Medizin" longitude="13.399993896484375" latitude="52.516693115234375" coordinates="1175.4799301531543,1070.6469917604727,1070.6469917604727,1070.6469917604727,1070.6469917604727"/>
+    <Host ip="2687342849" continentalArea="Europe" countryCode="DE" region="Berlin" city="Berlin" isp="Freie Universitaet Berlin" longitude="13.399993896484375" latitude="52.516693115234375" coordinates="1161.1727590990054,1063.0164164311695,1063.0164164311695,1063.0164164311695,1063.0164164311695"/>
+    
+     <Host ip="2832289544" continentalArea="Africa" countryCode="ZA" region="Gauteng" city="Johannesburg" isp="Dimension Data" longitude="28.083297729492188" latitude="-26.199996948242188" coordinates="1135.6258335231303,1277.7449592525777,1277.7449592525777,1277.7449592525777,1277.7449592525777"/>
+    
+     <Host ip="1079072601" continentalArea="North America" countryCode="US" region="California" city="Los Angeles" isp="Speakeasy" longitude="-118.29879760742188" latitude="34.041595458984375" coordinates="1038.4991561690451,1100.0802510613207,1100.0802510613207,1100.0802510613207,1100.0802510613207"/>
+     <Host ip="1119970129" continentalArea="North America" countryCode="US" region="Oregon" city="Portland" isp="Time Warner Telecom" longitude="-122.67509460449219" latitude="45.518096923828125" coordinates="1029.2075952603884,1087.3499467604065,1087.3499467604065,1087.3499467604065,1087.3499467604065"/>
+    
+     <Host ip="1142034113" continentalArea="North America" countryCode="US" region="North Carolina" city="Durham" isp="BellSouth.net" longitude="-78.90170288085938" latitude="35.99249267578125" coordinates="1068.4153848187107,1163.3936580294599,1163.3936580294599,1163.3936580294599,1163.3936580294599"/>
+     <Host ip="1117575515" continentalArea="North America" countryCode="US" region="North Carolina" city="Charlotte" isp="BellSouth.net" longitude="-80.8290023803711" latitude="35.20599365234375" coordinates="1068.3638325294494,1127.5997079549152,1127.5997079549152,1127.5997079549152,1127.5997079549152"/>
+    </Hosts>
+  
+  <PingErLookup>
+    <SummaryReport from="Germany" to="Germany" minimumRtt="6.0" averageRtt="7.68" delayVariation="2.25" packetLoss="0.0"/>
+    <SummaryReport from="Germany" to="Africa" minimumRtt="93.65" averageRtt="102.64" delayVariation="3.18" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Balkans" minimumRtt="68.84" averageRtt="84.02" delayVariation="5.47" packetLoss="0.29"/>
+    <SummaryReport from="Germany" to="France" minimumRtt="43.68" averageRtt="48.06" delayVariation="4.75" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Australia" minimumRtt="292.06" averageRtt="310.8" delayVariation="11.57" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="New Zealand" minimumRtt="325.13" averageRtt="331.03" delayVariation="4.76" packetLoss="0.36"/>
+    <SummaryReport from="Germany" to="Canada" minimumRtt="157.58" averageRtt="165.79" delayVariation="6.91" packetLoss="0.04"/>
+    <SummaryReport from="Germany" to="Europe" minimumRtt="44.48" averageRtt="48.77" delayVariation="4.31" packetLoss="0.19"/>
+    <SummaryReport from="Germany" to="Iceland" minimumRtt="65.06" averageRtt="69.34" delayVariation="4.66" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Russia" minimumRtt="116.19" averageRtt="121.72" delayVariation="5.17" packetLoss="4.21"/>
+    <SummaryReport from="Germany" to="Greece" minimumRtt="68.84" averageRtt="84.02" delayVariation="5.47" packetLoss="0.29"/>
+    <SummaryReport from="Germany" to="North America" minimumRtt="153.95" averageRtt="160.79" delayVariation="5.75" packetLoss="0.32"/>
+    <SummaryReport from="Germany" to="United States" minimumRtt="153.38" averageRtt="160.02" delayVariation="5.57" packetLoss="0.37"/>
+    <SummaryReport from="Germany" to="Hungary" minimumRtt="37.9" averageRtt="42.16" delayVariation="3.83" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Portugal" minimumRtt="63.87" averageRtt="67.92" delayVariation="4.61" packetLoss="0.11"/>
+    <SummaryReport from="Germany" to="Switzerland" minimumRtt="31.52" averageRtt="35.14" delayVariation="3.48" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Norway" minimumRtt="59.39" averageRtt="65.0" delayVariation="5.24" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Chile" minimumRtt="246.19" averageRtt="252.85" delayVariation="3.56" packetLoss="1.06"/>
+    <SummaryReport from="Germany" to="Italy" minimumRtt="44.02" averageRtt="48.38" delayVariation="5.0" packetLoss="0.97"/>
+    <SummaryReport from="Germany" to="Latin America" minimumRtt="271.85" averageRtt="344.93" delayVariation="27.11" packetLoss="0.97"/>
+    <SummaryReport from="Germany" to="Slovakia" minimumRtt="37.1" averageRtt="41.24" delayVariation="4.32" packetLoss="0.06"/>
+    <SummaryReport from="Germany" to="Ukraine" minimumRtt="57.0" averageRtt="62.84" delayVariation="2.94" packetLoss="0.29"/>
+    <SummaryReport from="Germany" to="Egypt" minimumRtt="93.65" averageRtt="102.64" delayVariation="3.18" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Denmark" minimumRtt="35.77" averageRtt="39.84" delayVariation="4.36" packetLoss="0.01"/>
+    <SummaryReport from="Germany" to="Argentina" minimumRtt="297.52" averageRtt="437.01" delayVariation="50.66" packetLoss="0.89"/>
+    <SummaryReport from="Germany" to="Taiwan" minimumRtt="321.23" averageRtt="333.09" delayVariation="5.34" packetLoss="0.7"/>
+    <SummaryReport from="Germany" to="Estonia" minimumRtt="52.87" averageRtt="58.06" delayVariation="5.62" packetLoss="0.0"/>
+    <SummaryReport from="Germany" to="Japan" minimumRtt="291.52" averageRtt="296.23" delayVariation="4.88" packetLoss="0.07"/>
+    <SummaryReport from="Germany" to="Oceania" minimumRtt="308.6" averageRtt="320.91" delayVariation="8.16" packetLoss="0.18"/>
+    <SummaryReport from="Germany" to="East Asia" minimumRtt="306.37" averageRtt="314.66" delayVariation="5.11" packetLoss="0.39"/>
+  <SummaryReport from="Africa" to="Germany" minimumRtt="247.37" averageRtt="1691.06" delayVariation="126.25" packetLoss="14.38"/>
+    <SummaryReport from="Africa" to="Sudan" minimumRtt="424.44" averageRtt="1084.7" delayVariation="153.7" packetLoss="7.56"/>
+    <SummaryReport from="Africa" to="France" minimumRtt="225.45" averageRtt="1509.27" delayVariation="109.6" packetLoss="11.86"/>
+    <SummaryReport from="Africa" to="Burundi" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Africa" to="Botswana" minimumRtt="77.99" averageRtt="505.41" delayVariation="91.72" packetLoss="9.81"/>
+    <SummaryReport from="Africa" to="Kenya" minimumRtt="800.07" averageRtt="1257.41" delayVariation="55.78" packetLoss="29.42"/>
+    <SummaryReport from="Africa" to="Australia" minimumRtt="474.3" averageRtt="894.25" delayVariation="88.45" packetLoss="3.21"/>
+    <SummaryReport from="Africa" to="South Africa" minimumRtt="48.77" averageRtt="319.65" delayVariation="44.88" packetLoss="2.76"/>
+    <SummaryReport from="Africa" to="Tunisia" minimumRtt="337.16" averageRtt="541.35" delayVariation="50.85" packetLoss="4.47"/>
+    <SummaryReport from="Africa" to="New Zealand" minimumRtt="489.77" averageRtt="892.18" delayVariation="84.11" packetLoss="3.26"/>
+    <SummaryReport from="Africa" to="Iceland" minimumRtt="248.79" averageRtt="1795.33" delayVariation="151.98" packetLoss="14.95"/>
+    <SummaryReport from="Africa" to="North America" minimumRtt="318.02" averageRtt="940.12" delayVariation="73.95" packetLoss="7.22"/>
+    <SummaryReport from="Africa" to="Eritrea" minimumRtt="819.69" averageRtt="1624.43" delayVariation="185.95" packetLoss="34.2"/>
+    <SummaryReport from="Africa" to="Hungary" minimumRtt="223.33" averageRtt="1681.37" delayVariation="160.09" packetLoss="11.53"/>
+    <SummaryReport from="Africa" to="Portugal" minimumRtt="221.99" averageRtt="1771.08" delayVariation="156.13" packetLoss="13.46"/>
+    <SummaryReport from="Africa" to="Lesotho" minimumRtt="74.71" averageRtt="603.76" delayVariation="126.94" packetLoss="6.04"/>
+    <SummaryReport from="Africa" to="Tanzania" minimumRtt="719.85" averageRtt="1770.41" delayVariation="176.22" packetLoss="11.55"/>
+    <SummaryReport from="Africa" to="Zimbabwe" minimumRtt="443.84" averageRtt="922.24" delayVariation="39.8" packetLoss="17.34"/>
+    <SummaryReport from="Africa" to="Senegal" minimumRtt="392.03" averageRtt="624.18" delayVariation="41.74" packetLoss="2.2"/>
+    <SummaryReport from="Africa" to="India" minimumRtt="547.88" averageRtt="1071.65" delayVariation="104.87" packetLoss="4.3"/>
+    <SummaryReport from="Africa" to="Ukraine" minimumRtt="392.51" averageRtt="1390.33" delayVariation="148.34" packetLoss="6.99"/>
+    <SummaryReport from="Africa" to="Egypt" minimumRtt="271.01" averageRtt="639.49" delayVariation="43.33" packetLoss="2.87"/>
+    <SummaryReport from="Africa" to="Taiwan" minimumRtt="485.63" averageRtt="1042.35" delayVariation="106.46" packetLoss="3.12"/>
+    <SummaryReport from="Africa" to="Denmark" minimumRtt="226.79" averageRtt="1745.8" delayVariation="137.83" packetLoss="14.9"/>
+    <SummaryReport from="Africa" to="El Salvador" minimumRtt="311.84" averageRtt="732.45" delayVariation="79.98" packetLoss="3.53"/>
+    <SummaryReport from="Africa" to="Estonia" minimumRtt="225.97" averageRtt="1387.6" delayVariation="159.51" packetLoss="7.53"/>
+    <SummaryReport from="Africa" to="Angola" minimumRtt="680.65" averageRtt="1057.02" delayVariation="34.08" packetLoss="10.73"/>
+    <SummaryReport from="Africa" to="Algeria" minimumRtt="269.25" averageRtt="706.3" delayVariation="87.69" packetLoss="4.67"/>
+    <SummaryReport from="Africa" to="Oceania" minimumRtt="482.03" averageRtt="893.21" delayVariation="86.28" packetLoss="3.24"/>
+    <SummaryReport from="Africa" to="East Asia" minimumRtt="442.02" averageRtt="1059.32" delayVariation="114.55" packetLoss="3.4"/>
+    <SummaryReport from="Africa" to="Africa" minimumRtt="419.75" averageRtt="847.85" delayVariation="78.17" packetLoss="7.47"/>
+    <SummaryReport from="Africa" to="Mozambique" minimumRtt="62.11" averageRtt="357.43" delayVariation="71.84" packetLoss="6.96"/>
+    <SummaryReport from="Africa" to="Uganda" minimumRtt="851.42" averageRtt="1185.7" delayVariation="62.2" packetLoss="9.53"/>
+    <SummaryReport from="Africa" to="Balkans" minimumRtt="236.02" averageRtt="1688.77" delayVariation="158.89" packetLoss="12.04"/>
+    <SummaryReport from="Africa" to="Ethiopia" minimumRtt="290.9" averageRtt="876.33" delayVariation="129.51" packetLoss="8.29"/>
+    <SummaryReport from="Africa" to="Mali" minimumRtt="391.24" averageRtt="1011.09" delayVariation="150.57" packetLoss="5.8"/>
+    <SummaryReport from="Africa" to="Brazil" minimumRtt="404.24" averageRtt="804.94" delayVariation="39.4" packetLoss="3.35"/>
+    <SummaryReport from="Africa" to="Canada" minimumRtt="329.03" averageRtt="1112.87" delayVariation="85.94" packetLoss="8.15"/>
+    <SummaryReport from="Africa" to="Europe" minimumRtt="246.67" averageRtt="1612.97" delayVariation="137.14" packetLoss="12.73"/>
+    <SummaryReport from="Africa" to="Togo" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Africa" to="Russia" minimumRtt="294.87" averageRtt="1373.24" delayVariation="161.34" packetLoss="10.38"/>
+    <SummaryReport from="Africa" to="Greece" minimumRtt="246.26" averageRtt="1753.14" delayVariation="158.09" packetLoss="13.59"/>
+    <SummaryReport from="Africa" to="United States" minimumRtt="316.15" averageRtt="910.77" delayVariation="72.1" packetLoss="7.06"/>
+    <SummaryReport from="Africa" to="Croatia" minimumRtt="225.78" averageRtt="1624.4" delayVariation="159.68" packetLoss="10.49"/>
+    <SummaryReport from="Africa" to="Switzerland" minimumRtt="242.61" averageRtt="1568.13" delayVariation="113.44" packetLoss="12.67"/>
+    <SummaryReport from="Africa" to="Mauritania" minimumRtt="783.91" averageRtt="960.75" delayVariation="50.32" packetLoss="2.25"/>
+    <SummaryReport from="Africa" to="Norway" minimumRtt="243.72" averageRtt="1798.45" delayVariation="147.63" packetLoss="15.89"/>
+    <SummaryReport from="Africa" to="Chile" minimumRtt="393.7" averageRtt="796.89" delayVariation="79.15" packetLoss="4.2"/>
+    <SummaryReport from="Africa" to="Pakistan" minimumRtt="527.2" averageRtt="963.58" delayVariation="93.86" packetLoss="7.8"/>
+    <SummaryReport from="Africa" to="Italy" minimumRtt="242.87" averageRtt="1499.11" delayVariation="111.06" packetLoss="14.88"/>
+    <SummaryReport from="Africa" to="Malawi" minimumRtt="752.86" averageRtt="1272.9" delayVariation="99.66" packetLoss="13.75"/>
+    <SummaryReport from="Africa" to="Cameroon" minimumRtt="425.78" averageRtt="718.71" delayVariation="76.73" packetLoss="3.53"/>
+    <SummaryReport from="Africa" to="Morocco" minimumRtt="313.01" averageRtt="986.01" delayVariation="130.39" packetLoss="3.84"/>
+    <SummaryReport from="Africa" to="Slovakia" minimumRtt="221.77" averageRtt="1553.88" delayVariation="160.8" packetLoss="9.88"/>
+    <SummaryReport from="Africa" to="Latin America" minimumRtt="392.82" averageRtt="830.95" delayVariation="69.66" packetLoss="3.99"/>
+    <SummaryReport from="Africa" to="Benin" minimumRtt="446.29" averageRtt="905.28" delayVariation="111.38" packetLoss="4.09"/>
+    <SummaryReport from="Africa" to="Argentina" minimumRtt="461.52" averageRtt="989.54" delayVariation="110.38" packetLoss="4.87"/>
+    <SummaryReport from="Africa" to="Nigeria" minimumRtt="760.34" averageRtt="1159.16" delayVariation="85.51" packetLoss="8.68"/>
+    <SummaryReport from="Africa" to="China" minimumRtt="387.56" averageRtt="992.92" delayVariation="113.7" packetLoss="3.34"/>
+    <SummaryReport from="Africa" to="Rwanda" minimumRtt="837.39" averageRtt="1365.28" delayVariation="67.62" packetLoss="6.14"/>
+    <SummaryReport from="Africa" to="Niger" minimumRtt="876.26" averageRtt="1428.33" delayVariation="140.01" packetLoss="14.43"/>
+    <SummaryReport from="Africa" to="Japan" minimumRtt="452.86" averageRtt="1142.68" delayVariation="123.5" packetLoss="3.74"/>
+    <SummaryReport from="Africa" to="South Asia" minimumRtt="537.54" averageRtt="1017.62" delayVariation="99.36" packetLoss="6.05"/>
+    <SummaryReport from="Africa" to="Madagascar" minimumRtt="839.53" averageRtt="1282.13" delayVariation="98.4" packetLoss="8.82"/>
+    <SummaryReport from="Europe" to="Korea, Rep" minimumRtt="307.32" averageRtt="322.61" delayVariation="2.87" packetLoss="7.13"/>
+    <SummaryReport from="Europe" to="Middle East" minimumRtt="99.66" averageRtt="131.11" delayVariation="9.04" packetLoss="4.38"/>
+    <SummaryReport from="Europe" to="Sudan" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Europe" to="France" minimumRtt="26.4" averageRtt="29.35" delayVariation="1.41" packetLoss="4.2"/>
+    <SummaryReport from="Europe" to="Burundi" minimumRtt="669.73" averageRtt="813.41" delayVariation="1.09" packetLoss="15.32"/>
+    <SummaryReport from="Europe" to="Botswana" minimumRtt="384.38" averageRtt="535.9" delayVariation="34.95" packetLoss="8.28"/>
+    <SummaryReport from="Europe" to="Palestine" minimumRtt="126.4" averageRtt="173.45" delayVariation="12.83" packetLoss="0.62"/>
+    <SummaryReport from="Europe" to="Kenya" minimumRtt="605.05" averageRtt="748.02" delayVariation="32.95" packetLoss="30.97"/>
+    <SummaryReport from="Europe" to="Australia" minimumRtt="302.21" averageRtt="316.71" delayVariation="7.54" packetLoss="6.35"/>
+    <SummaryReport from="Europe" to="South Africa" minimumRtt="275.06" averageRtt="383.02" delayVariation="33.68" packetLoss="20.34"/>
+    <SummaryReport from="Europe" to="Tunisia" minimumRtt="60.93" averageRtt="65.71" delayVariation="1.45" packetLoss="4.49"/>
+    <SummaryReport from="Europe" to="New Zealand" minimumRtt="318.86" averageRtt="325.95" delayVariation="2.27" packetLoss="7.82"/>
+    <SummaryReport from="Europe" to="Iceland" minimumRtt="59.36" averageRtt="61.81" delayVariation="2.05" packetLoss="6.53"/>
+    <SummaryReport from="Europe" to="Eritrea" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Europe" to="North America" minimumRtt="149.13" averageRtt="154.15" delayVariation="2.02" packetLoss="5.91"/>
+    <SummaryReport from="Europe" to="Portugal" minimumRtt="45.11" averageRtt="47.36" delayVariation="1.52" packetLoss="6.35"/>
+    <SummaryReport from="Europe" to="Hungary" minimumRtt="31.71" averageRtt="35.35" delayVariation="1.92" packetLoss="6.98"/>
+    <SummaryReport from="Europe" to="Lesotho" minimumRtt="382.35" averageRtt="606.61" delayVariation="83.22" packetLoss="11.18"/>
+    <SummaryReport from="Europe" to="Tanzania" minimumRtt="595.33" averageRtt="1416.71" delayVariation="140.36" packetLoss="8.85"/>
+    <SummaryReport from="Europe" to="Zimbabwe" minimumRtt="528.26" averageRtt="664.54" delayVariation="19.26" packetLoss="29.12"/>
+    <SummaryReport from="Europe" to="Senegal" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Europe" to="Israel" minimumRtt="64.0" averageRtt="74.66" delayVariation="1.45" packetLoss="9.39"/>
+    <SummaryReport from="Europe" to="India" minimumRtt="164.53" averageRtt="175.62" delayVariation="7.82" packetLoss="11.37"/>
+    <SummaryReport from="Europe" to="Ukraine" minimumRtt="54.27" averageRtt="59.83" delayVariation="1.49" packetLoss="6.31"/>
+    <SummaryReport from="Europe" to="Egypt" minimumRtt="90.85" averageRtt="114.96" delayVariation="50.46" packetLoss="6.5"/>
+    <SummaryReport from="Europe" to="Taiwan" minimumRtt="313.49" averageRtt="321.86" delayVariation="2.04" packetLoss="4.36"/>
+    <SummaryReport from="Europe" to="Denmark" minimumRtt="29.53" averageRtt="31.31" delayVariation="1.36" packetLoss="4.07"/>
+    <SummaryReport from="Europe" to="El Salvador" minimumRtt="161.4" averageRtt="165.19" delayVariation="0.47" packetLoss="0.79"/>
+    <SummaryReport from="Europe" to="Estonia" minimumRtt="47.12" averageRtt="49.66" delayVariation="1.72" packetLoss="4.26"/>
+    <SummaryReport from="Europe" to="Thailand" minimumRtt="239.74" averageRtt="244.04" delayVariation="0.84" packetLoss="10.2"/>
+    <SummaryReport from="Europe" to="Angola" minimumRtt="286.24" averageRtt="431.12" delayVariation="14.02" packetLoss="16.73"/>
+    <SummaryReport from="Europe" to="Algeria" minimumRtt="66.54" averageRtt="88.07" delayVariation="9.17" packetLoss="18.09"/>
+    <SummaryReport from="Europe" to="Oceania" minimumRtt="310.54" averageRtt="321.33" delayVariation="4.91" packetLoss="7.09"/>
+    <SummaryReport from="Europe" to="East Asia" minimumRtt="289.77" averageRtt="297.08" delayVariation="1.84" packetLoss="5.18"/>
+    <SummaryReport from="Europe" to="Mozambique" minimumRtt="366.99" averageRtt="405.52" delayVariation="16.8" packetLoss="5.03"/>
+    <SummaryReport from="Europe" to="Africa" minimumRtt="265.78" averageRtt="407.79" delayVariation="26.91" packetLoss="15.1"/>
+    <SummaryReport from="Europe" to="Uganda" minimumRtt="647.38" averageRtt="728.99" delayVariation="10.88" packetLoss="16.87"/>
+    <SummaryReport from="Europe" to="Ethiopia" minimumRtt="146.39" averageRtt="263.95" delayVariation="5.69" packetLoss="24.07"/>
+    <SummaryReport from="Europe" to="Balkans" minimumRtt="39.58" averageRtt="47.57" delayVariation="1.83" packetLoss="6.15"/>
+    <SummaryReport from="Europe" to="Singapore" minimumRtt="292.64" averageRtt="303.52" delayVariation="0.88" packetLoss="10.35"/>
+    <SummaryReport from="Europe" to="Mali" minimumRtt="136.55" averageRtt="163.15" delayVariation="1.45" packetLoss="17.89"/>
+    <SummaryReport from="Europe" to="Brazil" minimumRtt="248.85" averageRtt="260.29" delayVariation="4.52" packetLoss="10.42"/>
+    <SummaryReport from="Europe" to="Canada" minimumRtt="152.75" averageRtt="157.45" delayVariation="2.0" packetLoss="4.29"/>
+    <SummaryReport from="Europe" to="Europe" minimumRtt="34.96" averageRtt="37.91" delayVariation="1.53" packetLoss="6.36"/>
+    <SummaryReport from="Europe" to="Togo" minimumRtt="171.43" averageRtt="246.31" delayVariation="35.06" packetLoss="20.5"/>
+    <SummaryReport from="Europe" to="Russia" minimumRtt="98.97" averageRtt="103.72" delayVariation="2.29" packetLoss="9.79"/>
+    <SummaryReport from="Europe" to="Greece" minimumRtt="49.95" averageRtt="62.98" delayVariation="2.58" packetLoss="6.22"/>
+    <SummaryReport from="Europe" to="United States" minimumRtt="148.63" averageRtt="153.69" delayVariation="2.02" packetLoss="6.14"/>
+    <SummaryReport from="Europe" to="Croatia" minimumRtt="25.75" averageRtt="27.02" delayVariation="0.84" packetLoss="6.06"/>
+    <SummaryReport from="Europe" to="Switzerland" minimumRtt="18.81" averageRtt="21.05" delayVariation="1.16" packetLoss="5.55"/>
+    <SummaryReport from="Europe" to="Mauritania" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Europe" to="Norway" minimumRtt="55.2" averageRtt="59.51" delayVariation="2.44" packetLoss="6.33"/>
+    <SummaryReport from="Europe" to="Chile" minimumRtt="249.69" averageRtt="263.59" delayVariation="2.22" packetLoss="5.25"/>
+    <SummaryReport from="Europe" to="Pakistan" minimumRtt="224.4" averageRtt="265.22" delayVariation="11.31" packetLoss="3.86"/>
+    <SummaryReport from="Europe" to="Bolivia" minimumRtt="278.94" averageRtt="414.64" delayVariation="3.53" packetLoss="1.07"/>
+    <SummaryReport from="Europe" to="Malawi" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Europe" to="Italy" minimumRtt="26.75" averageRtt="29.67" delayVariation="1.67" packetLoss="13.31"/>
+    <SummaryReport from="Europe" to="Cameroon" minimumRtt="152.66" averageRtt="156.16" delayVariation="0.82" packetLoss="28.07"/>
+    <SummaryReport from="Europe" to="S.E. Asia" minimumRtt="268.51" averageRtt="276.38" delayVariation="0.86" packetLoss="10.28"/>
+    <SummaryReport from="Europe" to="Morocco" minimumRtt="82.05" averageRtt="101.08" delayVariation="6.66" packetLoss="8.13"/>
+    <SummaryReport from="Europe" to="Slovakia" minimumRtt="26.24" averageRtt="27.81" delayVariation="1.36" packetLoss="5.91"/>
+    <SummaryReport from="Europe" to="Latin America" minimumRtt="252.67" averageRtt="308.83" delayVariation="14.17" packetLoss="6.1"/>
+    <SummaryReport from="Europe" to="United Kingdom" minimumRtt="2.61" averageRtt="7.71" delayVariation="1.33" packetLoss="0.42"/>
+    <SummaryReport from="Europe" to="Benin" minimumRtt="139.75" averageRtt="188.82" delayVariation="6.36" packetLoss="11.57"/>
+    <SummaryReport from="Europe" to="Nigeria" minimumRtt="0.0" averageRtt="0.0" delayVariation="0.0" packetLoss="0.0"/>
+    <SummaryReport from="Europe" to="Argentina" minimumRtt="281.64" averageRtt="415.98" delayVariation="47.95" packetLoss="6.09"/>
+    <SummaryReport from="Europe" to="Sri Lanka" minimumRtt="277.57" averageRtt="290.89" delayVariation="1.55" packetLoss="8.47"/>
+    <SummaryReport from="Europe" to="China" minimumRtt="241.41" averageRtt="249.95" delayVariation="1.21" packetLoss="8.46"/>
+    <SummaryReport from="Europe" to="Rwanda" minimumRtt="579.09" averageRtt="1593.03" delayVariation="50.48" packetLoss="34.48"/>
+    <SummaryReport from="Europe" to="Niger" minimumRtt="572.26" averageRtt="918.03" delayVariation="21.12" packetLoss="11.03"/>
+    <SummaryReport from="Europe" to="Japan" minimumRtt="283.43" averageRtt="285.99" delayVariation="1.44" packetLoss="3.6"/>
+    <SummaryReport from="Europe" to="South Asia" minimumRtt="209.62" averageRtt="231.14" delayVariation="7.96" packetLoss="8.22"/>
+    <SummaryReport from="Europe" to="Madagascar" minimumRtt="651.69" averageRtt="1545.55" delayVariation="62.43" packetLoss="13.29"/>
+     <SummaryReport from="North America" to="Germany" minimumRtt="155.19" averageRtt="158.12" delayVariation="0.81" packetLoss="0.28"/>
+    <SummaryReport from="North America" to="French Polynesia" minimumRtt="590.59" averageRtt="600.35" delayVariation="3.13" packetLoss="0.6"/>
+    <SummaryReport from="North America" to="Sudan" minimumRtt="286.27" averageRtt="475.98" delayVariation="24.57" packetLoss="2.71"/>
+    <SummaryReport from="North America" to="France" minimumRtt="165.54" averageRtt="168.23" delayVariation="0.51" packetLoss="0.24"/>
+    <SummaryReport from="North America" to="Uruguay" minimumRtt="185.83" averageRtt="232.5" delayVariation="1.46" packetLoss="0.61"/>
+    <SummaryReport from="North America" to="Ecuador" minimumRtt="173.2" averageRtt="203.83" delayVariation="13.88" packetLoss="0.25"/>
+    <SummaryReport from="North America" to="Australia" minimumRtt="200.45" averageRtt="205.6" delayVariation="0.73" packetLoss="0.38"/>
+    <SummaryReport from="North America" to="Kenya" minimumRtt="703.15" averageRtt="853.74" delayVariation="29.98" packetLoss="15.35"/>
+    <SummaryReport from="North America" to="Tunisia" minimumRtt="188.65" averageRtt="192.79" delayVariation="0.65" packetLoss="0.18"/>
+    <SummaryReport from="North America" to="Philippines" minimumRtt="244.22" averageRtt="322.13" delayVariation="69.89" packetLoss="3.4"/>
+    <SummaryReport from="North America" to="Central Asia" minimumRtt="391.51" averageRtt="516.0" delayVariation="21.7" packetLoss="2.06"/>
+    <SummaryReport from="North America" to="Turkmenistan" minimumRtt="434.42" averageRtt="561.32" delayVariation="46.92" packetLoss="1.85"/>
+    <SummaryReport from="North America" to="Lesotho" minimumRtt="355.23" averageRtt="578.08" delayVariation="84.68" packetLoss="3.13"/>
+    <SummaryReport from="North America" to="Turkey" minimumRtt="240.73" averageRtt="255.35" delayVariation="1.97" packetLoss="1.03"/>
+    <SummaryReport from="North America" to="Honduras" minimumRtt="112.66" averageRtt="118.33" delayVariation="2.26" packetLoss="0.31"/>
+    <SummaryReport from="North America" to="Zimbabwe" minimumRtt="626.94" averageRtt="703.92" delayVariation="22.54" packetLoss="7.91"/>
+    <SummaryReport from="North America" to="Senegal" minimumRtt="249.31" averageRtt="284.31" delayVariation="3.16" packetLoss="0.17"/>
+    <SummaryReport from="North America" to="Israel" minimumRtt="216.85" averageRtt="227.9" delayVariation="0.98" packetLoss="0.58"/>
+    <SummaryReport from="North America" to="India" minimumRtt="287.28" averageRtt="310.8" delayVariation="8.42" packetLoss="1.92"/>
+    <SummaryReport from="North America" to="Guatemala" minimumRtt="125.89" averageRtt="152.02" delayVariation="10.98" packetLoss="1.05"/>
+    <SummaryReport from="North America" to="Taiwan" minimumRtt="187.85" averageRtt="191.71" delayVariation="0.39" packetLoss="0.08"/>
+    <SummaryReport from="North America" to="Mexico" minimumRtt="81.31" averageRtt="86.6" delayVariation="2.1" packetLoss="0.26"/>
+    <SummaryReport from="North America" to="Spain" minimumRtt="193.72" averageRtt="200.11" delayVariation="5.81" packetLoss="0.59"/>
+    <SummaryReport from="North America" to="Thailand" minimumRtt="246.52" averageRtt="269.63" delayVariation="4.24" packetLoss="2.02"/>
+    <SummaryReport from="North America" to="Afghanistan" minimumRtt="707.32" averageRtt="744.63" delayVariation="7.06" packetLoss="1.02"/>
+    <SummaryReport from="North America" to="Angola" minimumRtt="416.46" averageRtt="550.61" delayVariation="24.92" packetLoss="7.01"/>
+    <SummaryReport from="North America" to="Gabon" minimumRtt="296.6" averageRtt="339.14" delayVariation="10.87" packetLoss="5.66"/>
+    <SummaryReport from="North America" to="Africa" minimumRtt="404.76" averageRtt="539.58" delayVariation="31.79" packetLoss="3.94"/>
+    <SummaryReport from="North America" to="Mozambique" minimumRtt="332.72" averageRtt="378.72" delayVariation="17.79" packetLoss="3.96"/>
+    <SummaryReport from="North America" to="Uganda" minimumRtt="733.51" averageRtt="820.46" delayVariation="19.72" packetLoss="5.02"/>
+    <SummaryReport from="North America" to="Ethiopia" minimumRtt="509.06" averageRtt="889.33" delayVariation="45.49" packetLoss="9.26"/>
+    <SummaryReport from="North America" to="Papua New Guinea" minimumRtt="408.52" averageRtt="434.09" delayVariation="7.7" packetLoss="4.3"/>
+    <SummaryReport from="North America" to="Ireland" minimumRtt="174.76" averageRtt="177.87" delayVariation="0.51" packetLoss="0.43"/>
+    <SummaryReport from="North America" to="Singapore" minimumRtt="222.63" averageRtt="229.33" delayVariation="2.1" packetLoss="0.02"/>
+    <SummaryReport from="North America" to="Macedonia" minimumRtt="205.92" averageRtt="213.67" delayVariation="1.51" packetLoss="0.76"/>
+    <SummaryReport from="North America" to="Brazil" minimumRtt="231.37" averageRtt="259.14" delayVariation="4.66" packetLoss="0.56"/>
+    <SummaryReport from="North America" to="Costa Rica" minimumRtt="156.17" averageRtt="189.49" delayVariation="12.56" packetLoss="0.75"/>
+    <SummaryReport from="North America" to="Cote d'Ivoire" minimumRtt="314.73" averageRtt="751.01" delayVariation="100.64" packetLoss="6.78"/>
+    <SummaryReport from="North America" to="Canada" minimumRtt="64.89" averageRtt="66.64" delayVariation="0.38" packetLoss="0.03"/>
+    <SummaryReport from="North America" to="Europe" minimumRtt="165.56" averageRtt="169.86" delayVariation="1.29" packetLoss="1.01"/>
+    <SummaryReport from="North America" to="Belarus" minimumRtt="203.35" averageRtt="205.36" delayVariation="0.87" packetLoss="0.53"/>
+    <SummaryReport from="North America" to="Togo" minimumRtt="279.23" averageRtt="366.26" delayVariation="36.18" packetLoss="3.47"/>
+    <SummaryReport from="North America" to="Jordan" minimumRtt="220.18" averageRtt="272.23" delayVariation="7.88" packetLoss="1.1"/>
+    <SummaryReport from="North America" to="Libya Arab Jamahiriya" minimumRtt="213.43" averageRtt="217.31" delayVariation="0.43" packetLoss="0.15"/>
+    <SummaryReport from="North America" to="Colombia" minimumRtt="158.3" averageRtt="166.08" delayVariation="2.76" packetLoss="0.24"/>
+    <SummaryReport from="North America" to="Nepal" minimumRtt="503.05" averageRtt="618.57" delayVariation="27.17" packetLoss="2.29"/>
+    <SummaryReport from="North America" to="Armenia" minimumRtt="409.0" averageRtt="433.3" delayVariation="6.05" packetLoss="1.7"/>
+    <SummaryReport from="North America" to="Switzerland" minimumRtt="158.89" averageRtt="160.17" delayVariation="0.4" packetLoss="0.04"/>
+    <SummaryReport from="North America" to="Netherlands" minimumRtt="137.02" averageRtt="138.45" delayVariation="0.5" packetLoss="0.08"/>
+    <SummaryReport from="North America" to="Norway" minimumRtt="177.48" averageRtt="181.6" delayVariation="2.06" packetLoss="0.15"/>
+    <SummaryReport from="North America" to="S.E. Asia" minimumRtt="225.29" averageRtt="254.44" delayVariation="13.36" packetLoss="1.36"/>
+    <SummaryReport from="North America" to="Cameroon" minimumRtt="264.49" averageRtt="278.31" delayVariation="5.04" packetLoss="2.3"/>
+    <SummaryReport from="North America" to="Finland" minimumRtt="190.64" averageRtt="195.23" delayVariation="2.06" packetLoss="0.24"/>
+    <SummaryReport from="North America" to="United Kingdom" minimumRtt="144.24" averageRtt="149.49" delayVariation="1.44" packetLoss="0.38"/>
+    <SummaryReport from="North America" to="Slovakia" minimumRtt="159.1" averageRtt="161.08" delayVariation="0.36" packetLoss="0.18"/>
+    <SummaryReport from="North America" to="Benin" minimumRtt="255.8" averageRtt="330.63" delayVariation="23.94" packetLoss="1.03"/>
+    <SummaryReport from="North America" to="Malta" minimumRtt="208.94" averageRtt="211.05" delayVariation="0.37" packetLoss="1.2"/>
+    <SummaryReport from="North America" to="Romania" minimumRtt="194.42" averageRtt="202.41" delayVariation="2.17" packetLoss="0.32"/>
+    <SummaryReport from="North America" to="Niger" minimumRtt="693.05" averageRtt="973.15" delayVariation="104.35" packetLoss="5.9"/>
+    <SummaryReport from="North America" to="Bhutan" minimumRtt="692.15" averageRtt="732.17" delayVariation="13.75" packetLoss="1.36"/>
+    <SummaryReport from="North America" to="South Asia" minimumRtt="340.37" averageRtt="396.08" delayVariation="16.48" packetLoss="1.37"/>
+    <SummaryReport from="North America" to="Madagascar" minimumRtt="739.1" averageRtt="1178.76" delayVariation="79.98" packetLoss="7.37"/>
+    <SummaryReport from="North America" to="Bangladesh" minimumRtt="392.56" averageRtt="507.31" delayVariation="38.93" packetLoss="1.69"/>
+    <SummaryReport from="North America" to="Malaysia" minimumRtt="205.27" averageRtt="285.81" delayVariation="12.55" packetLoss="0.67"/>
+    <SummaryReport from="North America" to="Korea, Rep" minimumRtt="165.43" averageRtt="187.65" delayVariation="3.41" packetLoss="0.37"/>
+    <SummaryReport from="North America" to="Middle East" minimumRtt="242.83" averageRtt="281.68" delayVariation="10.87" packetLoss="0.92"/>
+    <SummaryReport from="North America" to="Indonesia" minimumRtt="199.88" averageRtt="215.5" delayVariation="8.12" packetLoss="0.92"/>
+    <SummaryReport from="North America" to="Botswana" minimumRtt="503.44" averageRtt="632.25" delayVariation="34.05" packetLoss="1.05"/>
+    <SummaryReport from="North America" to="Burundi" minimumRtt="609.43" averageRtt="897.94" delayVariation="136.27" packetLoss="3.1"/>
+    <SummaryReport from="North America" to="Congo, Dem Rep" minimumRtt="717.64" averageRtt="805.16" delayVariation="46.04" packetLoss="2.01"/>
+    <SummaryReport from="North America" to="Palestine" minimumRtt="226.37" averageRtt="284.53" delayVariation="19.85" packetLoss="1.11"/>
+    <SummaryReport from="North America" to="South Africa" minimumRtt="380.88" averageRtt="493.44" delayVariation="32.23" packetLoss="1.53"/>
+    <SummaryReport from="North America" to="Albania" minimumRtt="208.74" averageRtt="228.45" delayVariation="7.3" packetLoss="5.61"/>
+    <SummaryReport from="North America" to="New Zealand" minimumRtt="188.64" averageRtt="191.73" delayVariation="0.79" packetLoss="0.02"/>
+    <SummaryReport from="North America" to="Iceland" minimumRtt="180.95" averageRtt="184.67" delayVariation="1.34" packetLoss="0.2"/>
+    <SummaryReport from="North America" to="Georgia" minimumRtt="456.13" averageRtt="499.16" delayVariation="6.87" packetLoss="1.57"/>
+    <SummaryReport from="North America" to="Namibia" minimumRtt="401.52" averageRtt="572.66" delayVariation="39.13" packetLoss="3.34"/>
+    <SummaryReport from="North America" to="North America" minimumRtt="54.94" averageRtt="57.05" delayVariation="0.96" packetLoss="0.52"/>
+    <SummaryReport from="North America" to="Eritrea" minimumRtt="690.59" averageRtt="889.82" delayVariation="65.45" packetLoss="21.61"/>
+    <SummaryReport from="North America" to="Hungary" minimumRtt="161.84" averageRtt="164.67" delayVariation="0.73" packetLoss="0.23"/>
+    <SummaryReport from="North America" to="Portugal" minimumRtt="175.11" averageRtt="178.76" delayVariation="0.88" packetLoss="0.18"/>
+    <SummaryReport from="North America" to="Tanzania" minimumRtt="701.75" averageRtt="1025.44" delayVariation="58.48" packetLoss="4.01"/>
+    <SummaryReport from="North America" to="Vietnam" minimumRtt="203.29" averageRtt="229.93" delayVariation="11.04" packetLoss="1.65"/>
+    <SummaryReport from="North America" to="Ghana" minimumRtt="265.83" averageRtt="292.56" delayVariation="8.23" packetLoss="1.17"/>
+    <SummaryReport from="North America" to="Ukraine" minimumRtt="187.73" averageRtt="212.62" delayVariation="6.37" packetLoss="0.54"/>
+    <SummaryReport from="North America" to="Egypt" minimumRtt="210.65" averageRtt="221.96" delayVariation="1.8" packetLoss="0.37"/>
+    <SummaryReport from="North America" to="Iran" minimumRtt="496.99" averageRtt="560.2" delayVariation="12.59" packetLoss="2.28"/>
+    <SummaryReport from="North America" to="El Salvador" minimumRtt="132.17" averageRtt="159.91" delayVariation="10.89" packetLoss="0.89"/>
+    <SummaryReport from="North America" to="Denmark" minimumRtt="152.36" averageRtt="154.64" delayVariation="0.74" packetLoss="0.13"/>
+    <SummaryReport from="North America" to="Estonia" minimumRtt="169.86" averageRtt="172.4" delayVariation="0.78" packetLoss="0.1"/>
+    <SummaryReport from="North America" to="Oman" minimumRtt="358.09" averageRtt="373.23" delayVariation="10.84" packetLoss="2.08"/>
+    <SummaryReport from="North America" to="Venezuela" minimumRtt="129.56" averageRtt="142.63" delayVariation="2.84" packetLoss="0.53"/>
+    <SummaryReport from="North America" to="Oceania" minimumRtt="225.27" averageRtt="231.43" delayVariation="1.31" packetLoss="0.56"/>
+    <SummaryReport from="North America" to="Algeria" minimumRtt="210.92" averageRtt="248.62" delayVariation="24.21" packetLoss="1.72"/>
+    <SummaryReport from="North America" to="Serbia and Montenegro" minimumRtt="185.81" averageRtt="189.32" delayVariation="1.12" packetLoss="0.3"/>
+    <SummaryReport from="North America" to="East Asia" minimumRtt="186.07" averageRtt="201.84" delayVariation="1.38" packetLoss="0.73"/>
+    <SummaryReport from="North America" to="Cyprus" minimumRtt="232.89" averageRtt="243.02" delayVariation="2.09" packetLoss="0.84"/>
+    <SummaryReport from="North America" to="United Arab Emirates" minimumRtt="291.45" averageRtt="319.77" delayVariation="7.5" packetLoss="0.11"/>
+    <SummaryReport from="North America" to="Balkans" minimumRtt="192.66" averageRtt="201.04" delayVariation="1.43" packetLoss="0.8"/>
+    <SummaryReport from="North America" to="Mali" minimumRtt="248.69" averageRtt="335.24" delayVariation="5.38" packetLoss="3.73"/>
+    <SummaryReport from="North America" to="Cuba" minimumRtt="603.24" averageRtt="611.02" delayVariation="2.46" packetLoss="0.2"/>
+    <SummaryReport from="North America" to="Paraguay" minimumRtt="243.01" averageRtt="252.23" delayVariation="2.37" packetLoss="1.66"/>
+    <SummaryReport from="North America" to="Mongolia" minimumRtt="220.9" averageRtt="297.01" delayVariation="12.74" packetLoss="3.44"/>
+    <SummaryReport from="North America" to="Russia" minimumRtt="223.7" averageRtt="236.86" delayVariation="2.53" packetLoss="2.6"/>
+    <SummaryReport from="North America" to="Cape Verde" minimumRtt="257.95" averageRtt="761.86" delayVariation="124.94" packetLoss="2.63"/>
+    <SummaryReport from="North America" to="Croatia" minimumRtt="176.6" averageRtt="179.58" delayVariation="0.58" packetLoss="0.51"/>
+    <SummaryReport from="North America" to="United States" minimumRtt="53.95" averageRtt="56.1" delayVariation="1.02" packetLoss="0.56"/>
+    <SummaryReport from="North America" to="Greece" minimumRtt="198.67" averageRtt="210.79" delayVariation="1.08" packetLoss="0.5"/>
+    <SummaryReport from="North America" to="Poland" minimumRtt="165.87" averageRtt="169.45" delayVariation="0.63" packetLoss="0.34"/>
+    <SummaryReport from="North America" to="Mauritania" minimumRtt="485.44" averageRtt="554.19" delayVariation="28.27" packetLoss="3.35"/>
+    <SummaryReport from="North America" to="Pakistan" minimumRtt="320.0" averageRtt="368.15" delayVariation="18.28" packetLoss="1.08"/>
+    <SummaryReport from="North America" to="Chile" minimumRtt="173.95" averageRtt="201.87" delayVariation="3.35" packetLoss="0.85"/>
+    <SummaryReport from="North America" to="Bolivia" minimumRtt="227.17" averageRtt="369.29" delayVariation="10.11" packetLoss="1.16"/>
+    <SummaryReport from="North America" to="Panama" minimumRtt="106.66" averageRtt="109.29" delayVariation="1.96" packetLoss="0.1"/>
+    <SummaryReport from="North America" to="Italy" minimumRtt="170.51" averageRtt="173.73" delayVariation="1.09" packetLoss="6.2"/>
+    <SummaryReport from="North America" to="Malawi" minimumRtt="714.67" averageRtt="809.99" delayVariation="48.17" packetLoss="9.19"/>
+    <SummaryReport from="North America" to="Kazakhstan" minimumRtt="363.13" averageRtt="640.29" delayVariation="39.83" packetLoss="2.23"/>
+    <SummaryReport from="North America" to="Morocco" minimumRtt="219.73" averageRtt="264.54" delayVariation="12.09" packetLoss="0.44"/>
+    <SummaryReport from="North America" to="Brunei Darussalam" minimumRtt="216.75" averageRtt="244.43" delayVariation="16.53" packetLoss="1.16"/>
+    <SummaryReport from="North America" to="Lithuania" minimumRtt="197.62" averageRtt="200.44" delayVariation="0.22" packetLoss="0.31"/>
+    <SummaryReport from="North America" to="Latin America" minimumRtt="193.7" averageRtt="243.23" delayVariation="10.78" packetLoss="0.72"/>
+    <SummaryReport from="North America" to="Saudi Arabia" minimumRtt="256.03" averageRtt="297.86" delayVariation="8.12" packetLoss="0.49"/>
+    <SummaryReport from="North America" to="Slovenia" minimumRtt="185.71" averageRtt="188.67" delayVariation="0.97" packetLoss="0.27"/>
+    <SummaryReport from="North America" to="Sri Lanka" minimumRtt="291.93" averageRtt="382.8" delayVariation="15.49" packetLoss="0.83"/>
+    <SummaryReport from="North America" to="Argentina" minimumRtt="193.49" averageRtt="324.06" delayVariation="38.83" packetLoss="0.9"/>
+    <SummaryReport from="North America" to="Nigeria" minimumRtt="690.95" averageRtt="805.49" delayVariation="40.99" packetLoss="5.62"/>
+    <SummaryReport from="North America" to="Maldives" minimumRtt="306.13" averageRtt="388.39" delayVariation="27.66" packetLoss="0.45"/>
+    <SummaryReport from="North America" to="China" minimumRtt="244.99" averageRtt="286.37" delayVariation="0.95" packetLoss="2.46"/>
+    <SummaryReport from="North America" to="Rwanda" minimumRtt="655.45" averageRtt="1107.94" delayVariation="39.52" packetLoss="7.05"/>
+    <SummaryReport from="North America" to="Japan" minimumRtt="151.18" averageRtt="153.16" delayVariation="1.24" packetLoss="0.02"/>
+    <SummaryReport from="North America" to="Uzbekistan" minimumRtt="522.28" averageRtt="537.65" delayVariation="10.38" packetLoss="1.92"/>
+    <SummaryReport from="North America" to="Lebanon" minimumRtt="223.93" averageRtt="263.17" delayVariation="16.33" packetLoss="0.29"/>
+    <SummaryReport from="United States" to="Germany" minimumRtt="154.6" averageRtt="157.54" delayVariation="0.8" packetLoss="0.32"/>
+    <SummaryReport from="United States" to="French Polynesia" minimumRtt="590.59" averageRtt="600.35" delayVariation="3.13" packetLoss="0.6"/>
+    <SummaryReport from="United States" to="Sudan" minimumRtt="286.27" averageRtt="475.98" delayVariation="24.57" packetLoss="2.71"/>
+    <SummaryReport from="United States" to="France" minimumRtt="167.32" averageRtt="169.87" delayVariation="0.44" packetLoss="0.26"/>
+    <SummaryReport from="United States" to="Uruguay" minimumRtt="185.83" averageRtt="232.5" delayVariation="1.46" packetLoss="0.61"/>
+    <SummaryReport from="United States" to="Ecuador" minimumRtt="173.2" averageRtt="203.83" delayVariation="13.88" packetLoss="0.25"/>
+    <SummaryReport from="United States" to="Australia" minimumRtt="199.87" averageRtt="205.46" delayVariation="0.68" packetLoss="0.42"/>
+    <SummaryReport from="United States" to="Kenya" minimumRtt="703.15" averageRtt="853.74" delayVariation="29.98" packetLoss="15.35"/>
+    <SummaryReport from="United States" to="Tunisia" minimumRtt="188.65" averageRtt="192.79" delayVariation="0.65" packetLoss="0.18"/>
+    <SummaryReport from="United States" to="Philippines" minimumRtt="244.22" averageRtt="322.13" delayVariation="69.89" packetLoss="3.4"/>
+    <SummaryReport from="United States" to="Central Asia" minimumRtt="391.51" averageRtt="516.0" delayVariation="21.7" packetLoss="2.06"/>
+    <SummaryReport from="United States" to="Turkmenistan" minimumRtt="434.42" averageRtt="561.32" delayVariation="46.92" packetLoss="1.85"/>
+    <SummaryReport from="United States" to="Lesotho" minimumRtt="355.23" averageRtt="578.08" delayVariation="84.68" packetLoss="3.13"/>
+    <SummaryReport from="United States" to="Turkey" minimumRtt="240.73" averageRtt="255.35" delayVariation="1.97" packetLoss="1.03"/>
+    <SummaryReport from="United States" to="Honduras" minimumRtt="112.66" averageRtt="118.33" delayVariation="2.26" packetLoss="0.31"/>
+    <SummaryReport from="United States" to="Zimbabwe" minimumRtt="626.94" averageRtt="703.92" delayVariation="22.54" packetLoss="7.91"/>
+    <SummaryReport from="United States" to="Senegal" minimumRtt="249.31" averageRtt="284.31" delayVariation="3.16" packetLoss="0.17"/>
+    <SummaryReport from="United States" to="Israel" minimumRtt="216.55" averageRtt="227.49" delayVariation="1.02" packetLoss="0.59"/>
+    <SummaryReport from="United States" to="India" minimumRtt="285.53" averageRtt="309.88" delayVariation="8.77" packetLoss="1.91"/>
+    <SummaryReport from="United States" to="Guatemala" minimumRtt="125.89" averageRtt="152.02" delayVariation="10.98" packetLoss="1.05"/>
+    <SummaryReport from="United States" to="Taiwan" minimumRtt="182.34" averageRtt="185.93" delayVariation="0.22" packetLoss="0.08"/>
+    <SummaryReport from="United States" to="Mexico" minimumRtt="81.31" averageRtt="86.6" delayVariation="2.1" packetLoss="0.26"/>
+    <SummaryReport from="United States" to="Spain" minimumRtt="193.72" averageRtt="200.11" delayVariation="5.81" packetLoss="0.59"/>
+    <SummaryReport from="United States" to="Thailand" minimumRtt="246.36" averageRtt="271.67" delayVariation="4.76" packetLoss="2.27"/>
+    <SummaryReport from="United States" to="Afghanistan" minimumRtt="707.32" averageRtt="744.63" delayVariation="7.06" packetLoss="1.02"/>
+    <SummaryReport from="United States" to="Angola" minimumRtt="416.46" averageRtt="550.61" delayVariation="24.92" packetLoss="7.01"/>
+    <SummaryReport from="United States" to="Gabon" minimumRtt="296.6" averageRtt="339.14" delayVariation="10.87" packetLoss="5.66"/>
+    <SummaryReport from="United States" to="Africa" minimumRtt="409.32" averageRtt="547.08" delayVariation="32.49" packetLoss="4.03"/>
+    <SummaryReport from="United States" to="Mozambique" minimumRtt="332.72" averageRtt="378.72" delayVariation="17.79" packetLoss="3.96"/>
+    <SummaryReport from="United States" to="Uganda" minimumRtt="733.51" averageRtt="820.46" delayVariation="19.72" packetLoss="5.02"/>
+    <SummaryReport from="United States" to="Ethiopia" minimumRtt="509.06" averageRtt="889.33" delayVariation="45.49" packetLoss="9.26"/>
+    <SummaryReport from="United States" to="Papua New Guinea" minimumRtt="408.52" averageRtt="434.09" delayVariation="7.7" packetLoss="4.3"/>
+    <SummaryReport from="United States" to="Ireland" minimumRtt="174.76" averageRtt="177.87" delayVariation="0.51" packetLoss="0.43"/>
+    <SummaryReport from="United States" to="Singapore" minimumRtt="218.41" averageRtt="225.33" delayVariation="2.45" packetLoss="0.02"/>
+    <SummaryReport from="United States" to="Macedonia" minimumRtt="205.92" averageRtt="213.67" delayVariation="1.51" packetLoss="0.76"/>
+    <SummaryReport from="United States" to="Brazil" minimumRtt="232.07" averageRtt="260.42" delayVariation="4.82" packetLoss="0.55"/>
+    <SummaryReport from="United States" to="Costa Rica" minimumRtt="156.17" averageRtt="189.49" delayVariation="12.56" packetLoss="0.75"/>
+    <SummaryReport from="United States" to="Cote d'Ivoire" minimumRtt="314.73" averageRtt="751.01" delayVariation="100.64" packetLoss="6.78"/>
+    <SummaryReport from="United States" to="Canada" minimumRtt="67.48" averageRtt="68.78" delayVariation="0.34" packetLoss="0.04"/>
+    <SummaryReport from="United States" to="Europe" minimumRtt="166.85" averageRtt="171.23" delayVariation="1.26" packetLoss="0.94"/>
+    <SummaryReport from="United States" to="Belarus" minimumRtt="203.35" averageRtt="205.36" delayVariation="0.87" packetLoss="0.53"/>
+    <SummaryReport from="United States" to="Togo" minimumRtt="279.23" averageRtt="366.26" delayVariation="36.18" packetLoss="3.47"/>
+    <SummaryReport from="United States" to="Jordan" minimumRtt="220.18" averageRtt="272.23" delayVariation="7.88" packetLoss="1.1"/>
+    <SummaryReport from="United States" to="Libya Arab Jamahiriya" minimumRtt="213.43" averageRtt="217.31" delayVariation="0.43" packetLoss="0.15"/>
+    <SummaryReport from="United States" to="Colombia" minimumRtt="158.3" averageRtt="166.08" delayVariation="2.76" packetLoss="0.24"/>
+    <SummaryReport from="United States" to="Nepal" minimumRtt="503.05" averageRtt="618.57" delayVariation="27.17" packetLoss="2.29"/>
+    <SummaryReport from="United States" to="Armenia" minimumRtt="409.0" averageRtt="433.3" delayVariation="6.05" packetLoss="1.7"/>
+    <SummaryReport from="United States" to="Switzerland" minimumRtt="159.34" averageRtt="160.59" delayVariation="0.3" packetLoss="0.04"/>
+    <SummaryReport from="United States" to="Netherlands" minimumRtt="137.02" averageRtt="138.45" delayVariation="0.5" packetLoss="0.08"/>
+    <SummaryReport from="United States" to="Norway" minimumRtt="179.78" averageRtt="183.69" delayVariation="1.96" packetLoss="0.16"/>
+    <SummaryReport from="United States" to="S.E. Asia" minimumRtt="223.73" averageRtt="254.61" delayVariation="14.37" packetLoss="1.46"/>
+    <SummaryReport from="United States" to="Cameroon" minimumRtt="264.49" averageRtt="278.31" delayVariation="5.04" packetLoss="2.3"/>
+    <SummaryReport from="United States" to="Finland" minimumRtt="190.64" averageRtt="195.23" delayVariation="2.06" packetLoss="0.24"/>
+    <SummaryReport from="United States" to="United Kingdom" minimumRtt="147.21" averageRtt="152.53" delayVariation="1.32" packetLoss="0.42"/>
+    <SummaryReport from="United States" to="Slovakia" minimumRtt="160.68" averageRtt="162.44" delayVariation="0.23" packetLoss="0.23"/>
+    <SummaryReport from="United States" to="Benin" minimumRtt="255.8" averageRtt="330.63" delayVariation="23.94" packetLoss="1.03"/>
+    <SummaryReport from="United States" to="Malta" minimumRtt="208.94" averageRtt="211.05" delayVariation="0.37" packetLoss="1.2"/>
+    <SummaryReport from="United States" to="Romania" minimumRtt="194.42" averageRtt="202.41" delayVariation="2.17" packetLoss="0.32"/>
+    <SummaryReport from="United States" to="Niger" minimumRtt="693.05" averageRtt="973.15" delayVariation="104.35" packetLoss="5.9"/>
+    <SummaryReport from="United States" to="Bhutan" minimumRtt="692.15" averageRtt="732.17" delayVariation="13.75" packetLoss="1.36"/>
+    <SummaryReport from="United States" to="South Asia" minimumRtt="342.67" averageRtt="401.46" delayVariation="17.13" packetLoss="1.39"/>
+    <SummaryReport from="United States" to="Madagascar" minimumRtt="739.1" averageRtt="1178.76" delayVariation="79.98" packetLoss="7.37"/>
+    <SummaryReport from="United States" to="Bangladesh" minimumRtt="392.56" averageRtt="507.31" delayVariation="38.93" packetLoss="1.69"/>
+    <SummaryReport from="United States" to="Malaysia" minimumRtt="205.27" averageRtt="285.81" delayVariation="12.55" packetLoss="0.67"/>
+    <SummaryReport from="United States" to="Korea, Rep" minimumRtt="168.07" averageRtt="191.69" delayVariation="3.69" packetLoss="0.37"/>
+    <SummaryReport from="United States" to="Middle East" minimumRtt="243.25" averageRtt="282.24" delayVariation="10.56" packetLoss="0.9"/>
+    <SummaryReport from="United States" to="Indonesia" minimumRtt="199.88" averageRtt="215.5" delayVariation="8.12" packetLoss="0.92"/>
+    <SummaryReport from="United States" to="Botswana" minimumRtt="503.44" averageRtt="632.25" delayVariation="34.05" packetLoss="1.05"/>
+    <SummaryReport from="United States" to="Burundi" minimumRtt="609.43" averageRtt="897.94" delayVariation="136.27" packetLoss="3.1"/>
+    <SummaryReport from="United States" to="Congo, Dem Rep" minimumRtt="717.64" averageRtt="805.16" delayVariation="46.04" packetLoss="2.01"/>
+    <SummaryReport from="United States" to="Palestine" minimumRtt="222.52" averageRtt="282.14" delayVariation="19.61" packetLoss="1.04"/>
+    <SummaryReport from="United States" to="South Africa" minimumRtt="380.88" averageRtt="493.44" delayVariation="32.23" packetLoss="1.53"/>
+    <SummaryReport from="United States" to="Albania" minimumRtt="208.74" averageRtt="228.45" delayVariation="7.3" packetLoss="5.61"/>
+    <SummaryReport from="United States" to="New Zealand" minimumRtt="187.58" averageRtt="190.61" delayVariation="0.63" packetLoss="0.02"/>
+    <SummaryReport from="United States" to="Iceland" minimumRtt="182.75" averageRtt="186.42" delayVariation="1.2" packetLoss="0.23"/>
+    <SummaryReport from="United States" to="Georgia" minimumRtt="456.13" averageRtt="499.16" delayVariation="6.87" packetLoss="1.57"/>
+    <SummaryReport from="United States" to="Namibia" minimumRtt="401.52" averageRtt="572.66" delayVariation="39.13" packetLoss="3.34"/>
+    <SummaryReport from="United States" to="North America" minimumRtt="53.81" averageRtt="55.86" delayVariation="0.95" packetLoss="0.45"/>
+    <SummaryReport from="United States" to="Eritrea" minimumRtt="690.59" averageRtt="889.82" delayVariation="65.45" packetLoss="21.61"/>
+    <SummaryReport from="United States" to="Hungary" minimumRtt="163.66" averageRtt="166.36" delayVariation="0.59" packetLoss="0.27"/>
+    <SummaryReport from="United States" to="Portugal" minimumRtt="177.47" averageRtt="181.12" delayVariation="0.79" packetLoss="0.21"/>
+    <SummaryReport from="United States" to="Tanzania" minimumRtt="701.75" averageRtt="1025.44" delayVariation="58.48" packetLoss="4.01"/>
+    <SummaryReport from="United States" to="Vietnam" minimumRtt="203.29" averageRtt="229.93" delayVariation="11.04" packetLoss="1.65"/>
+    <SummaryReport from="United States" to="Ghana" minimumRtt="265.83" averageRtt="292.56" delayVariation="8.23" packetLoss="1.17"/>
+    <SummaryReport from="United States" to="Ukraine" minimumRtt="188.88" averageRtt="217.16" delayVariation="7.23" packetLoss="0.55"/>
+    <SummaryReport from="United States" to="Egypt" minimumRtt="211.49" averageRtt="223.7" delayVariation="1.91" packetLoss="0.39"/>
+    <SummaryReport from="United States" to="Iran" minimumRtt="496.99" averageRtt="560.2" delayVariation="12.59" packetLoss="2.28"/>
+    <SummaryReport from="United States" to="El Salvador" minimumRtt="133.63" averageRtt="163.91" delayVariation="11.7" packetLoss="0.95"/>
+    <SummaryReport from="United States" to="Denmark" minimumRtt="154.76" averageRtt="156.86" delayVariation="0.61" packetLoss="0.14"/>
+    <SummaryReport from="United States" to="Estonia" minimumRtt="172.27" averageRtt="174.71" delayVariation="0.66" packetLoss="0.11"/>
+    <SummaryReport from="United States" to="Oman" minimumRtt="358.09" averageRtt="373.23" delayVariation="10.84" packetLoss="2.08"/>
+    <SummaryReport from="United States" to="Venezuela" minimumRtt="129.56" averageRtt="142.63" delayVariation="2.84" packetLoss="0.53"/>
+    <SummaryReport from="United States" to="Oceania" minimumRtt="229.64" averageRtt="236.38" delayVariation="1.33" packetLoss="0.64"/>
+    <SummaryReport from="United States" to="Algeria" minimumRtt="210.92" averageRtt="248.62" delayVariation="24.21" packetLoss="1.72"/>
+    <SummaryReport from="United States" to="Serbia and Montenegro" minimumRtt="185.81" averageRtt="189.32" delayVariation="1.12" packetLoss="0.3"/>
+    <SummaryReport from="United States" to="East Asia" minimumRtt="184.16" averageRtt="201.23" delayVariation="1.44" packetLoss="0.81"/>
+    <SummaryReport from="United States" to="Cyprus" minimumRtt="232.89" averageRtt="243.02" delayVariation="2.09" packetLoss="0.84"/>
+    <SummaryReport from="United States" to="United Arab Emirates" minimumRtt="291.45" averageRtt="319.77" delayVariation="7.5" packetLoss="0.11"/>
+    <SummaryReport from="United States" to="Balkans" minimumRtt="193.94" averageRtt="202.15" delayVariation="1.45" packetLoss="0.87"/>
+    <SummaryReport from="United States" to="Mali" minimumRtt="248.69" averageRtt="335.24" delayVariation="5.38" packetLoss="3.73"/>
+    <SummaryReport from="United States" to="Cuba" minimumRtt="603.24" averageRtt="611.02" delayVariation="2.46" packetLoss="0.2"/>
+    <SummaryReport from="United States" to="Paraguay" minimumRtt="243.01" averageRtt="252.23" delayVariation="2.37" packetLoss="1.66"/>
+    <SummaryReport from="United States" to="Mongolia" minimumRtt="220.9" averageRtt="297.01" delayVariation="12.74" packetLoss="3.44"/>
+    <SummaryReport from="United States" to="Russia" minimumRtt="224.11" averageRtt="237.99" delayVariation="2.66" packetLoss="2.54"/>
+    <SummaryReport from="United States" to="Cape Verde" minimumRtt="257.95" averageRtt="761.86" delayVariation="124.94" packetLoss="2.63"/>
+    <SummaryReport from="United States" to="Croatia" minimumRtt="176.26" averageRtt="179.44" delayVariation="0.67" packetLoss="0.59"/>
+    <SummaryReport from="United States" to="Greece" minimumRtt="201.97" averageRtt="213.74" delayVariation="0.92" packetLoss="0.55"/>
+    <SummaryReport from="United States" to="United States" minimumRtt="52.46" averageRtt="54.58" delayVariation="1.0" packetLoss="0.49"/>
+    <SummaryReport from="United States" to="Poland" minimumRtt="165.87" averageRtt="169.45" delayVariation="0.63" packetLoss="0.34"/>
+    <SummaryReport from="United States" to="Mauritania" minimumRtt="485.44" averageRtt="554.19" delayVariation="28.27" packetLoss="3.35"/>
+    <SummaryReport from="United States" to="Pakistan" minimumRtt="319.31" averageRtt="369.41" delayVariation="18.54" packetLoss="1.12"/>
+    <SummaryReport from="United States" to="Chile" minimumRtt="171.23" averageRtt="202.92" delayVariation="3.41" packetLoss="0.73"/>
+    <SummaryReport from="United States" to="Bolivia" minimumRtt="222.16" averageRtt="369.15" delayVariation="10.8" packetLoss="0.82"/>
+    <SummaryReport from="United States" to="Panama" minimumRtt="106.66" averageRtt="109.29" delayVariation="1.96" packetLoss="0.1"/>
+    <SummaryReport from="United States" to="Italy" minimumRtt="172.51" averageRtt="175.69" delayVariation="1.07" packetLoss="5.51"/>
+    <SummaryReport from="United States" to="Malawi" minimumRtt="714.67" averageRtt="809.99" delayVariation="48.17" packetLoss="9.19"/>
+    <SummaryReport from="United States" to="Kazakhstan" minimumRtt="363.13" averageRtt="640.29" delayVariation="39.83" packetLoss="2.23"/>
+    <SummaryReport from="United States" to="Morocco" minimumRtt="219.73" averageRtt="264.54" delayVariation="12.09" packetLoss="0.44"/>
+    <SummaryReport from="United States" to="Brunei Darussalam" minimumRtt="216.75" averageRtt="244.43" delayVariation="16.53" packetLoss="1.16"/>
+    <SummaryReport from="United States" to="Lithuania" minimumRtt="197.62" averageRtt="200.44" delayVariation="0.22" packetLoss="0.31"/>
+    <SummaryReport from="United States" to="Latin America" minimumRtt="192.46" averageRtt="240.65" delayVariation="10.33" packetLoss="0.68"/>
+    <SummaryReport from="United States" to="Saudi Arabia" minimumRtt="256.03" averageRtt="297.86" delayVariation="8.12" packetLoss="0.49"/>
+    <SummaryReport from="United States" to="Slovenia" minimumRtt="185.71" averageRtt="188.67" delayVariation="0.97" packetLoss="0.27"/>
+    <SummaryReport from="United States" to="Sri Lanka" minimumRtt="291.19" averageRtt="392.9" delayVariation="17.07" packetLoss="0.89"/>
+    <SummaryReport from="United States" to="Argentina" minimumRtt="185.66" averageRtt="313.23" delayVariation="36.89" packetLoss="0.88"/>
+    <SummaryReport from="United States" to="Nigeria" minimumRtt="690.95" averageRtt="805.49" delayVariation="40.99" packetLoss="5.62"/>
+    <SummaryReport from="United States" to="Maldives" minimumRtt="306.13" averageRtt="388.39" delayVariation="27.66" packetLoss="0.45"/>
+    <SummaryReport from="United States" to="China" minimumRtt="243.56" averageRtt="287.49" delayVariation="0.98" packetLoss="2.65"/>
+    <SummaryReport from="United States" to="Rwanda" minimumRtt="655.45" averageRtt="1107.94" delayVariation="39.52" packetLoss="7.05"/>
+    <SummaryReport from="United States" to="Japan" minimumRtt="147.81" averageRtt="149.72" delayVariation="1.28" packetLoss="0.02"/>
+    <SummaryReport from="United States" to="Uzbekistan" minimumRtt="522.28" averageRtt="537.65" delayVariation="10.38" packetLoss="1.92"/>
+    <SummaryReport from="United States" to="Lebanon" minimumRtt="223.93" averageRtt="263.17" delayVariation="16.33" packetLoss="0.29"/> 
+ </PingErLookup>
+  
+  <CountryLookup>
+    <CountryKey code="PE" countryGeoIP="Peru" countryPingEr="Peru" regionPingEr="Latin America"/>
+    <CountryKey code="KE" countryGeoIP="Kenya" countryPingEr="Kenya" regionPingEr="Africa"/>
+    <CountryKey code="MZ" countryGeoIP="Mozambique" countryPingEr="Mozambique" regionPingEr="Africa"/>
+    <CountryKey code="VE" countryGeoIP="Venezuela" countryPingEr="Venezuela" regionPingEr="Latin America"/>
+    <CountryKey code="TR" countryGeoIP="Turkey" countryPingEr="Turkey" regionPingEr="Middle East"/>
+    <CountryKey code="DE" countryGeoIP="Germany" countryPingEr="Germany" regionPingEr="Europe"/>
+    <CountryKey code="DZ" countryGeoIP="Algeria" countryPingEr="Algeria" regionPingEr="Africa"/>
+    <CountryKey code="GR" countryGeoIP="Greece" countryPingEr="Greece" regionPingEr="Balkans"/>
+    <CountryKey code="TJ" countryGeoIP="Tajikistan" countryPingEr="Tajikistan" regionPingEr="Central Asia"/>
+    <CountryKey code="NG" countryGeoIP="Nigeria" countryPingEr="Nigeria" regionPingEr="Africa"/>
+    <CountryKey code="TM" countryGeoIP="Turkmenistan" countryPingEr="Turkmenistan" regionPingEr="Central Asia"/>
+    <CountryKey code="AU" countryGeoIP="Australia" countryPingEr="Australia" regionPingEr="Oceania"/>
+    <CountryKey code="UY" countryGeoIP="Uruguay" countryPingEr="Uruguay" regionPingEr="Latin America"/>
+    <CountryKey code="SI" countryGeoIP="Slovenia" countryPingEr="Slovenia" regionPingEr="Balkans"/>
+    <CountryKey code="SN" countryGeoIP="Senegal" countryPingEr="Senegal" regionPingEr="Africa"/>
+    <CountryKey code="GH" countryGeoIP="Ghana" countryPingEr="Ghana" regionPingEr="Africa"/>
+    <CountryKey code="CZ" countryGeoIP="Czech Republic" countryPingEr="Czech Republic" regionPingEr="Europe"/>
+    <CountryKey code="MG" countryGeoIP="Madagascar" countryPingEr="Madagascar" regionPingEr="Africa"/>
+    <CountryKey code="AM" countryGeoIP="Armenia" countryPingEr="Armenia" regionPingEr="Central Asia"/>
+    <CountryKey code="UZ" countryGeoIP="Uzbekistan" countryPingEr="Uzbekistan" regionPingEr="Central Asia"/>
+    <CountryKey code="GB" countryGeoIP="United Kingdom" countryPingEr="United Kingdom" regionPingEr="Europe"/>
+    <CountryKey code="LT" countryGeoIP="Lithuania" countryPingEr="Lithuania" regionPingEr="Europe"/>
+    <CountryKey code="FI" countryGeoIP="Finland" countryPingEr="Finland" regionPingEr="Europe"/>
+    <CountryKey code="HU" countryGeoIP="Hungary" countryPingEr="Hungary" regionPingEr="Europe"/>
+    <CountryKey code="MY" countryGeoIP="Malaysia" countryPingEr="Malaysia" regionPingEr="S.E. Asia"/>
+    <CountryKey code="SV" countryGeoIP="El Salvador" countryPingEr="El Salvador" regionPingEr="Latin America"/>
+    <CountryKey code="EC" countryGeoIP="Ecuador" countryPingEr="Ecuador" regionPingEr="Latin America"/>
+    <CountryKey code="GE" countryGeoIP="Georgia" countryPingEr="Georgia" regionPingEr="Central Asia"/>
+    <CountryKey code="MX" countryGeoIP="Mexico" countryPingEr="Mexico" regionPingEr="Latin America"/>
+    <CountryKey code="MK" countryGeoIP="Macedonia" countryPingEr="Macedonia" regionPingEr="Balkans"/>
+    <CountryKey code="IT" countryGeoIP="Italy" countryPingEr="Italy" regionPingEr="Europe"/>
+    <CountryKey code="BR" countryGeoIP="Brazil" countryPingEr="Brazil" regionPingEr="Latin America"/>
+    <CountryKey code="BI" countryGeoIP="Burundi" countryPingEr="Burundi" regionPingEr="Africa"/>
+    <CountryKey code="LB" countryGeoIP="Lebanon" countryPingEr="Lebanon" regionPingEr="Middle East"/>
+    <CountryKey code="CY" countryGeoIP="Cyprus" countryPingEr="Cyprus" regionPingEr="Middle East"/>
+    <CountryKey code="US" countryGeoIP="United States" countryPingEr="United States" regionPingEr="North America"/>
+    <CountryKey code="EG" countryGeoIP="Egypt" countryPingEr="Egypt" regionPingEr="Africa"/>
+    <CountryKey code="CR" countryGeoIP="Costa Rica" countryPingEr="Costa Rica" regionPingEr="Latin America"/>
+    <CountryKey code="UG" countryGeoIP="Uganda" countryPingEr="Uganda" regionPingEr="Africa"/>
+    <CountryKey code="CH" countryGeoIP="Switzerland" countryPingEr="Switzerland" regionPingEr="Europe"/>
+    <CountryKey code="BO" countryGeoIP="Bolivia" countryPingEr="Bolivia" regionPingEr="Latin America"/>
+    <CountryKey code="ZW" countryGeoIP="Zimbabwe" countryPingEr="Zimbabwe" regionPingEr="Africa"/>
+    <CountryKey code="RO" countryGeoIP="Romania" countryPingEr="Romania" regionPingEr="Balkans"/>
+    <CountryKey code="IL" countryGeoIP="Israel" countryPingEr="Israel" regionPingEr="Middle East"/>
+    <CountryKey code="TH" countryGeoIP="Thailand" countryPingEr="Thailand" regionPingEr="S.E. Asia"/>
+    <CountryKey code="MA" countryGeoIP="Morocco" countryPingEr="Morocco" regionPingEr="Africa"/>
+    <CountryKey code="JP" countryGeoIP="Japan" countryPingEr="Japan" regionPingEr="East Asia"/>
+    <CountryKey code="CN" countryGeoIP="China" countryPingEr="China" regionPingEr="East Asia"/>
+    <CountryKey code="NL" countryGeoIP="Netherlands" countryPingEr="Netherlands" regionPingEr="Europe"/>
+    <CountryKey code="DK" countryGeoIP="Denmark" countryPingEr="Denmark" regionPingEr="Europe"/>
+    <CountryKey code="BY" countryGeoIP="Belarus" countryPingEr="Belarus" regionPingEr="Europe"/>
+    <CountryKey code="HN" countryGeoIP="Honduras" countryPingEr="Honduras" regionPingEr="Latin America"/>
+    <CountryKey code="UA" countryGeoIP="Ukraine" countryPingEr="Ukraine" regionPingEr="Europe"/>
+    <CountryKey code="LS" countryGeoIP="Lesotho" countryPingEr="Lesotho" regionPingEr="Africa"/>
+    <CountryKey code="PL" countryGeoIP="Poland" countryPingEr="Poland" regionPingEr="Europe"/>
+    <CountryKey code="EE" countryGeoIP="Estonia" countryPingEr="Estonia" regionPingEr="Europe"/>
+    <CountryKey code="CL" countryGeoIP="Chile" countryPingEr="Chile" regionPingEr="Latin America"/>
+    <CountryKey code="ID" countryGeoIP="Indonesia" countryPingEr="Indonesia" regionPingEr="S.E. Asia"/>
+    <CountryKey code="CU" countryGeoIP="Cuba" countryPingEr="Cuba" regionPingEr="Latin America"/>
+    <CountryKey code="HR" countryGeoIP="Croatia" countryPingEr="Croatia" regionPingEr="Balkans"/>
+    <CountryKey code="FR" countryGeoIP="France" countryPingEr="France" regionPingEr="Europe"/>
+    <CountryKey code="IS" countryGeoIP="Iceland" countryPingEr="Iceland" regionPingEr="Europe"/>
+    <CountryKey code="NO" countryGeoIP="Norway" countryPingEr="Norway" regionPingEr="Europe"/>
+    <CountryKey code="IE" countryGeoIP="Ireland" countryPingEr="Ireland" regionPingEr="Europe"/>
+    <CountryKey code="ES" countryGeoIP="Spain" countryPingEr="Spain" regionPingEr="Europe"/>
+    <CountryKey code="AZ" countryGeoIP="Azerbaijan" countryPingEr="Azerbaijan" regionPingEr="Central Asia"/>
+    <CountryKey code="TW" countryGeoIP="Taiwan" countryPingEr="Taiwan" regionPingEr="East Asia"/>
+    <CountryKey code="PH" countryGeoIP="Philippines" countryPingEr="Philippines" regionPingEr="S.E. Asia"/>
+    <CountryKey code="IN" countryGeoIP="India" countryPingEr="India" regionPingEr="South Asia"/>
+    <CountryKey code="CA" countryGeoIP="Canada" countryPingEr="Canada" regionPingEr="North America"/>
+    <CountryKey code="ZA" countryGeoIP="South Africa" countryPingEr="South Africa" regionPingEr="Africa"/>
+    <CountryKey code="PA" countryGeoIP="Panama" countryPingEr="Panama" regionPingEr="Latin America"/>
+    <CountryKey code="PT" countryGeoIP="Portugal" countryPingEr="Portugal" regionPingEr="Europe"/>
+    <CountryKey code="AR" countryGeoIP="Argentina" countryPingEr="Argentina" regionPingEr="Latin America"/>
+    <CountryKey code="NI" countryGeoIP="Nicaragua" countryPingEr="Nicaragua" regionPingEr="Latin America"/>
+    <CountryKey code="VN" countryGeoIP="Vietnam" countryPingEr="Vietnam" regionPingEr="S.E. Asia"/>
+  </CountryLookup>
+</gnp>

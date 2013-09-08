@@ -1,0 +1,16 @@
+Ecuador 1m AbstractTreeApplication:init
+Ukraine 2m-5m CMonPeerOverlayNode:init
+Denmark 2m-5m CMonPeerOverlayNode:init
+Brazil 2m-5m CMonPeerOverlayNode:init
+Poland 2m-5m CMonPeerOverlayNode:init
+
+Ukraine 2m-5m FilesharingApplication:join
+Denmark 6m-20m FilesharingApplication:join
+Brazil 21m-30m FilesharingApplication:join
+Poland 31m-40m FilesharingApplication:join
+
+
+Poland 100m-120m FilesharingApplication:publishResourcesFromSet files2 20
+Brazil 100m-120m FilesharingApplication:publishResourcesFromSet files1 20
+Brazil 121m FilesharingApplication:lookupResourceFromSetPeriodically files2 10m
+Poland 121m FilesharingApplication:lookupResourceFromSetPeriodically files1 10m

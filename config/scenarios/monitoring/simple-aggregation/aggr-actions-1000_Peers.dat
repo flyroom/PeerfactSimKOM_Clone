@@ -1,0 +1,24 @@
+Ecuador 1m SimpleAggregationApp:join
+Ukraine 2m-5m SimpleAggregationApp:join
+Denmark 6m-20m SimpleAggregationApp:join
+Brazil 21m-30m SimpleAggregationApp:join
+Poland 31m-40m SimpleAggregationApp:join
+Malaysia 41m-50m SimpleAggregationApp:join
+France 51m-60m SimpleAggregationApp:join
+
+Ecuador 100m-120m SimpleAggregationApp:setLocalValueDist val1 dist1
+Ukraine 100m-120m SimpleAggregationApp:setLocalValueDist val1 dist1
+Denmark 100m-120m SimpleAggregationApp:setLocalValueDist val1 dist1
+Brazil 100m-120m SimpleAggregationApp:setLocalValueDist val1 dist1
+Poland 100m-120m SimpleAggregationApp:setLocalValueDist val1 dist1
+Malaysia 100m-120m SimpleAggregationApp:setLocalValueDist val1 dist1
+France 100m-120m SimpleAggregationApp:setLocalValueDist val1 dist1
+
+Ecuador 130m SimpleAggregationApp:dumpAggregationResult val1
+Ecuador 140m SimpleAggregationApp:dumpAggregationResult val1
+Ecuador 150m SimpleAggregationApp:dumpAggregationResult val1
+Ecuador 160m SimpleAggregationApp:dumpAggregationResult val1
+Ecuador 170m SimpleAggregationApp:dumpAggregationResult val1
+Ecuador 180m SimpleAggregationApp:dumpAggregationResult val1
+Ecuador 190m SimpleAggregationApp:dumpAggregationResult val1
+Ecuador 200m SimpleAggregationApp:dumpAggregationResult val1

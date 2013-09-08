@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ Simulation of a SkyNet, a tree-based monitoring solution
+		on top of Chord. Churn is enabled and two different churn models are
+		applied during the simulation</Description>
+	<Default>
+		<!-- General settings for the simulation -->
+		<Variable name="seed" value="176" />
+		<Variable name="size" value="1001" />
+		<Variable name="actions" value="config/monitoring/skyeye/skynetOnChord-actions.dat" />
+		<Variable name="skynetProperties" value="monitoring/skyeye/skynet.properties" />
+		<Variable name="end" value="120m" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+		<!-- Variable for enabling churn -->
+		<Variable name="churn" value="false" />
+
+		<!-- Variables for the settings of SkyNetBatchSimulation -->
+		<Variable name="protectFormerSimulations" value="false" />
+
+		<!--
+			Variables for the StatisticWriter to write training- or test-files
+		-->
+		<Variable name="training" value="true" />
+		<Variable name="append" value="false" />
+	</Default>
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$end">
+	</SimulatorCore>
+
+	<NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+		gnpFile="$gnpDataFile" PbaPeriod="1">
+		<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel"
+			usePingErRttData="false" usePingErJitter="false" usePingErPacketLoss="false" />
+		<BandwidthDetermination
+			class="org.peerfact.impl.network.bandwidthDetermination.RandomizedBandwidthDetermination"
+			maxDownBandwidth="1000000" />
+	</NetLayer>
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+	<Overlay class="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNodeFactory"
+		port="400" />
+
+	<SkyNet class="org.peerfact.impl.skynet.SkyNetNodeFactory"
+		port="500" simulationSize="$size">
+	</SkyNet>
+	<SkyNetPropertiesReader
+		class="org.peerfact.impl.skynet.SkyNetPropertiesReader" static="getInstance"
+		propertiesFile="$skynetProperties">
+	</SkyNetPropertiesReader>
+	<SkyNetBatchSimulator
+		class="org.peerfact.impl.skynet.SkyNetBatchSimulator" static="getInstance"
+		protectFormerSimulations="$protectFormerSimulations" churn="$churn"
+		simulationType="Chord" simulationSeed="$seed" simulationSize="$size"
+		simulationDuration="$end">
+	</SkyNetBatchSimulator>
+	<User />
+	<Monitor class="org.peerfact.impl.skynet.analyzing.SkyNetMonitor"
+		start="1m" stop="$end">
+		<Analyzer
+			class="org.peerfact.impl.skynet.analyzing.analyzers.NetLayerAnalyzer"
+			simulationSize="$size" />
+		<Analyzer
+			class="org.peerfact.impl.skynet.analyzing.analyzers.OPAnalyzer"
+			simulationSize="$size" />
+		<Analyzer
+			class="org.peerfact.impl.skynet.analyzing.analyzers.ChurnStatisticsAnalyzer"
+			simulationSize="$size">
+			<AnalyzerDelegator
+				class="org.peerfact.impl.skynet.overlay2SkyNet.Chord2AnalyzerDelegator" />
+		</Analyzer>
+	</Monitor>
+	<HostBuilder class="org.peerfact.impl.skynet.SkyNetHostBuilder"
+		experimentSize="$size">
+		<Host groupID="GlasgowCity">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<SkyNet />
+			<Properties enableChurn="false" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Host>
+
+		<!--First Group LatinAmerica max Groupsize = 6838 -->
+		<Group size="200" groupID="LatinAmerica">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+
+		<!--Second Group Germany max Groupsize = 2912 -->
+		<Group size="200" groupID="Germany">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+
+		<!--Third Group Florida max Groupsize = 4792 -->
+		<Group size="200" groupID="Florida">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+
+		<!--Fourth Group Japan max Groupsize = 4406 -->
+		<Group size="200" groupID="Japan">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+
+		<!--Fifth Group max Groupsize = 3784 -->
+		<Group size="200" groupID="NewYork">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<SkyNet />
+			<Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />
+		</Group>
+	</HostBuilder>
+	<StatisticWriter
+		class="org.peerfact.impl.skynet.analyzing.writers.StatisticWriter"
+		start="1m" stop="$end" training="$training" churn="$churn" append="$append" />
+	<QueryAnalyzer
+		class="org.peerfact.impl.skynet.analyzing.analyzers.QueryAnalyzer"
+		start="1m" stop="$end" simulationSize="$size" />
+	<ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator"
+		start="2m" stop="$end">
+		<ChurnModel class="org.peerfact.impl.churn.KadChurnModel" />
+	</ChurnGenerator>
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions" componentClass="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNode"
+		additionalClasses="org.peerfact.impl.skynet.components.SkyNetNode">
+		<!-- <ParamParser class="org.peerfact.impl.overlay.cd.DocumentParser" /> -->
+		<ParamParser
+			class="org.peerfact.impl.overlay.dht.centralized.OverlayKeyParser" />
+	</Scenario>
+</Configuration>

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NetLayer
+	class="org.peerfact.impl.network.modular.ModularNetLayerFactory"
+	useRegionGroups="true"
+	useInOrderDelivery="false"
+	preset="Fundamental">
+	<MeasurementDB
+		class="org.peerfact.impl.network.modular.db.NetMeasurementDB"
+		file="config/data/mod_measured_data.xml" />
+	<BandwidthDetermination
+		class="org.peerfact.impl.network.bandwidthdetermination.OECDReportBandwidthDetermination" />
+	<PacketSizing
+		class="org.peerfact.impl.network.modular.st.packetSizing.IPv4Header" />
+	<TrafficControl
+		class="org.peerfact.impl.network.modular.st.trafCtrl.BoundedTrafficQueue" />
+	<PLoss
+		class="org.peerfact.impl.network.modular.st.ploss.PingErPacketLoss" />
+	<Latency
+		class="org.peerfact.impl.network.modular.st.latency.GNPLatency" />
+	<Positioning
+		class="org.peerfact.impl.network.modular.st.positioning.GNPPositioning" />
+	<Fragmenting
+		class="org.peerfact.impl.network.modular.st.fragmenting.IPv4Fragmenting" />
+	<Jitter
+		class="org.peerfact.impl.network.modular.st.jitter.PingErJitter" />
+</NetLayer>

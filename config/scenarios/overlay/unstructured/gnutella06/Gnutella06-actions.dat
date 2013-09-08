@@ -1,0 +1,15 @@
+_ECHO 1s "Simulation Started - Join started"
+
+France 1s join callback
+Germany 2s-3s join callback
+World 3s-6s join callback
+Japan 7s-10s join callback
+Florida 10s-19s join callback
+#Group6 10s-20s join callback
+#Group7 10s-20s join callback
+#Group8 10s-20s join callback
+#Group9 20s-30s join callback
+#Group10 20s-30s join callback
+#Group11 20s-30s join callback
+#Group12 20s-30s join callback
+#Group13 20s-30s join callback

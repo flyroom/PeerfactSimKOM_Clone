@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Service
+	class="org.peerfact.impl.service.dhtstorage.past.PASTServiceFactory" 
+	numberOfReplicates="5"
+	maxNumberOfReplicates="10"
+	numberOfReplicationTries="1"
+	numberOfPingTries="3"
+	timeBetweenRootPings="5m"
+	dropFiles="false" />

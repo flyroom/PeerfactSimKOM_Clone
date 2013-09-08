@@ -1,0 +1,15 @@
+# Column meanings (format):
+# Host-Id(String) timepoint(long) opName(String) parameters(list of Strings?)
+LatinAmerica 1m-12m join callback
+Germany 13m-24m join callback
+Japan 25m-36m join callback
+Florida 37m-48m join callback
+NewYork 49m-60m join callback
+GlasgowCity 5m join callback
+
+#Predefined Query
+#GlasgowCity 30m SkyNetNode:startQuery 3_of_DownBandwidth_>_10000_Double,_CPU_>_1000_Integer_+_3_of_UpBandwidth_>_10000_Double,RAM_>_2000_Integer
+#GlasgowCity 15m SkyNetNode:startQuery 5_of_AvgOnline_>_1h_Time
+#GlasgowCity 30m SkyNetNode:startQuery 5_of_AvgOnline_>_1h_Time
+#GlasgowCity 60m SkyNetNode:startQuery 5_of_AvgOnline_>_1h_Time
+#GlasgowCity 90m SkyNetNode:startQuery 5_of_AvgOnline_>_1h_Time

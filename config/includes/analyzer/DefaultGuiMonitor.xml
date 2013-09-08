@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Monitor
+	class="org.peerfact.impl.common.DefaultMonitor"
+	start="$startTime"
+	stop="$finishTime">
+
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultChurnAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultConnectivityAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultDHTOverlayAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultKBROverlayAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultNetAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultOperationAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultTransAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultUnstructuredOverlayAnalyzer" />
+	
+	<Analyzer class="org.peerfact.impl.analyzer.MemoryUsageAnalyzer" interval="10s" />
+	<Analyzer class="org.peerfact.impl.analyzer.TimeUsageAnalyzer" interval="10s" />
+
+         <Analyzer class="org.peerfact.impl.analyzer.visualization2d.analyzer.VisAnalyzer" >
+         	<OverlayAdapter class="org.peerfact.impl.overlay.dht.chord.chord.vis.ChordAdapter"/>
+         </Analyzer>
+</Monitor>

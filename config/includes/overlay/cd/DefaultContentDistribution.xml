@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ContentDistribution class="org.peerfact.impl.overlay.contentdistribution.ContentDistributionFactory"
+	port="120">
+</ContentDistribution>

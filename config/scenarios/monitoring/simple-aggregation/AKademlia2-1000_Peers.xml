@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<Default>
+		<Variable name="seed" value="32" />
+		<Variable name="style" value="s" />
+		<Variable name="description" value="HX-20-v5-4h" />
+		<Variable name="size" value="100" />
+		<Variable name="churnStart" value="120m" />
+		<Variable name="measurementStart" value="180m" />
+		<Variable name="finishTime" value="300m" />
+		<Variable name="actions" value="config/scenarios/monitoring/simple-aggregation/aggr-actions-1000_Peers.dat" />
+		<Variable name="configPath" value="config/scenarios/application/filesharing2/kademlia.properties" />
+		<Variable name="NetLayer" value="Mod" />
+	</Default>
+
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime" />
+
+	<IfEqualStr arg0="$NetLayer" arg1="Mod">
+
+		<NetLayer
+			class="org.peerfact.impl.network.modular.ModularNetLayerFactory"
+			preset="Easy" useRegionGroups="false" useInOrderDelivery="true">
+			<BandwidthDetermination
+				class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+			<MeasurementDB
+				class="org.peerfact.impl.network.modular.db.NetMeasurementDB"
+				file="data/mod_measured_data.xml" />
+		</NetLayer>
+		
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="GNP">
+		<NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+			gnpFile="data/measured_data.xml">
+			<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel"
+				usePingErRttData="false" usePingErJitter="false" usePingErPacketLoss="true" />
+			<BandwidthManager
+				class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerPeriodical" />
+			<BandwidthDetermination
+				class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+		</NetLayer>
+		
+	</IfEqualStr>
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<KademliaSetup
+		class="org.peerfact.impl.overlay.dht.kademlia.base.KademliaSetup"
+		static="getInstance" configPath="$configPath">
+		<NodeFactory
+			class="org.peerfact.impl.overlay.dht.kademlia.kademlia.components.KademliaNodeFactory" />
+
+		<Monitor
+			class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.KademliaMonitor"
+			start="$measurementStart" stop="$finishTime">
+		 <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.HourlyTrafficAnalyzer" numberOfHosts="$size" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.DataLookupSuccessAnalyzer" outputFileDescr="datalookup" style="$style" description="$description" seed="$seed" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.KClosestNodesLookupSuccessAnalyzer" outputFileDescr="kclosestnodeslookup" style="$style" description="$description" seed="$seed" />
+         <Analyzer class="org.peerfact.impl.overlay.dht.kademlia.base.analyzer.KademliaOperationTrafficAnalyzer" outputFile="outputs/hoperationtraffic.txt"/>
+
+		</Monitor>
+	</KademliaSetup>
+
+	<AggregationService class="org.peerfact.impl.service.aggr.gossip.GossipingAggregationServiceFactory" port="4000"/>
+	<!--<AggregationService class="org.peerfact.impl.service.aggr.oracle.AggregationServiceOracleFactory"/>-->
+	
+	<Application class="org.peerfact.impl.application.simpleaggr.SimpleAggregationAppFactory" outputFile="simpleOut">
+	
+	 <Distribution class="org.peerfact.impl.application.simpleaggr.NamedDistribution" name="dist1">
+	 	<Value class="org.peerfact.impl.util.stats.distributions.PoissonDistribution" lambda="10d" />
+	 </Distribution>
+	 <Distribution class="org.peerfact.impl.application.simpleaggr.NamedDistribution" name="dist2">
+	 	<Value class="org.peerfact.impl.util.stats.distributions.ExponentialDistribution" mu="10d" />
+	 </Distribution>
+	 
+	 <!--<Distribution class="org.peerfact.impl.util.stat.distributions.LimitedNormalDistribution" mu="10d" sigma="2d" min="5" max="15" limitedMin="true" limitedMax="false"/>-->
+	 <!--<Distribution class="org.peerfact.impl.util.stat.distributions.LognormalDistribution" mu="10d" sigma="2d" />-->
+	 <!--<Distribution class="org.peerfact.impl.util.stat.distributions.MixedLogNormalDistribution" mu1="20d" mu2="10d" sigma1="2d" sigma2="2d" weight1="0.3" weight2="0.7" />-->
+	 <!--<Distribution class="org.peerfact.impl.util.stat.distributions.NormalDistribution" mu="10d" sigma="2d" />-->
+	 <!--<Distribution class="org.peerfact.impl.util.stats.distributions.PoissonDistribution" lambda="2" />-->
+	 <!--<Distribution class="org.peerfact.impl.util.stat.distributions.UniformDistribution" min="2" max="10" />-->
+	 <!--<Distribution class="org.peerfact.impl.util.stat.distributions.ZipfDistribution" maxNrOfRanks="10000" zipfExponent="0.7" />-->
+	</Application>
+
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+
+		<Group groupID="Ecuador" size="1">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <NodeFactory />
+		   <Application />
+		   <AggregationService />
+		</Group>
+
+		<Group groupID="Ukraine" size="3">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <NodeFactory />
+		   <Application />
+		   <AggregationService />
+		</Group>
+
+		<Group groupID="Denmark" size="6">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <NodeFactory />
+		   <Application />
+		   <AggregationService />
+		</Group>
+
+		<Group groupID="Brazil" size="22">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <NodeFactory />
+		   <Application />
+		   <AggregationService />
+		</Group>
+
+		<Group groupID="Poland" size="68">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <NodeFactory />
+		   <Application />
+		   <AggregationService />
+		</Group>
+		
+		<Group groupID="Malaysia" size="216">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <NodeFactory />
+		   <Application />
+		   <AggregationService />
+		</Group>
+
+		<Group groupID="France" size="684">
+		   <NetLayer/>
+		   <TransLayer/>
+		   <NodeFactory />
+		   <Application />
+		   <AggregationService />
+		</Group>
+
+		<!--
+			<Group groupID="Malaysia" size="216"> <NetLayer/> <TransLayer/>
+			<NodeFactory /> <FilesharingApplication /> </Group> <Group
+			groupID="France" size="684"> <NetLayer/> <TransLayer/> <NodeFactory
+			/> <FilesharingApplication /> </Group> <Group groupID="Germany"
+			size="2162"> <NetLayer/> <TransLayer/> <NodeFactory />
+			<FilesharingApplication /> </Group> <Group groupID="UnitedStates"
+			size="6838"> <NetLayer/> <TransLayer/> <NodeFactory />
+			<FilesharingApplication /> </Group>
+		-->
+
+
+	</HostBuilder>
+
+	<NodeFactory TriggerInitialRTBuild="" />
+
+	<!--
+	<ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator"
+		start="$churnStart" stop="$finishTime">
+		<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+			churnFactor="0.5" meanSessionLength="60m" />
+	</ChurnGenerator>
+    -->
+    
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions"
+		componentClass="org.peerfact.impl.overlay.dht.kademlia.base.components.AbstractKademliaNode"
+		additionalClasses="org.peerfact.impl.application.simpleaggr.SimpleAggregationApp;org.peerfact.api.service.aggr.IAggregationService" />
+</Configuration>

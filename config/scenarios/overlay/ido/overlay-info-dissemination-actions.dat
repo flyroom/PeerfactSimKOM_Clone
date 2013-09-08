@@ -1,0 +1,14 @@
+# players start the game with movement
+ExampleGroup 1m-3m startGame true
+ExampleGroup 5m-7m stopMovingPlayer
+ExampleGroup 8m startMovingPlayer
+
+# players leave the game with crash
+ExampleGroup 10m-15m leaveGame true
+
+# players start the game without movement
+ExampleGroup 16m-17m startGame false
+ExampleGroup 18m-20m startMovingPlayer
+
+# players leave the game without crash
+ExampleGroup 25m leaveGame false

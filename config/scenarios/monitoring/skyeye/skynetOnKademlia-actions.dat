@@ -1,0 +1,17 @@
+# Column meanings (format):
+# Host-Id(String) timepoint(long) opName(String) parameters(list of Strings?)
+LatinAmerica 1m-12m connect
+LatinAmerica 13m beginLookups
+Germany 1m-12m connect
+Germany 13m beginLookups
+Japan 1m-12m connect
+Japan 13m beginLookups
+Florida 1m-12m connect
+Florida 13m beginLookups
+NewYork 1m-12m connect
+NewYork 13m beginLookups
+GlasgowCity 5m connect
+GlasgowCity 5m beginLookups
+
+#Predefined Query
+GlasgowCity 17m SkyNetNode:startQuery 20_of_GroupID_=_Japan_String+5_of_UpBandwidth_>_1000_Double

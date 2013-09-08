@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Application
+	class="org.peerfact.impl.application.dhtlookupgenerator.DHTLookupGeneratorFactory">
+	<Distribution
+		class="org.peerfact.impl.util.stats.distributions.UniformDistribution"
+		min="30"
+		max="120" />
+</Application>

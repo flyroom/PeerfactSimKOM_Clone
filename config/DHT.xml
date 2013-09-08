@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration  xmlns:xi="http://www.w3.org/2001/XInclude">
+	
+	<!-- Variables -->
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="size" value="1000" />
+		<Variable name="startTime" value="0m" />
+		<Variable name="finishTime" value="300m" />
+		<Variable name="ChurnModel" value="" />
+		<Variable name="IsolationModel" value="" />
+		<Variable name="NetLayer" value="SIMPLE" />
+		<Variable name="Overlay" value="Chord" />
+		<Variable name="server" value="false" />
+		<Variable name="Application" value="DHTLookupGenerator" />
+		<Variable name="GUI" value="false" />
+	</Default>
+
+	
+	<!-- Description -->
+	<Description>
+Generic configuration with all possible DHT overlays with the following possible configurations:
+		
+ChurnModel: Exponential, Kad, Herrera, Static
+
+IsolationModel: Static
+		
+NetLayer: MOD, MOD-NoPacketLoss, GNP, SIMPLE, MOBILE
+		
+Overlay: Can, CentralizedIndex, CentralizedStorage, AdaptiveChord, CaReChord, Chord, EpiChord, MaliciousChord, ReChord, HKademlia, Kademlia, Kandy, Pastry, RTPPastry
+[server= true (for CentralizedStorage and CentralizedIndex)]
+		
+Application: DHTLookupGenerator, KBRLookupGenerator
+	</Description>
+
+
+	<!-- SimulatorCore -->
+	<xi:include href="includes/simengine/Simulator.xml" />
+
+	
+	<!-- NetLayer -->
+	<IfEqualStr arg0="$NetLayer" arg1="MOD">
+		<xi:include href="includes/network/ModularNetLayer.xml" />
+	</IfEqualStr>
+		
+	<IfEqualStr arg0="$NetLayer" arg1="MOD-NoPacketLoss">
+		<xi:include href="includes/network/ModularNetLayer-NoPacketLoss.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="GNP">
+		<xi:include href="includes/network/GnpNetLayer.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="SIMPLE">
+		<xi:include href="includes/network/SimpleNetLayer.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="MOBILE">
+		<xi:include href="includes/network/MobileNetLayer.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- TransLayer -->
+	<xi:include href="includes/transport/DefaultTransLayer.xml" />
+	
+	
+	<!-- Overlay -->
+	<IfEqualStr arg0="$Overlay" arg1="Can">
+		<xi:include href="includes/overlay/dht/can/CanNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="CentralizedIndex">
+		<xi:include href="includes/overlay/dht/centralizedIndex/centralizedIndexNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="CentralizedStorage">
+		<xi:include href="includes/overlay/dht/centralizedStorage/centralizedStorageNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="AdaptiveChord">
+		<xi:include href="includes/overlay/dht/chord/AdaptiveChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="CaReChord">
+		<xi:include href="includes/overlay/dht/chord/CaReChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Chord">
+		<xi:include href="includes/overlay/dht/chord/ChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="EpiChord">
+		<xi:include href="includes/overlay/dht/chord/EpiChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="MaliciousChord">
+		<xi:include href="includes/overlay/dht/chord/MaliciousChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="ReChord">
+		<xi:include href="includes/overlay/dht/chord/ReChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="HKademlia">
+		<xi:include href="includes/overlay/dht/kademlia/HKademliaNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Kademlia">
+		<xi:include href="includes/overlay/dht/kademlia/KademliaNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Kandy">
+		<xi:include href="includes/overlay/dht/kademlia/KandyNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Pastry">
+		<xi:include href="includes/overlay/dht/pastry/PastryNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="RTPPastry">
+		<xi:include href="includes/overlay/dht/pastry/RTPPastryNode.xml" />
+	</IfEqualStr>
+	
+			
+	<!-- Application -->
+	<IfEqualStr arg0="$Application" arg1="DHTLookupGenerator">
+		<xi:include href="includes/application/DHTLookupGenerator.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Application" arg1="KBRLookupGenerator">
+		<xi:include href="includes/application/KBRLookupGenerator.xml" />
+	</IfEqualStr>
+
+	
+	<!-- Monitor -->
+	<xi:include href="includes/analyzer/DefaultMonitor.xml" />
+	
+	
+	<!-- HostBuilder -->
+	
+	<!-- without isolation and without churn -->
+	<IfEqualStr arg0="$IsolationModel" arg1="">
+		<IfEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="false">
+				<xi:include href="includes/hosts/DefaultHostBuilder.xml" />
+			</IfEqualStr>
+		</IfEqualStr>
+	</IfEqualStr>
+			
+	<IfEqualStr arg0="$IsolationModel" arg1="">
+		<IfEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="true">
+				<xi:include href="includes/hosts/DefaultServerHostBuilder.xml" />
+			</IfEqualStr>
+		</IfEqualStr>
+	</IfEqualStr>
+	
+	<!-- without isolation and with churn -->
+	<IfEqualStr arg0="$IsolationModel" arg1="">
+		<IfNotEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="false">
+				<xi:include href="includes/hosts/DefaultHostBuilderWithChurn.xml" />
+			</IfEqualStr>
+		</IfNotEqualStr>
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$IsolationModel" arg1="">
+		<IfNotEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="true">
+				<xi:include href="includes/hosts/DefaultServerHostBuilderWithChurn.xml" />
+			</IfEqualStr>
+		</IfNotEqualStr>
+	</IfEqualStr>
+	
+	<!-- with isolation and without churn -->
+	<IfNotEqualStr arg0="$IsolationModel" arg1="">
+		<IfEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="false">
+				<xi:include href="includes/hosts/DefaultHostBuilderWithIsolation.xml" />
+			</IfEqualStr>
+		</IfEqualStr>
+	</IfNotEqualStr>
+	
+	<IfNotEqualStr arg0="$IsolationModel" arg1="">
+		<IfEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="true">
+				<xi:include href="includes/hosts/DefaultServerHostBuilderWithIsolation.xml" />
+			</IfEqualStr>
+		</IfEqualStr>
+	</IfNotEqualStr>
+	
+	<!-- with isolation and with churn -->
+	<IfNotEqualStr arg0="$IsolationModel" arg1="">
+		<IfNotEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="false">
+				<xi:include href="includes/hosts/DefaultHostBuilderWithIsolationWithChurn.xml" />
+			</IfEqualStr>
+		</IfNotEqualStr>
+	</IfNotEqualStr>
+	
+	<IfNotEqualStr arg0="$IsolationModel" arg1="">
+		<IfNotEqualStr arg0="$ChurnModel" arg1="">
+			<IfEqualStr arg0="$server" arg1="true">
+				<xi:include href="includes/hosts/DefaultServerHostBuilderWithIsolationWithChurn.xml" />
+			</IfEqualStr>
+		</IfNotEqualStr>
+	</IfNotEqualStr>
+	
+	
+	<!-- Oracle -->
+	<xi:include href="includes/util/GlobalOracle.xml" />
+	
+	
+	<!-- ChurnGenerator -->
+	<IfEqualStr arg0="$ChurnModel" arg1="Exponential">
+		<xi:include href="includes/churn/ExponentialChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Herrera">
+		<xi:include href="includes/churn/HerreraChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Kad">
+		<xi:include href="includes/churn/KadChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Static">
+		<xi:include href="includes/churn/StaticChurn.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- IsolationGenerator -->
+	<IfEqualStr arg0="$IsolationModel" arg1="Static">
+		<xi:include href="includes/isolation/StaticIsolation.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- Scenario -->
+	<IfEqualStr arg0="$Application" arg1="DHTLookupGenerator">
+		<IfEqualStr arg0="$server" arg1="false">
+			<xi:include href="includes/scenario/DHTLookupGenerator.xml" />
+		</IfEqualStr>
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Application" arg1="DHTLookupGenerator">
+		<IfEqualStr arg0="$server" arg1="true">
+			<xi:include href="includes/scenario/DHTLookupGeneratorWithServer.xml" />
+		</IfEqualStr>
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Application" arg1="KBRLookupGenerator">
+		<IfEqualStr arg0="$server" arg1="false">
+			<xi:include href="includes/scenario/KBRLookupGenerator.xml" />
+		</IfEqualStr>
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Application" arg1="KBRLookupGenerator">
+		<IfEqualStr arg0="$server" arg1="true">
+			<xi:include href="includes/scenario/KBRLookupGeneratorWithServer.xml" />
+		</IfEqualStr>
+	</IfEqualStr>
+
+</Configuration>

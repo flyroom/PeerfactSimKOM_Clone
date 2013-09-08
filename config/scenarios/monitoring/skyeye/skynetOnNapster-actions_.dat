@@ -1,0 +1,15 @@
+# Column meanings (format):
+# Host-Id(String) timepoint(long) opName(String) parameters(list of Strings?)
+
+# Joining - all peers join in the first 3600 seconds
+
+LatinAmerica 1s-1800s tryJoin
+Germany 1801s-2700s tryJoin
+Florida 2701s-3600s tryJoin
+
+LatinAmerica 70m SkyNetNode:getAggregationResultAction RecSkyNetMessages
+Germany 70m SkyNetNode:getAggregationResultAction RecSkyNetMessages
+Florida 70m SkyNetNode:getAggregationResultAction RecSkyNetMessages
+
+#Predefined Query
+#GlasgowCity 30m SkyNetNode:startQuery 5_of_GroupID_=_Japan_String+5_of_UpBandwidth_>_1000_Double

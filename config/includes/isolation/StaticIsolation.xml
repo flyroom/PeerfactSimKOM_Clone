@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<IsolationGenerator
+	class="org.peerfact.impl.isolation.DefaultIsolationGenerator"
+	start="$startTime"
+	stop="$finishTime">
+	<IsolationModel
+		class="org.peerfact.impl.isolation.model.StaticIsolationModel"
+		globalTime="150m"
+		isolationTime="150m" />
+</IsolationGenerator>

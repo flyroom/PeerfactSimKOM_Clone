@@ -1,0 +1,19 @@
+_ECHO 1s "Simulation Started"
+
+France 1s registerBootstrap
+Europe 7s registerBootstrap
+
+Idaho 2s startScheduleConnecting 10s
+Minnesota 5s startScheduleConnecting 12s
+Queensland 10s startScheduleConnecting 10s
+LatinAmerica 13s startScheduleConnecting 10s
+
+Idaho 14s startScheduleApplication 10s
+Queensland 16s startScheduleApplication 10s
+LatinAmerica 18s startScheduleApplication 10s
+Minnesota 19s startScheduleApplication 10s
+
+Idaho 22s startScheduleState 10s
+Queensland 25s startScheduleState 10s
+LatinAmerica 26s startScheduleState 10s
+Minnesota 30s startScheduleState 10s

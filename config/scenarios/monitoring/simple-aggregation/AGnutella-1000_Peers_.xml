@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<!-- Description of the Simulation -->
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<!-- Here the variables are defined. They can be referred as "&variable-name" 
+		and overridden via -->
+	<Default>
+		<Variable name="seed" value="45" />
+		<Variable name="size" value="1000" />
+		<Variable name="churnStart" value="120m" />
+		<Variable name="measurementStart" value="180m" />
+		<Variable name="finishTime" value="300m" />
+		<Variable name="actions" value="config/scenarios/monitoring/simple-aggregation/aggr-actions-1000_Peers.dat" />
+		<Variable name="NetLayer" value="Mod" />
+	</Default>
+
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime">
+	</SimulatorCore>
+
+	<IfEqualStr arg0="$NetLayer" arg1="Mod">
+
+		<NetLayer
+			class="org.peerfact.impl.network.modular.ModularNetLayerFactory"
+			preset="GNP" useRegionGroups="false" useInOrderDelivery="true">
+
+			<!--<PLoss class="org.peerfact.impl.network.modular.st.ploss.NoPacketLoss"/> -->
+
+			<BandwidthDetermination
+				class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+			<MeasurementDB
+				class="org.peerfact.impl.network.modular.db.NetMeasurementDB"
+				file="data/mod_measured_data.xml" />
+		</NetLayer>
+
+	</IfEqualStr>
+
+	<IfEqualStr arg0="$NetLayer" arg1="GNP">
+		<NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+			gnpFile="data/measured_data.xml">
+			<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel"
+				usePingErRttData="false" usePingErJitter="false"
+				usePingErPacketLoss="true" />
+			<BandwidthManager
+				class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerPeriodical" />
+			<BandwidthDetermination
+				class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+		</NetLayer>
+
+	</IfEqualStr>
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<NodeFactory
+		class="org.peerfact.impl.overlay.unstructured.gnutella.gnutella06.Gnutella06Factory" />
+
+	<AggregationService
+		class="org.peerfact.impl.service.aggr.gossip.GossipingAggregationServiceFactory"
+		port="4000" />
+	<!--<AggregationService class="org.peerfact.impl.service.aggr.oracle.AggregationServiceOracleFactory"/> -->
+
+	<Application
+		class="org.peerfact.impl.application.simpleaggr.SimpleAggregationAppFactory"
+		outputFile="simpleOut">
+
+		<Distribution class="org.peerfact.impl.application.simpleaggr.NamedDistribution"
+			name="dist1">
+			<Value
+				class="org.peerfact.impl.util.stats.distributions.PoissonDistribution"
+				lambda="10d" />
+		</Distribution>
+		<Distribution class="org.peerfact.impl.application.simpleaggr.NamedDistribution"
+			name="dist2">
+			<Value
+				class="org.peerfact.impl.util.stats.distributions.ExponentialDistribution"
+				mu="10d" />
+		</Distribution>
+	</Application>
+
+	<Monitor class="org.peerfact.impl.common.DefaultMonitor" start="$measurementStart" stop="$finishTime">
+  
+    </Monitor>
+
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+
+		<Group groupID="Ecuador" size="1">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<AggregationService />
+		</Group>
+
+		<Group groupID="Ukraine" size="3">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<AggregationService />
+		</Group>
+
+		<Group groupID="Denmark" size="6">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<AggregationService />
+		</Group>
+		F
+
+		<Group groupID="Brazil" size="22">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<AggregationService />
+		</Group>
+
+		<Group groupID="Poland" size="68">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<AggregationService />
+		</Group>
+
+		<Group groupID="Malaysia" size="216">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<AggregationService />
+		</Group>
+
+		<Group groupID="France" size="684">
+			<NetLayer />
+			<TransLayer />
+			<NodeFactory />
+			<Application />
+			<AggregationService />
+		</Group>
+
+	</HostBuilder>
+
+	<ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator"
+		start="$churnStart" stop="$finishTime">
+		<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+			churnFactor="0.5" meanSessionLength="60m" />
+	</ChurnGenerator>
+
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions"
+		componentClass="org.peerfact.impl.overlay.unstructured.gnutella.gnutella06.AbstractGnutella06Node"
+		additionalClasses="org.peerfact.impl.application.simpleaggr.SimpleAggregationApp;org.peerfact.api.service.aggr.IAggregationService">
+	</Scenario>
+</Configuration>

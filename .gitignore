@@ -1,0 +1,4 @@
+/bin
+/outputs/*
+measured_data.xml
+mod_measured_data.xml

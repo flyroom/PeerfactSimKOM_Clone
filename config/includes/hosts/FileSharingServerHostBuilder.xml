@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<HostBuilder
+	class="org.peerfact.impl.scenario.DefaultHostBuilder"
+	experimentSize="$size">
+
+	<Group id="server" groupID="World" size="1">
+		<NetLayer />
+		<TransLayer />
+		<Overlay isServer="true"/>
+		<ContentDistribution />
+		<Application />
+		<Properties enableChurn="false" />
+	</Group>
+	
+	<Group id="all" groupID="World" size="$size">
+		<NetLayer />
+		<TransLayer />
+		<Overlay />
+		<ContentDistribution />
+		<Application />
+		<Properties enableChurn="false" />
+	</Group>
+
+</HostBuilder>

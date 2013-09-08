@@ -1,0 +1,130 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="style" value="s" />
+		<Variable name="description" value="HX-20-v5-4h" />
+		<Variable name="size" value="200" />
+		<Variable name="churnStart" value="60m" />
+		<Variable name="measurementStart" value="120m" />
+		<Variable name="finishTime" value="40m" />
+		<Variable name="actions" value="config/scenarios/application/KBRApplication/KBRkademlia2-actions.dat" />
+		<Variable name="configPath" value="config/visualization/kademlia.properties" />
+		<Variable name="gnpDataFile" value="data/measured_data.xml" />
+		<Variable name="churn" value="false" />
+	
+		<!-- Description -->
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+			
+		<!-- 
+			SkyNet specific variables 
+		-->
+		<Variable name="skynetProperties" value="visualization/skynet.properties" />
+		
+		<!-- Variable for enabling the metrics-visualization of SkyNet -->
+		<Variable name="skynetVis" value="false" />
+		
+		<!-- Variables for the settings of SkyNetBatchSimulation -->
+		<Variable name="protectFormerSimulations" value="false"/>
+		
+		<!-- Variables for the StatisticWriter to write training- or test-files -->
+		<Variable name="training" value="true" />
+		<Variable name="append" value="false" />
+		
+	</Default>
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator" static="getInstance" seed="$seed" finishAt="$finishTime" />
+	
+	<NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory" gnpFile="$gnpDataFile" downBandwidth="4000" upBandwidth="2000">
+		<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel" />
+	</NetLayer>
+	
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory"/>
+	
+	<KademliaSetup class="org.peerfact.impl.overlay.dht.kademlia.base.KademliaSetup" static="getInstance" configPath="$configPath">
+		<NodeFactory class="org.peerfact.impl.overlay.dht.kademlia2.setup.KBRKademliaGlobaleKnowledgeNodeFactory" />
+	</KademliaSetup>
+	
+	<KBRApplication class="org.peerfact.impl.application.KBRApplication.KBRDummyApplicationFactory" />
+	
+	<SkyNet class="org.peerfact.impl.skynet.SkyNetNodeFactory" port="500" simulationSize="$size" />
+	
+	<SkyNetVisualization class="org.peerfact.impl.skynet.visualization.SkyNetVisualization" static="getInstance" isEnabled="$skynetVis" />
+	´<SkyNetPropertiesReader
+		class="org.peerfact.impl.skynet.SkyNetPropertiesReader" static="getInstance"
+		propertiesFile="$skynetProperties">
+	</SkyNetPropertiesReader>
+	<SkyNetBatchSimulator class="org.peerfact.impl.skynet.SkyNetBatchSimulator"
+		static="getInstance" protectFormerSimulations="$protectFormerSimulations" churn="$churn" simulationType="Kademlia" simulationSeed="$seed" simulationSize="$size" simulationDuration="$finishTime" />
+
+	
+	<Monitor class="org.peerfact.impl.skynet.analyzing.SkyNetMonitor" start="0" stop="$finishTime">
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultKBROverlayAnalyzer" />
+		
+		<Analyzer class="org.peerfact.impl.skynet.analyzing.analyzers.NetLayerAnalyzer"
+				simulationSize="$size" />
+		<Analyzer class="org.peerfact.impl.skynet.analyzing.analyzers.OPAnalyzer"
+				simulationSize="$size" />
+		<Analyzer class="org.peerfact.impl.skynet.analyzing.analyzers.ChurnStatisticsAnalyzer"
+				simulationSize="$size">
+				<AnalyzerDelegator class="org.peerfact.impl.skynet.overlay2SkyNet.KademliaAnalyzerDelegator" />
+		</Analyzer>
+	    <Analyzer class="org.peerfact.impl.vis.analyzer.VisAnalyzer">
+         	<OverlayAdapter class="org.peerfact.impl.overlay.dht.kbrvis.KBRAdapter" />
+        </Analyzer>
+	</Monitor>
+	
+	<Workload class="org.peerfact.impl.overlay.dht.kademlia2.setup.WorkloadGenerator" />
+	
+	<HostBuilder class="org.peerfact.impl.skynet.SkyNetHostBuilder" experimentSize="$size">
+	    <Group size="10" groupID="France">
+		   <NetLayer />
+		   <TransLayer />
+		   <NodeFactory />
+		   <KBRApplication />
+		   <SkyNet />
+		   <Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />		   
+		</Group>
+		
+		<Group size="5" groupID="Germany">
+		   <NetLayer />
+		   <TransLayer />
+		   <NodeFactory />
+		   <KBRApplication />
+		   <SkyNet />
+		   <Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />	
+		</Group>
+		
+		<Group size="5" groupID="Idaho">
+		   <NetLayer />
+		   <TransLayer />
+		   <NodeFactory />
+		   <KBRApplication />
+		   <SkyNet />
+		   <Properties enableChurn="$churn" cpu="4096" ram="8192"
+				storage="1024" tresholdPercentage="80" downBandwidthPercentage="2"
+				upBandwidthPercentage="15" />	
+		</Group>
+   </HostBuilder>
+   
+   <Oracle class="org.peerfact.impl.util.oracle.GlobalOracle" /> 
+   
+   <NodeFactory TriggerInitialRTBuild="" />
+          
+   <StatisticWriter
+		class="org.peerfact.impl.skynet.analyzing.writers.StatisticWriter" start="1m"
+		stop="$finishTime" training="$training" churn="$churn" append="$append" />
+          
+   <Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory" 
+   	actionsFile="$actions" 
+   	componentClass="org.peerfact.impl.overlay.dht.kademlia.base.components.AbstractKademliaNode" 
+   	additionalClasses="org.peerfact.impl.application.KBRApplication.KBRDummyApplication;org.peerfact.impl.skynet.components.SkyNetNode" />
+</Configuration>

@@ -1,0 +1,3 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Oracle
+	class="org.peerfact.impl.util.oracle.GlobalOracle" />

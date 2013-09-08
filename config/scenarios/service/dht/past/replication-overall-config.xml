@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Default>
+		<Variable name="seed" value="122" />
+		<Variable name="style" value="s" />
+		<Variable name="description" value="HX-20-v5-4h" />
+		<Variable name="size" value="100" /><!-- Number of Nodes -->
+		<Variable name="enableChurn" value="1" /><!-- "1" to enable -->
+		<Variable name="enableReplication" value="1" /><!-- "1" to enable -->
+ 		<Variable name="churnStart" value="180m" />
+		<Variable name="measurementStart" value="0m" />
+		<Variable name="finishTime" value="300m" />
+		<!-- Variable name="measurementHours" value="2.0" /-->
+		<Variable name="actions" value="config/scenarios/service/dht/past/replication-actions.dat" />
+		<Variable name="NetLayer" value="Simple" /><!-- "Simple" | "GNP" | "Mod" -->
+		<Variable name="churnFactor" value="0.5" /><!-- Percentage of Nodes that can be absent at the same time -->
+		<Variable name="replicaCount" value="5" />
+		<Variable name="maxReplicaCount" value="10" />
+		<Variable name="replicationTries" value="1" /><!-- how often should a file tried to be stored at a replica node -->
+		<Variable name="pingTries" value="3" />
+		<Variable name="timeBetweenRootPings" value="5m" />
+		<Variable name="meanSessionLength" value="300m" />		
+		<Variable name="dropFiles" value="false" />
+	</Default>
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator" static="getInstance" seed="$seed" finishAt="$finishTime" />
+
+	<IfEqualStr arg0="$NetLayer" arg1="GNP">
+		<NetLayer class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+			gnpFile="data/measured_data.xml">
+			<LatencyModel class="org.peerfact.impl.network.gnp.GnpLatencyModel" usePingErRttData="false" usePingErJitter="false" usePingErPacketLoss="false" />
+			<BandwidthManager
+				class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerPeriodical" />
+			<BandwidthDetermination
+				class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+		</NetLayer>
+
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="Simple">
+		<NetLayer class="org.peerfact.impl.network.simple.SimpleNetFactory" downBandwidth="200" upBandwidth="100">
+			<LatencyModel class="org.peerfact.impl.network.simple.SimpleStaticLatencyModel" latency="10"/>
+		</NetLayer>
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="Mod">
+
+		<NetLayer
+			class="org.peerfact.impl.network.modular.ModularNetLayerFactory"
+			preset="GNP" useRegionGroups="false" useInOrderDelivery="true">
+			<BandwidthDetermination
+				class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+			<MeasurementDB
+				class="org.peerfact.impl.network.modular.db.NetMeasurementDB"
+				file="data/mod_measured_data.xml" />
+		</NetLayer>
+		
+	</IfEqualStr>
+	
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory"/>
+	
+	<NodeFactory class="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNodeFactory" />
+	
+	<ReplicationService class="org.peerfact.impl.service.dht.past.PASTServiceFactory" 
+						numberOfReplicates="$replicaCount"
+						maxNumberOfReplicates="$maxReplicaCount"
+						numberOfReplicationTries="$replicationTries"
+						numberOfPingTries="$pingTries"
+						timeBetweenRootPings="$timeBetweenRootPings"
+						dropFiles="$dropFiles" />
+	
+	<FilesharingApplication class="org.peerfact.impl.application.filesharing2.FilesharingApplicationFactory" />
+	
+ 	  <ResourceSpace class="org.peerfact.impl.application.filesharing2.documents.DocumentSpace" static="getInstance" useRanks="true">
+
+		
+		<ResourceSet class="org.peerfact.impl.application.filesharing2.documents.ZipfDocumentSet" name="files1" size="$size" zipfExp="0.7" meanReorderIntvl="10m"/>
+		<ResourceSet class="org.peerfact.impl.application.filesharing2.documents.ZipfDocumentSet" name="files2" size="$size" zipfExp="0.7" meanReorderIntvl="10m"/>
+		
+			<!-- 	
+		<ResourceSet class="org.peerfact.impl.application.filesharing2.documents.FlatDocumentSet" name="files1" size="150"/>
+		<ResourceSet class="org.peerfact.impl.application.filesharing2.documents.FlatDocumentSet" name="files2" size="150"/>
+		-->
+	 </ResourceSpace>
+
+
+	<Monitor class="org.peerfact.impl.common.DefaultMonitor" start="$measurementStart" stop="$finishTime">
+		<Analyzer class="org.peerfact.impl.application.filesharing2.OperationDumper" />
+		 
+		 <Analyzer class="org.peerfact.impl.analyzer.csvevaluation.specific.FSGnuplotAnalyzer" start="$measurementStart" interval="60m" outputFile="defaults_time.csv" action="append"/>
+         <Analyzer class="org.peerfact.impl.analyzer.csvevaluation.MessageCounter" hostCount="$size" fileName="messages" />
+         
+         <Analyzer class="org.peerfact.impl.analyzer.csvevaluation.distribution.BandwidthDistAnalyzer" start="$measurementStart" interval="60m" outputFile="BWDist_100" action="overwrite"/>
+         <Analyzer class="org.peerfact.impl.analyzer.csvevaluation.distribution.BandwidthConsDistAnalyzer" start="$measurementStart" interval="60m" outputFile="BWConsDist_100" action="overwrite"/>
+         <Analyzer class="org.peerfact.impl.overlay.dht.chord.base.analyzer.ChordLookupOperationAnalyzer" />
+         <Analyzer class="org.peerfact.impl.service.dht.past.analyzer.ReplicationAnalyzer" start="$measurementStart" interval="60m" outputFile="replicates.csv" action="overwrite" />             
+    
+    </Monitor>
+    
+	<IfEqualStr arg0="$enableReplication" arg1="0">
+		<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder" experimentSize="$size">
+	       
+		    <Group groupID="UnitedStates" size="$size">
+			   <NetLayer/>
+			   <TransLayer/>
+			   <NodeFactory />
+			   <FilesharingApplication />
+		    </Group>
+		</HostBuilder>    
+	</IfEqualStr>
+	
+   	<IfEqualStr arg0="$enableReplication" arg1="1">
+		<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder" experimentSize="$size">
+	       
+		    <Group groupID="UnitedStates" size="$size">
+			   <NetLayer/>
+			   <TransLayer/>
+			   <NodeFactory />
+			   <ReplicationService />
+			   <FilesharingApplication />
+		    </Group>
+		</HostBuilder>    
+	</IfEqualStr>
+
+
+   <IfEqualStr arg0="$enableChurn" arg1="1">
+	   <ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator"
+			start="$churnStart" stop="$finishTime">
+			<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+				churnFactor="$churnFactor" meanSessionLength="$meanSessionLength" />
+		</ChurnGenerator>
+	</IfEqualStr>
+   
+	<!-- The Oracle has a list of all Hosts and can be used by analyzers to 
+		calculate statistical properties of your experiment. It should not be used 
+		for functional parts of your simulation! -->
+	<Oracle class="org.peerfact.impl.util.oracle.GlobalOracle" />
+
+   <Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory" 
+   	         actionsFile="$actions" 
+   			 componentClass="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNode" 
+   	         additionalClasses="org.peerfact.impl.application.filesharing2.FilesharingApplication">
+		<ParamParser class="org.peerfact.impl.overlay.dht.chord.base.util.OverlayKeyParser" />
+		<ParamParser class="org.peerfact.impl.overlay.dht.chord.base.util.DHTObjectParser" />
+   </Scenario>
+</Configuration>

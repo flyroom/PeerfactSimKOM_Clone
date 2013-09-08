@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+	<!-- Variables -->
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="size" value="1000" />
+		<Variable name="startTime" value="0m" />
+		<Variable name="finishTime" value="300m" />
+		<Variable name="ChurnModel" value="" />
+		<Variable name="NetLayer" value="SIMPLE" />
+		<Variable name="Overlay" value="Gnutella06" />
+	</Default>
+	
+	
+	<!-- Description -->
+	<Description>
+Generic configuration with all possible Unstructured overlays with the following possible configurations:
+
+ChurnModel: Exponential, Kad, Herrera, Static
+
+NetLayer: MOD, MOD-NoPacketLoss, GNP, SIMPLE, MOBILE
+
+Overlay:  Gnutella06, Gia
+	</Description>
+
+	
+	<!-- SimulatorCore -->
+	<xi:include href="includes/simengine/Simulator.xml" />
+	
+	
+	<!-- NetLayer -->
+	<IfEqualStr arg0="$NetLayer" arg1="MOD">
+		<xi:include href="includes/network/ModularNetLayer.xml" />
+	</IfEqualStr>
+		
+	<IfEqualStr arg0="$NetLayer" arg1="MOD-NoPacketLoss">
+		<xi:include href="includes/network/ModularNetLayer-NoPacketLoss.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="GNP">
+		<xi:include href="includes/network/GnpNetLayer.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="SIMPLE">
+		<xi:include href="includes/network/SimpleNetLayer.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="MOBILE">
+		<xi:include href="includes/network/MobileNetLayer.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- TransLayer -->
+	<xi:include href="includes/transport/DefaultTransLayer.xml" />
+	
+	
+	<!-- Overlay -->
+	<IfEqualStr arg0="$Overlay" arg1="Gia">
+		<xi:include href="includes/overlay/unstructured/Gia.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Gnutella06">
+		<xi:include href="includes/overlay/unstructured/Gnutella06.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- Monitor -->
+	<xi:include href="includes/analyzer/DefaultMonitor.xml" />
+	
+
+	<!-- HostBuilder -->
+	
+	<!-- without churn -->
+	<IfEqualStr arg0="$ChurnModel" arg1="">
+		<xi:include href="includes/hosts/UnstructuredHostBuilder.xml" />
+	</IfEqualStr>
+
+	<!-- with churn -->
+	<IfNotEqualStr arg0="$ChurnModel" arg1="">
+		<xi:include href="includes/hosts/DefaultHostBuilderWithChurn.xml" />
+	</IfNotEqualStr>
+
+	
+	<!-- ChurnGenerator -->
+	<IfEqualStr arg0="$ChurnModel" arg1="Exponential">
+		<xi:include href="includes/churn/ExponentialChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Herrera">
+		<xi:include href="includes/churn/HerreraChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Kad">
+		<xi:include href="includes/churn/KadChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Static">
+		<xi:include href="includes/churn/StaticChurn.xml" />
+	</IfEqualStr>
+	
+
+	<!-- Scenario -->
+	<xi:include href="includes/scenario/Unstructured.xml" />
+	
+	</Configuration>

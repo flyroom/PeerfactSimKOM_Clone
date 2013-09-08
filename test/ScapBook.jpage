@@ -1,0 +1,5 @@
+org.apache.commons.math.distribution.DistributionFactory.newInstance().createTDistribution(10).inverseCumulativeProbability(0.975d);
+log.debug(Class.class);Class.class==Class
+java.util.LinkedList.class.getInterfaces();
+log.debug(Class[].class)
+java.util.LinkedList.class.getSimpleName().equals("LinkedList");

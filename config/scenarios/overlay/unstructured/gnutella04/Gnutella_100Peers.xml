@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="finishTime" value="5m" />
+		<Variable name="actions" value="config/scenarios/overlay/unstructured/gnutella04/gnutella-actions.dat" />
+		<Variable name="size" value="102"/>
+	</Default>
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime" />
+
+	<NetLayer class="org.peerfact.impl.network.simple.SimpleNetFactory" downBandwidth="200" upBandwidth="100">
+		<LatencyModel class="org.peerfact.impl.network.simple.SimpleStaticLatencyModel" latency="10"/>
+	</NetLayer>
+
+	<TransLayer
+		class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<GnutellaOverlayNode2
+		class="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaOverlayNodeFactory"
+		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
+		descriptorTimeout="10000000" numConn="12" />
+
+	<GnutellaOverlayNode20
+		class="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaOverlayNodeFactory"
+		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
+		descriptorTimeout="10000000" numConn="12" />
+		
+	<GnutellaOverlayNode200
+		class="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaOverlayNodeFactory"
+		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
+		descriptorTimeout="10000000" numConn="12" />
+		
+	<GnutellaOverlayNode2000
+		class="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaOverlayNodeFactory"
+		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
+		descriptorTimeout="10000000" numConn="12" />
+		
+	<GnutellaOverlayNodeBootstrap
+		class="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaOverlayNodeFactory"
+		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
+		descriptorTimeout="10000000" numConn="48" />
+
+	<Application
+		class="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaApplicationFactory"
+		propUp="0.05" propDel="0.01" propDown="0.3" downloadDelay="10000000" />
+
+	<BootstrapFactory
+		class="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaApplicationFactory"
+		propUp="0" propDel="0" propDown="0" downloadDelay="10000000" />
+
+<Monitor class="org.peerfact.impl.common.DefaultMonitor"
+		start="0m" stop="$finishTime">
+		 <Analyzer class="org.peerfact.impl.overlay.unstructured.gnutella04.analyzer.GnutellaMessageAnalyzer"/>
+         <Analyzer class="org.peerfact.impl.overlay.unstructured.gnutella04.analyzer.GnutellaQueryAnalyzer"/>
+         <Analyzer class="org.peerfact.impl.overlay.unstructured.gnutella04.analyzer.GnutellaNetLoadAnalyzer"/> 
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultNetAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultOperationAnalyzer" />
+	<Analyzer class="org.peerfact.impl.analyzer.DefaultTransAnalyzer" />       
+    </Monitor>
+	
+	<HostBuilder
+		class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+		
+		<Host groupID="Bootstrap1">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNodeBootstrap />
+			<BootstrapFactory />
+		</Host>
+		
+		<Host groupID="Bootstrap2">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNodeBootstrap />
+			<BootstrapFactory />
+		</Host>
+		
+		<Group groupID="Group1" size="3">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode2000 />
+			<Application />
+		</Group>
+
+		<Group groupID="Group2" size="5">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode200 />
+			<Application />
+		</Group>
+
+		<Group groupID="Group3" size="10">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode2 />
+			<Application />
+		</Group>
+		
+		<Group groupID="Group4" size="10">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode2 />
+			<Application />
+		</Group>
+		
+		<Group groupID="Group5" size="10">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode20 />
+			<Application />
+		</Group>
+
+		<Group groupID="Group6" size="10">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode20 />
+			<Application />
+		</Group>
+
+		<Group groupID="Group7" size="10">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode20 />
+			<Application />
+		</Group>
+		
+		<Group groupID="Group8" size="10">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode20 />
+			<Application />
+		</Group>
+		
+		<Group groupID="Group9" size="10">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode200 />
+			<Application />
+		</Group>
+
+		<Group groupID="Group10" size="20">
+			<NetLayer />
+			<TransLayer />
+			<GnutellaOverlayNode200 />
+			<Application />
+		</Group>
+		
+	</HostBuilder>
+
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions"
+		componentClass="org.peerfact.impl.overlay.unstructured.gnutella04.GnutellaApplication" />
+</Configuration>

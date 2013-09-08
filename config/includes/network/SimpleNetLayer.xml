@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NetLayer class="org.peerfact.impl.network.simple.SimpleNetFactory">
+	<LatencyModel
+		class="org.peerfact.impl.network.simple.SimpleStaticLatencyModel" />
+</NetLayer>

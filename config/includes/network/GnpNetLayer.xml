@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NetLayer
+	class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+	pbaPeriod="1"
+	gnpFile="config/data/measured_data.xml">
+	<!-- experimentSize="" -->
+	<!-- bitmapPath="" -->
+	<LatencyModel
+		class="org.peerfact.impl.network.gnp.GnpLatencyModel"
+		usePingErRttData="true"
+		useAnalyticalRtt="false"
+		usePingErJitter="true"
+		usePingErPacketLoss="true" />
+	<BandwidthManager
+		class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerPeriodical" />
+		<!-- class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerEvent" -->
+</NetLayer>

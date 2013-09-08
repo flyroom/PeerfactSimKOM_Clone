@@ -1,0 +1,8 @@
+#Scenario Ideal
+GlasgowCity 1s join callback
+LatinAmerica 1m-8m join callback
+Germany 1m-8m join callback
+
+LatinAmerica 10m-40m FileSharingApplication:publishResourcesFromSet files1 100
+LatinAmerica 20m FileSharingApplication:lookupResourceFromSetPeriodically files1 40m
+Germany 20m FileSharingApplication:lookupResourceFromSetPeriodically files1 40m

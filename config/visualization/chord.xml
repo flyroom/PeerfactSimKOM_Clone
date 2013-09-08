@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="size" value="51" />
+		<Variable name="finishTime" value="60m" />
+		<Variable name="actions" value="config/visualization/chord-actions.dat" />
+		<Variable name="churn" value="true" />
+		<Variable name="gnpDataFile" value="config/data/measured_data.xml"/>
+	</Default>
+	<Description>
+		A simple chord ring to check implementation.
+	</Description>
+
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime">
+	</SimulatorCore>
+
+
+   	<NetLayer
+		class="org.peerfact.impl.network.gnp.GnpNetLayerFactory" gnpFile="$gnpDataFile">
+		<LatencyModel 
+			class="org.peerfact.impl.network.gnp.GnpLatencyModel" 
+			usePingErRttData="true" 
+			usePingErJitter="true" 
+			usePingErPacketLoss="true" />
+		<BandwidthManager class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerEvent" />
+		<BandwidthDetermination class="org.peerfact.impl.network.bandwidthdetermination.OECDReportBandwidthDetermination" /> 
+	</NetLayer> 
+
+	<TransLayer
+		class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<Overlay
+		class="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNodeFactory" />
+		
+	<ContentDistribution class="org.peerfact.impl.overlay.contentdistribution.ContentDistributionFactory"
+		port="120"/>
+
+	<FilesharingApplication
+		class="org.peerfact.impl.application.filesharing.FileSharingApplicationFactory" />
+		
+	<ResourceSpace
+		class="org.peerfact.impl.application.filesharing.documents.DocumentSpace"
+		static="getInstance">
+
+		<ResourceSet
+			class="org.peerfact.impl.application.filesharing.documents.ZipfDocumentSet"
+			name="files1" size="100" zipfExp="0.7" meanReorderIntvl="10m" />
+
+	</ResourceSpace>
+
+
+	<Monitor class="org.peerfact.impl.common.DefaultMonitor"
+		start="0" stop="$finishTime">
+
+         <Analyzer class="org.peerfact.impl.analyzer.visualization2d.analyzer.VisAnalyzer" >
+         	<OverlayAdapter class="org.peerfact.impl.overlay.dht.chord.chord.vis.ChordAdapter"/>
+         </Analyzer>
+         
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultAggregationAnalyzer" />
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultChurnAnalyzer" />
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultConnectivityAnalyzer" />
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultDHTOverlayAnalyzer" />
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultKBROverlayAnalyzer" />
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultNetAnalyzer" />
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultOperationAnalyzer" />
+		<Analyzer class="org.peerfact.impl.analyzer.DefaultTransAnalyzer" />
+		
+		<Analyzer class="org.peerfact.impl.overlay.dht.chord.base.analyzer.ChordLookupOperationAnalyzer" />
+		<Analyzer class="org.peerfact.impl.overlay.dht.chord.base.analyzer.ChordStructureAnalyzer" />
+		
+	</Monitor>
+
+	<HostBuilder
+		class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+		
+		<Host groupID="GlasgowCity">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<ContentDistribution />
+			<FilesharingApplication />
+			<Properties enableChurn="$churn" />
+		</Host>
+
+		<Group groupID="LatinAmerica" size="20">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<ContentDistribution />
+			<FilesharingApplication />
+			<Properties enableChurn="$churn" />
+		</Group>
+
+		<Group groupID="Germany" size="30">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<ContentDistribution />
+			<FilesharingApplication />
+			<Properties enableChurn="$churn" />
+		</Group>
+
+	
+	</HostBuilder>
+
+	<VisualizationHelper class="org.peerfact.impl.util.oracle.GlobalOracle" />
+
+ 	<ChurnGenerator
+		class="org.peerfact.impl.churn.DefaultChurnGenerator" start="30m"
+		stop="50m">
+		<ChurnModel
+			class="org.peerfact.impl.churn.model.KadChurnModel" />
+	</ChurnGenerator>
+
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions"
+		componentClass="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNode"
+		additionalClasses="org.peerfact.impl.application.filesharing.FileSharingApplication">
+	</Scenario>
+
+</Configuration>

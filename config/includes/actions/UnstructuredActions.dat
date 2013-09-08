@@ -1,0 +1,3 @@
+_ECHO 1s "Simulation Started - Join started"
+
+all 1s-100s join callback

@@ -1,0 +1,8 @@
+# Column meanings (format):
+# Host-Id(String) timepoint(long) opName(String) parameters(list of Strings?)
+
+France 0m-30m connect
+France 31m beginLookups
+Germany 0m-30m connect
+Germany 31m beginLookups
+

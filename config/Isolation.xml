@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration  xmlns:xi="http://www.w3.org/2001/XInclude">
+	
+	<!-- Variables -->
+	<Default>
+		<Variable name="seed" value="0" />
+		<Variable name="startTime" value="0m" />
+		<Variable name="finishTime" value="300m" />
+		<Variable name="ChurnModel" value="" />
+		<Variable name="IsolationModel" value="" />
+		<Variable name="NetLayer" value="SIMPLE" />
+		<Variable name="Overlay" value="Chord" />
+		<Variable name="GUI" value="true" />
+	</Default>
+
+	
+	<!-- Description -->
+	<Description>
+Generic configuration with all possible DHT overlays with the following possible configurations:
+		
+ChurnModel: Exponential, Kad, Herrera, Static
+
+IsolationModel: Static
+		
+NetLayer: MOD, MOD-NoPacketLoss, GNP, SIMPLE, MOBILE
+		
+Overlay: Can, CentralizedIndex, CentralizedStorage, AdaptiveChord, CaReChord, Chord, EpiChord, MaliciousChord, ReChord, HKademlia, Kademlia, Kandy, Pastry, RTPPastry
+[server= true (for CentralizedStorage and CentralizedIndex)]
+
+	</Description>
+
+
+	<!-- SimulatorCore -->
+	<xi:include href="includes/simengine/Simulator.xml" />
+
+	
+	<!-- NetLayer -->
+	<IfEqualStr arg0="$NetLayer" arg1="MOD">
+		<xi:include href="includes/network/ModularNetLayer.xml" />
+	</IfEqualStr>
+		
+	<IfEqualStr arg0="$NetLayer" arg1="MOD-NoPacketLoss">
+		<xi:include href="includes/network/ModularNetLayer-NoPacketLoss.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="GNP">
+		<xi:include href="includes/network/GnpNetLayer.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="SIMPLE">
+		<xi:include href="includes/network/SimpleNetLayer.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$NetLayer" arg1="MOBILE">
+		<xi:include href="includes/network/MobileNetLayer.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- TransLayer -->
+	<xi:include href="includes/transport/DefaultTransLayer.xml" />
+	
+	
+	<!-- Overlay -->
+	<IfEqualStr arg0="$Overlay" arg1="Can">
+		<xi:include href="includes/overlay/dht/can/CanNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="CentralizedIndex">
+		<xi:include href="includes/overlay/dht/centralizedIndex/centralizedIndexNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="CentralizedStorage">
+		<xi:include href="includes/overlay/dht/centralizedStorage/centralizedStorageNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="AdaptiveChord">
+		<xi:include href="includes/overlay/dht/chord/AdaptiveChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="CaReChord">
+		<xi:include href="includes/overlay/dht/chord/CaReChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Chord">
+		<xi:include href="includes/overlay/dht/chord/ChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="EpiChord">
+		<xi:include href="includes/overlay/dht/chord/EpiChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="MaliciousChord">
+		<xi:include href="includes/overlay/dht/chord/MaliciousChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="ReChord">
+		<xi:include href="includes/overlay/dht/chord/ReChordNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="HKademlia">
+		<xi:include href="includes/overlay/dht/kademlia/HKademliaNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Kademlia">
+		<xi:include href="includes/overlay/dht/kademlia/KademliaNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Kandy">
+		<xi:include href="includes/overlay/dht/kademlia/KandyNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="Pastry">
+		<xi:include href="includes/overlay/dht/pastry/PastryNode.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$Overlay" arg1="RTPPastry">
+		<xi:include href="includes/overlay/dht/pastry/RTPPastryNode.xml" />
+	</IfEqualStr>
+	
+			
+	<!-- Application -->
+	<xi:include href="includes/application/DHTLookupGenerator.xml" />
+
+	
+	<!-- Monitor -->
+	<xi:include href="includes/analyzer/DefaultMonitor.xml" />
+	
+	
+	<!-- HostBuilder -->
+	
+	<HostBuilder
+	class="org.peerfact.impl.scenario.DefaultHostBuilder"
+	experimentSize="100">
+
+		<Group id="all" groupID="World" size="90">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<Application />
+			<Properties enableChurn="true" />
+			<Properties enableIsolation="false" />
+		</Group>
+	
+		<Group id="region" groupID="Germany" size="10">
+			<NetLayer />
+			<TransLayer />
+			<Overlay />
+			<Application />
+			<Properties enableChurn="true" />
+			<Properties enableIsolation="true" />
+		</Group>
+
+	</HostBuilder>
+	
+	
+	<!-- Oracle -->
+	<xi:include href="includes/util/GlobalOracle.xml" />
+	
+	
+	<!-- ChurnGenerator -->
+	<IfEqualStr arg0="$ChurnModel" arg1="Exponential">
+		<xi:include href="includes/churn/ExponentialChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Herrera">
+		<xi:include href="includes/churn/HerreraChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Kad">
+		<xi:include href="includes/churn/KadChurn.xml" />
+	</IfEqualStr>
+	
+	<IfEqualStr arg0="$ChurnModel" arg1="Static">
+		<xi:include href="includes/churn/StaticChurn.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- IsolationGenerator -->
+	<IfEqualStr arg0="$IsolationModel" arg1="Static">
+		<xi:include href="includes/isolation/StaticIsolation.xml" />
+	</IfEqualStr>
+	
+	
+	<!-- Scenario -->
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="config/includes/actions/DHTLookupGenerator.dat"
+		componentClass="org.peerfact.impl.application.dhtlookupgenerator.DHTLookupGenerator"
+		additionalClasses="org.peerfact.api.overlay.JoinLeaveOverlayNode">
+</Scenario>
+
+</Configuration>

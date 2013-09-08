@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Configuration>
+	<Default>
+		<!-- General settings for the simulation -->
+		<Variable name="dbName" value="baseline_central_chord" />
+		<Variable name="dbUser" value="root" />
+		<Variable name="dbPw" value="root" />
+
+		<!-- General settings for the simulation -->
+		<Variable name="seed" value="122" />
+		<Variable name="size" value="11" />
+		<Variable name="churnStart" value="80m" />
+		<Variable name="measurementStart" value="80m" />
+		<Variable name="finishTime" value="260m" />
+		<!-- Variable name="measurementHours" value="2.0" / -->
+		<Variable name="actions"
+			value="config/monitoring/central-monitor/CMONMono-filesharing2-actions-100_Peers.dat" />
+	</Default>
+	
+	
+	<!-- Description -->
+	<Description>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ This part of the Simulator is not maintained in the current version of PeerfactSim.KOM. There is no intention of the authors to fix this circumstances, since the changes needed are huge compared to overall benefit.
+ If you want it to work correctly, you are free to make the specific changes and provide it to the community.
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	</Description>
+	
+	
+	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
+		static="getInstance" seed="$seed" finishAt="$finishTime" />
+
+	<NetLayer
+		class="org.peerfact.impl.network.modular.ModularNetLayerFactory"
+		preset="GNP" useRegionGroups="false" useInOrderDelivery="true">
+		<MeasurementDB
+			class="org.peerfact.impl.network.modular.db.NetMeasurementDB"
+			file="data/mod_measured_data.xml" />
+	</NetLayer>
+
+
+	<TransLayer class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
+
+	<NodeFactory
+		class="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNodeFactory" />
+
+	<CentralMonitorApplication
+		class="org.peerfact.impl.service.cmon.server.simple.MonoServerFactory" />
+
+	<CentralMonitorPeer class="org.peerfact.impl.service.cmon.peer.Factory"
+		delay="1m" />
+
+	<FunctionGenerator
+		class="org.peerfact.impl.util.functiongenerator.FunctionGenerator"
+		static="getInstance">
+		<Function
+			class="org.peerfact.impl.util.functiongenerator.functions.ZigZagFunction"
+			frequency="30m" maxMagnitude="100">
+		</Function>
+		<Function
+			class="org.peerfact.impl.util.functiongenerator.functions.SawtoothFunction"
+			frequency="30m" maxMagnitude="100">
+		</Function>
+		<Function
+			class="org.peerfact.impl.util.functiongenerator.functions.SineFunction"
+			frequency="30m" maxMagnitude="100">
+		</Function>
+		<Function
+			class="org.peerfact.impl.util.functiongenerator.functions.LinearFunction"
+			frequency="30m" maxMagnitude="1">
+		</Function>
+		<Function
+			class="org.peerfact.impl.util.functiongenerator.functions.ConstantFunction"
+			maxMagnitude="1">
+		</Function>
+		<Function
+			class="org.peerfact.impl.util.functiongenerator.functions.SineFunction2"
+			frequency="64m" maxMagnitude="100">
+		</Function>
+	</FunctionGenerator>
+
+	<Monitor class="org.peerfact.impl.common.DefaultMonitor"
+		start="$measurementStart" stop="$finishTime">
+		<AnalyzerOutputWriter
+			class="org.peerfact.impl.util.dbWriter.SQLOutputWriter" static="getInstance"
+			rootName="$dbName">
+			<DBMSConnector class="org.peerfact.impl.util.dbWriter.MySQLConnector"
+				username="$dbUser" password="$dbPw" />
+		</AnalyzerOutputWriter>
+
+		<Analyzer
+			class="org.peerfact.impl.overlay.dht.chord.base.analyzer.ChordStructureAnalyzer" />
+
+		<Analyzer
+			class="org.peerfact.impl.analyzer.benchmark.monitoring.NetworkStatisticsAnalyzer"
+			measurementInterval="1m" />
+
+		<Analyzer
+			class="org.peerfact.impl.analyzer.benchmark.monitoring.AggregationAnalyzer"
+			measurementInterval="1m" />
+		<Analyzer
+			class="org.peerfact.impl.analyzer.benchmark.monitoring.AggregationGeneralAnalyzer"
+			measurementInterval="1m" />
+
+		<Analyzer class="org.peerfact.impl.service.cmon.analyzer.CMonAnalyzer"
+			start="$measurementStart" interval="10m" outputFile="cmon/CMONSimple_FSchord"
+			action="overwrite" />
+	</Monitor>
+
+
+	<HostBuilder class="org.peerfact.impl.scenario.DefaultHostBuilder"
+		experimentSize="$size">
+
+		<Group groupID="Ecuador" size="1">
+			<NetLayer upBandwidth="2222222" downBandwidth="2222222222" />
+			<TransLayer />
+			<CentralMonitorApplication />
+			<Properties enableChurn="false" />
+		</Group>
+
+		<Group groupID="Ukraine" size="2">
+			<NetLayer>
+				<BandwidthDetermination
+					class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+			</NetLayer>
+			<TransLayer />
+			<NodeFactory />
+			<CentralMonitorPeer />
+		</Group>
+
+		<Group groupID="Denmark" size="2">
+			<NetLayer>
+				<BandwidthDetermination
+					class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+			</NetLayer>
+			<TransLayer />
+			<NodeFactory />
+			<CentralMonitorPeer />
+		</Group>
+
+		<Group groupID="Brazil" size="2">
+			<NetLayer>
+				<BandwidthDetermination
+					class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+			</NetLayer>
+			<TransLayer />
+			<NodeFactory />
+			<CentralMonitorPeer />
+		</Group>
+
+		<Group groupID="Poland" size="4">
+			<NetLayer>
+				<BandwidthDetermination
+					class="org.peerfact.impl.network.bandwidthDetermination.OECDReportBandwidthDetermination" />
+			</NetLayer>
+			<TransLayer />
+			<NodeFactory />
+			<CentralMonitorPeer />
+		</Group>
+
+	</HostBuilder>
+
+
+	<ChurnGenerator class="org.peerfact.impl.churn.DefaultChurnGenerator"
+		start="$churnStart" stop="$finishTime">
+		<ChurnModel class="org.peerfact.impl.churn.model.ExponentialChurnModel"
+			churnFactor="0.2" meanSessionLength="60m" />
+	</ChurnGenerator>
+
+	<Oracle class="org.peerfact.impl.util.oracle.GlobalOracle" />
+
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="$actions"
+		componentClass="org.peerfact.impl.overlay.dht.chord.chord.components.ChordNode"
+		additionalClasses="
+   	         	org.peerfact.impl.service.cmon.server.simple.CMonMonoServerApplication;
+   	         	org.peerfact.impl.service.cmon.peer.CMonPeerOverlayNode
+   	         	">
+		<ParamParser
+			class="org.peerfact.impl.overlay.dht.chord.base.util.OverlayKeyParser" />
+		<ParamParser
+			class="org.peerfact.impl.overlay.dht.chord.base.util.DHTObjectParser" />
+	</Scenario>
+</Configuration>

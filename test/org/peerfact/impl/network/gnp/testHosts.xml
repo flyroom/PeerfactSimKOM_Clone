@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gnp>
+
+  <GroupLookup> 
+
+    <Group id="UnitedStates" maxsize="1">
+      <IPs value="10"/>
+    </Group>
+    
+    <Group id="Canada" maxsize="1">
+      <IPs value="20"/>
+    </Group>
+    
+    <Group id="Japan" maxsize="1">
+      <IPs value="30"/>
+    </Group>
+    
+    <Group id="China" maxsize="1">
+      <IPs value="40"/>
+    </Group>
+    
+    <Group id="Germany" maxsize="1">
+      <IPs value="50"/>
+    </Group>
+    
+    <Group id="Brazil" maxsize="1">
+      <IPs value="60"/>
+    </Group>
+    
+  </GroupLookup>
+
+  <Hosts>
+    <Host ip="10" countryCode="US" longitude="-100.0" latitude="40.0" coordinates="10.0"/>
+    <Host ip="20" countryCode="CA" longitude="-120.0" latitude="90.0" coordinates="30.0"/>
+    <Host ip="30" countryCode="JP" longitude="130.0" latitude="40.0" coordinates="40.0"/>
+    <Host ip="40" countryCode="CN" longitude="110.0" latitude="30.0" coordinates="60.0"/>
+    <Host ip="50" countryCode="DE" longitude="10.0" latitude="50.0" coordinates="70.0"/>
+    <Host ip="60" countryCode="BR" longitude="-50.0" latitude="-20.0" coordinates="90.0"/>
+  </Hosts>
+
+
+
+
+
+
+   <!-- Possible cases in PingErLookup:
+          1) Germany -> Germany:              country to country
+          2) Germany -> United States:        country to country in reversed direction
+
+          3) Japan -> Japan:                  region to country 
+          4) Japan -> Germany:                region to country in reversed direction
+
+          5) United States -> United States:  country to region
+          6) United States -> Japan:          country to region in reversed direction
+
+          7) Brazil -> Brazil:                region to region
+          8) Brazil -> United States:         region to region in reversed direction
+
+          9) no PingEr Data for:  Germany <-> Brazil
+                                  Germany <-> Canada
+                                                                   
+                                  Canada <-> Canada
+                                  Canada <-> Germany
+                                  Canada <-> United States
+                                  
+                                  China <-> Canada
+                                  China <-> Germany 
+                                  China <-> Brazil
+                                  China <-> United States
+                                  China <-> Canada
+                                  China <-> China
+                                  
+                                  Japan <-> Brazil
+  --> 
+  
+  <PingErLookup>
+
+    <SummaryReport from="Germany"       to="Germany"        minimumRtt="10.0"   averageRtt="12.5" delayVariation="0" packetLoss="1.0"/>
+    <SummaryReport from="United States" to="Germany"        minimumRtt="200.0"  averageRtt="250.0" delayVariation="0" packetLoss="2.0"/>
+ 
+    <SummaryReport from="East Asia"     to="Japan"          minimumRtt="20.0"   averageRtt="25" delayVariation="0" packetLoss="3.0"/>
+    <SummaryReport from="Europe"        to="Japan"          minimumRtt="300.0"  averageRtt="375.0" delayVariation="0" packetLoss="4.0"/>
+
+    <SummaryReport from="United States" to="North America"  minimumRtt="30.0"   averageRtt="30.0" delayVariation="0" packetLoss="5.0"/>
+    <SummaryReport from="Japan"         to="North America"  minimumRtt="250.0"  averageRtt="275.0" delayVariation="0" packetLoss="6.0"/>
+ 
+    <SummaryReport from="Latin America" to="Latin America"  minimumRtt="40.0"   averageRtt="45.0" delayVariation="0" packetLoss="7.0"/>
+    <SummaryReport from="North America" to="Latin America"  minimumRtt="100.0"  averageRtt="120.0" delayVariation="0" packetLoss="8.0"/>
+
+  </PingErLookup>
+
+
+
+
+
+  <!-- Three possible cases in Country Lookup:
+          1) full lookup information (DE, US, JP, BR)
+          2) Country Does not exist in PingEr Project (CA)
+          3) Only GeoIP information (CN)
+  -->
+  
+  <CountryLookup>
+  
+    <CountryKey code="DE" countryGeoIP="Germany"        countryPingEr="Germany"       regionPingEr="Europe"/>
+    <CountryKey code="US" countryGeoIP="United States"  countryPingEr="United States" regionPingEr="North America"/>
+    <CountryKey code="JP" countryGeoIP="Japan"          countryPingEr="Japan"         regionPingEr="East Asia" />
+    <CountryKey code="BR" countryGeoIP="Brazil"         countryPingEr="Brazil"        regionPingEr="Latin America" />
+    <CountryKey code="CA" countryGeoIP="Canada"                                       regionPingEr="North America"/>
+    <CountryKey code="CN" countryGeoIP="China"/>
+    
+  </CountryLookup>
+  
+  
+</gnp>
