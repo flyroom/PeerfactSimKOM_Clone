@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.peerfact.api.common.ConnectivityEvent;
 import org.peerfact.api.common.Message;
 import org.peerfact.api.common.Operation;
@@ -66,6 +67,9 @@ public class ZeroAccessOverlayNode extends
 		implements
 		HomogeneousOverlayNode<ZeroAccessOverlayID, ZeroAccessOverlayContact>,
 		TransMessageCallback, TransMessageListener {
+
+	final public Logger log = Logger
+			.getLogger(ZeroAccessOverlayNode.class);
 
 	private TransLayer transLayer;
 
@@ -210,17 +214,18 @@ public class ZeroAccessOverlayNode extends
 			}
 			else
 			{
-				getL_round_robin_counter = (getL_round_robin_counter++)
+				getL_round_robin_counter = (getL_round_robin_counter + 1)
 						% bootstrapInfos.size();
 				bootstrapInfo = bootstrapInfos
 						.get(getL_round_robin_counter);
+				log.debug("could not send request to itself, turn to next one in bootstrap list with size: "
+						+ bootstrapInfos.size() + " current index: "
+						+ getL_round_robin_counter);
 			}
 		} else {
-			getL_round_robin_counter = (getL_round_robin_counter++)
+			getL_round_robin_counter = (getL_round_robin_counter + 1)
 					% bootstrapInfos.size();
 		}
-		
-		
 
 		GetLOperation getLOperation = new GetLOperation(this,
 				bootstrapInfo, new OperationCallback<Object>() {
@@ -237,6 +242,8 @@ public class ZeroAccessOverlayNode extends
 					}
 				});
 		getLOperation.scheduleImmediately();
+
+		getL_round_robin_counter = getL_round_robin_counter + 1;
 	}
 
 	@Override

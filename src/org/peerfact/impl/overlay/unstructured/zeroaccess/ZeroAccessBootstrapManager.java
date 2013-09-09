@@ -96,7 +96,9 @@ public class ZeroAccessBootstrapManager implements
 		{
 			if (bootstrapPeers.size() < MAXIMUM_BOOTSTRAP_PEERLIST_SIZE)
 			{
-				bootstrapPeers.add(node);
+				if (!bootstrapPeers.contains(node)) {
+					bootstrapPeers.add(node);
+				}
 			}
 		}
 	}
