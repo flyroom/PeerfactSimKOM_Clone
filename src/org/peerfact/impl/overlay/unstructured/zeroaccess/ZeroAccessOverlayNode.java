@@ -38,12 +38,12 @@ import org.peerfact.api.transport.TransInfo;
 import org.peerfact.api.transport.TransLayer;
 import org.peerfact.api.transport.TransMessageCallback;
 import org.peerfact.api.transport.TransMessageListener;
-import org.peerfact.api.transport.TransProtocol;
 import org.peerfact.impl.overlay.AbstractOverlayNode;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.BaseMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.GetLOperation;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.RetLOperation;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.ScheduleGetLOperation;
 import org.peerfact.impl.transport.TransMsgEvent;
 
@@ -144,24 +144,59 @@ public class ZeroAccessOverlayNode extends
 
 		this.getZeroAccessRoutingTable().addContact(source_contact);
 
-		RetLMessage retLMessage = new RetLMessage(this.getOverlayID(),
-				getLMessage.getContact().getOverlayID(), latestContacts);
+		RetLOperation retLOperation = new RetLOperation(this,
+				source_contact.getTransInfo(), latestContacts,
+				new OperationCallback<Object>() {
+					@Override
+					public void calledOperationFailed(
+							Operation<Object> op) {
+						//
+					}
 
-		this.getTransLayer().send(retLMessage,
-				getLMessage.getContact().getTransInfo(), this.getPort(),
-				TransProtocol.UDP);
+					@Override
+					public void calledOperationSucceeded(
+							Operation<Object> op) {
+						//
+					}
+				});
+		retLOperation.scheduleImmediately();
+		/*
+		 * RetLMessage retLMessage = new RetLMessage(this.getOverlayID(),
+		 * getLMessage.getContact().getOverlayID(), latestContacts);
+		 * 
+		 * this.getTransLayer().send(retLMessage,
+		 * getLMessage.getContact().getTransInfo(), this.getPort(),
+		 * TransProtocol.UDP);
+		 */
 
-		OverlayContact<ZeroAccessOverlayID> contact = new ZeroAccessOverlayContact(
-				this.getOverlayID(), this
-						.getTransLayer().getLocalTransInfo(this.getPort()));
+		// OverlayContact<ZeroAccessOverlayID> contact = new
+		// ZeroAccessOverlayContact(
+		// this.getOverlayID(), this
+		// .getTransLayer().getLocalTransInfo(this.getPort()));
+		//
+		// GetLMessage getLMessageToSend = new GetLMessage(
+		// getLMessage.getReceiver(),
+		// getLMessage.getSender(), contact);
+		//
+		// this.getTransLayer().send(getLMessageToSend,
+		// getLMessage.getContact().getTransInfo(), this.getPort(),
+		// TransProtocol.UDP);
 
-		GetLMessage getLMessageToSend = new GetLMessage(
-				getLMessage.getReceiver(),
-				getLMessage.getSender(), contact);
+		GetLOperation getLOperation = new GetLOperation(this,
+				source_contact.getTransInfo(), new OperationCallback<Object>() {
+					@Override
+					public void calledOperationFailed(
+							Operation<Object> op) {
+						//
+					}
 
-		this.getTransLayer().send(getLMessageToSend,
-				getLMessage.getContact().getTransInfo(), this.getPort(),
-				TransProtocol.UDP);
+					@Override
+					public void calledOperationSucceeded(
+							Operation<Object> op) {
+						//
+					}
+				});
+		getLOperation.scheduleImmediately();
 	}
 
 	private void processRetL(TransMsgEvent receivingEvent) {
