@@ -20,7 +20,7 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
 import org.peerfact.api.common.Component;
 import org.peerfact.api.common.ComponentFactory;
@@ -54,12 +54,6 @@ public class ZeroAccessApplicationFactory implements ComponentFactory {
 
 	private long downloadDelay;
 
-	// private int numConn;
-	// private long delayAcceptConnection;
-	// private long refresh;
-	// private long contactTimeout;
-	// private long descriptorTimeout;
-
 	@Override
 	public Component createComponent(Host host) {
 		// ZeroAccessOverlayNode node = newZeroAccessOverlayNode(host);
@@ -69,17 +63,6 @@ public class ZeroAccessApplicationFactory implements ComponentFactory {
 		return new ZeroAccessApplication(node, this.propUp, this.propDel,
 				this.propDown, this.downloadDelay);
 	}
-
-	// public ZeroAccessOverlayNode newZeroAccessOverlayNode(Host host) {
-	// return new ZeroAccessOverlayNode(host.getTransLayer(),
-	// newZeroAccessOverlayID(), this.numConn, this.delayAcceptConnection,
-	// this.refresh, this.contactTimeout, this.descriptorTimeout, port);
-	// }
-
-	// public ZeroAccessOverlayID newZeroAccessOverlayID() {
-	// this.id += 1;
-	// return new ZeroAccessOverlayID(BigInteger.valueOf(this.id));
-	// }
 
 	public void setPropUp(double propUp) {
 		this.propUp = propUp;
@@ -96,25 +79,5 @@ public class ZeroAccessApplicationFactory implements ComponentFactory {
 	public void setDownloadDelay(long downloadDelay) {
 		this.downloadDelay = downloadDelay;
 	}
-
-	// public void setNumConn(int numConn) {
-	// this.numConn = numConn;
-	// }
-	//
-	// public void setDelayAcceptConnection(long delayAcceptConnection) {
-	// this.delayAcceptConnection = delayAcceptConnection;
-	// }
-	//
-	// public void setRefresh(long refresh) {
-	// this.refresh = refresh;
-	// }
-	//
-	// public void setContactTimeout(long contactTimeout) {
-	// this.contactTimeout = contactTimeout;
-	// }
-	//
-	// public void setDescriptorTimeout(long descriptorTimeout) {
-	// this.descriptorTimeout = descriptorTimeout;
-	// }
 
 }

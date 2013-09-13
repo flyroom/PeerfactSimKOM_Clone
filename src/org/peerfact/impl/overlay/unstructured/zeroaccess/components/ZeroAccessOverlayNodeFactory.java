@@ -20,7 +20,7 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
 import java.math.BigInteger;
 
@@ -65,7 +65,7 @@ public class ZeroAccessOverlayNodeFactory implements ComponentFactory {
 
 	@Override
 	public Component createComponent(Host host) {
-		return new ZeroAccessOverlayNode(host.getTransLayer(),
+		return new ZeroAccessCrawlOverlayNode(host.getTransLayer(),
 				newZeroAccessOverlayID(), this.numConn,
 				this.delayAcceptConnection, this.refresh, this.contactTimeout,
 				this.descriptorTimeout, port);

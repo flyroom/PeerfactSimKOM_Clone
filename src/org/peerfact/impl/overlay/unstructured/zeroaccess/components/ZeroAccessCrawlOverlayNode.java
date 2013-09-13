@@ -20,7 +20,7 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +37,6 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.message.BaseMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.GetLOperation;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.ScheduleGetLOperation;
 import org.peerfact.impl.transport.TransMsgEvent;
 
 /**
@@ -134,23 +133,44 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 			if (!nodesMap.contains(node.getOverlayID()))
 			{
 				nodesMap.putIfAbsent(node.getOverlayID(), node);
+				unProbedNodeList.push(node);
 			}
 		}
 	}
 
 	public void initForCrawl()
 	{
-
-	}
-
-	public void scheduleCrawl(
-			ScheduleGetLOperation scheduleOverlayOperation) {
 		List<TransInfo> bootstrapInfos = ZeroAccessBootstrapManager
 				.getInstance().getBootstrapInfo();
 		for (int i = 0; i < bootstrapInfos.size(); i++)
 		{
 			GetLOperation getLOperation = new GetLOperation(this,
 					bootstrapInfos.get(i), new OperationCallback<Object>() {
+						@Override
+						public void calledOperationFailed(
+								Operation<Object> op) {
+							//
+						}
+
+						@Override
+						public void calledOperationSucceeded(
+								Operation<Object> op) {
+							//
+						}
+					});
+			getLOperation.scheduleImmediately();
+		}
+		if (bootstrapInfos.size() != 0) {
+			scheduleCrawl();
+		}
+	}
+
+	public void scheduleCrawl() {
+		while (!unProbedNodeList.isEmpty())
+		{
+			ZeroAccessOverlayContact node = unProbedNodeList.pop();
+			GetLOperation getLOperation = new GetLOperation(this,
+					node.getTransInfo(), new OperationCallback<Object>() {
 						@Override
 						public void calledOperationFailed(
 								Operation<Object> op) {

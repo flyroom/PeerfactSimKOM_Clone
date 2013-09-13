@@ -20,17 +20,15 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess.operation;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
-import java.util.LinkedList;
+import java.math.BigInteger;
 
+import org.peerfact.api.common.Operation;
 import org.peerfact.api.common.OperationCallback;
-import org.peerfact.api.transport.TransInfo;
-import org.peerfact.api.transport.TransProtocol;
-import org.peerfact.impl.common.AbstractOperation;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayContact;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNode;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
+import org.peerfact.impl.application.AbstractApplication;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.ScheduleGetLOperation;
+import org.peerfact.impl.simengine.Simulator;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -47,38 +45,50 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
  * @version 05/06/2011
  * 
  */
-public class RetLOperation extends
-		AbstractOperation<ZeroAccessOverlayNode, Object> {
+public class ZeroAccessApplication extends AbstractApplication {
 
 	private ZeroAccessOverlayNode node;
 
-	private TransInfo connectInfo;
+	// propability for a upload, if updateRessource is called
+	private double propUp;
 
-	private LinkedList<ZeroAccessOverlayContact> contact_list;
+	// propability for a ressource to be deleted, if updateRessource is called
+	private double propDel;
 
-	public RetLOperation(ZeroAccessOverlayNode node, TransInfo connectInfo,
-			LinkedList<ZeroAccessOverlayContact> contact_list,
-			OperationCallback<Object> callback) {
-		super(node, callback);
-		this.connectInfo = connectInfo;
+	// propability for a download, if updateRessource is called
+	private double propDown;
+
+	// time between query and download
+	private long downloadDelay;
+
+	public ZeroAccessApplication(ZeroAccessOverlayNode node, double propUp,
+			double propDel, double propDown, long downloadDelay) {
 		this.node = node;
-		this.contact_list = contact_list;
+		this.propUp = propUp;
+		this.propDel = propDel;
+		this.propDown = propDown;
+		this.downloadDelay = downloadDelay;
 	}
 
-	@Override
-	protected void execute() {
-		ZeroAccessOverlayContact contact = new ZeroAccessOverlayContact(
-				node.getOverlayID(), node.getTransLayer()
-						.getLocalTransInfo(node.getPort()));
-		RetLMessage message = new RetLMessage(
-				this.node.getOverlayID(), null, this.contact_list);
-		node.getTransLayer().send(message, connectInfo, node.getPort(),
-				TransProtocol.UDP);
+	public void registerBootstrap() {
+		ZeroAccessBootstrapManager.getInstance().registerNode(node);
 	}
 
-	@Override
-	public Object getResult() {
-		return this;
-	}
+	public void startScheduleGetL(long delay) {
+		ScheduleGetLOperation scheduleGetLOperation = new ScheduleGetLOperation(
+				node, delay, new OperationCallback<Object>() {
+					@Override
+					public void calledOperationFailed(Operation<Object> op) {
+						//
+					}
 
+					@Override
+					public void calledOperationSucceeded(Operation<Object> op) {
+						//
+					}
+				});
+		scheduleGetLOperation.scheduleWithDelay((long) (Simulator
+				.getRandom().nextDouble() * BigInteger.valueOf(delay)
+				.doubleValue()));
+	}
 }

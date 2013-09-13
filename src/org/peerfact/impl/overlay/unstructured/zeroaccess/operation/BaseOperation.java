@@ -27,7 +27,7 @@ import java.math.BigInteger;
 import org.peerfact.api.common.OperationCallback;
 import org.peerfact.impl.common.AbstractOperation;
 import org.peerfact.impl.overlay.unstructured.homogeneous.gnutella04.GnutellaConfiguration;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayNode;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNode;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -20,7 +20,7 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
 import java.math.BigInteger;
 
@@ -45,7 +45,7 @@ import org.peerfact.impl.simengine.Simulator;
  * @version 05/06/2011
  * 
  */
-public class ZeroAccessApplication extends AbstractApplication {
+public class ZeroAccessCrawlApplication extends AbstractApplication {
 
 	private ZeroAccessOverlayNode node;
 
@@ -61,7 +61,7 @@ public class ZeroAccessApplication extends AbstractApplication {
 	// time between query and download
 	private long downloadDelay;
 
-	public ZeroAccessApplication(ZeroAccessOverlayNode node, double propUp,
+	public ZeroAccessCrawlApplication(ZeroAccessOverlayNode node, double propUp,
 			double propDel, double propDown, long downloadDelay) {
 		this.node = node;
 		this.propUp = propUp;

@@ -20,10 +20,16 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess.message;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
-import org.peerfact.api.overlay.OverlayContact;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayID;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.math.BigInteger;
+
+import org.peerfact.api.overlay.OverlayID;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -40,28 +46,57 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOv
  * @version 05/06/2011
  * 
  */
-public class GetLMessage extends BaseMessage {
+public class ZeroAccessOverlayID implements OverlayID<BigInteger>, Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6242668576201187183L;
+	private static final long serialVersionUID = -4700619585972305741L;
 
-	private OverlayContact<ZeroAccessOverlayID> contact;
+	private BigInteger overlayID;
 
-	public GetLMessage(ZeroAccessOverlayID sender,
-			ZeroAccessOverlayID receiver,
-			OverlayContact<ZeroAccessOverlayID> contact) {
-		super(sender, receiver);
-		this.contact = contact;
-	}
-
-	public OverlayContact<ZeroAccessOverlayID> getContact() {
-		return contact;
+	public ZeroAccessOverlayID(BigInteger overlayID) {
+		this.overlayID = overlayID;
 	}
 
 	@Override
-	public long getSize() {
-		return super.getSize();
+	public byte[] getBytes() {
+		byte[] buf = null;
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			ObjectOutput out = new ObjectOutputStream(bos);
+			out.writeObject(this);
+			out.close();
+
+			buf = bos.toByteArray();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return buf;
+	}
+
+	@Override
+	public BigInteger getUniqueValue() {
+		return this.overlayID;
+	}
+
+	@Override
+	public int compareTo(OverlayID<BigInteger> arg0) {
+		return this.overlayID.compareTo(arg0.getUniqueValue());
+	}
+
+	@Override
+	public String toString() {
+		return this.overlayID.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.overlayID.hashCode();
+	}
+
+	@Override
+	public long getTransmissionSize() {
+		return getBytes().length;
 	}
 }

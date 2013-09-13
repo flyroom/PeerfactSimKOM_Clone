@@ -24,7 +24,7 @@ package org.peerfact.impl.overlay.unstructured.zeroaccess.operation;
 
 import org.peerfact.api.common.OperationCallback;
 import org.peerfact.impl.common.AbstractOperation;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayNode;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNode;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -20,16 +20,11 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.math.BigInteger;
-
-import org.peerfact.api.overlay.OverlayID;
+import org.peerfact.api.common.Component;
+import org.peerfact.api.common.ComponentFactory;
+import org.peerfact.api.common.Host;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -46,57 +41,43 @@ import org.peerfact.api.overlay.OverlayID;
  * @version 05/06/2011
  * 
  */
-public class ZeroAccessOverlayID implements OverlayID<BigInteger>, Serializable {
+public class ZeroAccessCrawlApplicationFactory implements ComponentFactory {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4700619585972305741L;
+	// private final static short port = 123;
+	// private static long id = 0;
 
-	private BigInteger overlayID;
+	private double propUp;
 
-	public ZeroAccessOverlayID(BigInteger overlayID) {
-		this.overlayID = overlayID;
-	}
+	private double propDel;
 
-	@Override
-	public byte[] getBytes() {
-		byte[] buf = null;
-		try {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			ObjectOutput out = new ObjectOutputStream(bos);
-			out.writeObject(this);
-			out.close();
+	private double propDown;
 
-			buf = bos.toByteArray();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		return buf;
-	}
+	private long downloadDelay;
 
 	@Override
-	public BigInteger getUniqueValue() {
-		return this.overlayID;
+	public Component createComponent(Host host) {
+		// ZeroAccessOverlayNode node = newZeroAccessOverlayNode(host);
+		ZeroAccessCrawlOverlayNode node = (ZeroAccessCrawlOverlayNode) host
+				.getOverlay(ZeroAccessOverlayNode.class);
+
+		return new ZeroAccessCrawlApplication(node, this.propUp, this.propDel,
+				this.propDown, this.downloadDelay);
 	}
 
-	@Override
-	public int compareTo(OverlayID<BigInteger> arg0) {
-		return this.overlayID.compareTo(arg0.getUniqueValue());
+	public void setPropUp(double propUp) {
+		this.propUp = propUp;
 	}
 
-	@Override
-	public String toString() {
-		return this.overlayID.toString();
+	public void setPropDel(double propDel) {
+		this.propDel = propDel;
 	}
 
-	@Override
-	public int hashCode() {
-		return this.overlayID.hashCode();
+	public void setPropDown(double propDown) {
+		this.propDown = propDown;
 	}
 
-	@Override
-	public long getTransmissionSize() {
-		return getBytes().length;
+	public void setDownloadDelay(long downloadDelay) {
+		this.downloadDelay = downloadDelay;
 	}
+
 }

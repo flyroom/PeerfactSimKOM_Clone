@@ -26,8 +26,8 @@ import org.peerfact.api.common.OperationCallback;
 import org.peerfact.api.transport.TransInfo;
 import org.peerfact.api.transport.TransProtocol;
 import org.peerfact.impl.common.AbstractOperation;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayContact;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayNode;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayContact;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNode;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
 
 /**

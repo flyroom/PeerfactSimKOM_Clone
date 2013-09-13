@@ -37,9 +37,9 @@ import org.peerfact.api.overlay.BootstrapManager;
 import org.peerfact.api.overlay.OverlayNode;
 import org.peerfact.impl.analyzer.visualization2d.analyzer.OverlayAdapter;
 import org.peerfact.impl.analyzer.visualization2d.metrics.overlay.DocCountM;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayContact;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayNode;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayRoutingTable;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayContact;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNode;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayRoutingTable;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
 

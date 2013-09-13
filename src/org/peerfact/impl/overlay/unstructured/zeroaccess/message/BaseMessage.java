@@ -24,7 +24,7 @@ package org.peerfact.impl.overlay.unstructured.zeroaccess.message;
 
 import org.peerfact.api.common.Message;
 import org.peerfact.impl.overlay.AbstractOverlayMessage;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayID;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayID;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

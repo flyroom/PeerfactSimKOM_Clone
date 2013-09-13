@@ -20,7 +20,7 @@
  *
  */
 
-package org.peerfact.impl.overlay.unstructured.zeroaccess;
+package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
 import java.util.LinkedList;
 import java.util.List;

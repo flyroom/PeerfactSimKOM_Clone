@@ -24,8 +24,8 @@ package org.peerfact.impl.overlay.unstructured.zeroaccess.message;
 
 import java.util.LinkedList;
 
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayContact;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.ZeroAccessOverlayID;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayContact;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayID;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
