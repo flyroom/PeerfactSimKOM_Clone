@@ -22,13 +22,7 @@
 
 package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
-import java.math.BigInteger;
-
-import org.peerfact.api.common.Operation;
-import org.peerfact.api.common.OperationCallback;
 import org.peerfact.impl.application.AbstractApplication;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.ScheduleGetLOperation;
-import org.peerfact.impl.simengine.Simulator;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -61,34 +55,13 @@ public class ZeroAccessCrawlApplication extends AbstractApplication {
 	// time between query and download
 	private long downloadDelay;
 
-	public ZeroAccessCrawlApplication(ZeroAccessOverlayNode node, double propUp,
+	public ZeroAccessCrawlApplication(ZeroAccessOverlayNode node,
+			double propUp,
 			double propDel, double propDown, long downloadDelay) {
 		this.node = node;
 		this.propUp = propUp;
 		this.propDel = propDel;
 		this.propDown = propDown;
 		this.downloadDelay = downloadDelay;
-	}
-
-	public void registerBootstrap() {
-		ZeroAccessBootstrapManager.getInstance().registerNode(node);
-	}
-
-	public void startScheduleGetL(long delay) {
-		ScheduleGetLOperation scheduleGetLOperation = new ScheduleGetLOperation(
-				node, delay, new OperationCallback<Object>() {
-					@Override
-					public void calledOperationFailed(Operation<Object> op) {
-						//
-					}
-
-					@Override
-					public void calledOperationSucceeded(Operation<Object> op) {
-						//
-					}
-				});
-		scheduleGetLOperation.scheduleWithDelay((long) (Simulator
-				.getRandom().nextDouble() * BigInteger.valueOf(delay)
-				.doubleValue()));
 	}
 }

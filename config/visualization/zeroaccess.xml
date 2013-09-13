@@ -24,10 +24,12 @@
 	<TransLayer
 		class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
 		
+	 
 	<ZeroAccessCrawlOverlayNode
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlOverlayNodeFactory"
 		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
 		descriptorTimeout="1000000" numConn="5" />
+		
 
 	<ZeroAccessOverlayNode20
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
@@ -52,11 +54,12 @@
 	<Application
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplicationFactory"
 		propUp="0.05" propDel="0.01" propDown="0.1" downloadDelay="20000000" />
-		
+
+	
 	<CrawlApplication
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlApplicationFactory"
 		propUp="0.05" propDel="0.01" propDown="0.1" downloadDelay="20000000" />
-
+	
 	<BootstrapFactory
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplicationFactory"
 		propUp="0" propDel="0" propDown="0" downloadDelay="20000000" />
@@ -76,7 +79,7 @@
 	
 	<HostBuilder
 		class="org.peerfact.impl.scenario.DefaultHostBuilder"
-		experimentSize="3011">
+		experimentSize="5000">
 		
 		<Host groupID="China">
 			<NetLayer />
@@ -85,7 +88,8 @@
 			<CrawlApplication />
 		</Host>
 		
-		<Group groupID="France" size="500">
+		
+		<Group groupID="France" size="1500">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNodeBootstrap />
@@ -135,6 +139,6 @@
 	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
 		actionsFile="$actions"
 		componentClass="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplication"
-		additionalClasses="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlApplication" 
+		additionalClasses="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlOverlayNode" 
 		/>
 </Configuration>

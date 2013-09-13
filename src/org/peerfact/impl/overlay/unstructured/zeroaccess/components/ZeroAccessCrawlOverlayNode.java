@@ -116,7 +116,8 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 	}
 
 	private void processGetL(TransMsgEvent receivingEvent) {
-
+		int i = 1;
+		i++;
 	}
 
 	private void processRetL(TransMsgEvent receivingEvent) {
@@ -136,6 +137,7 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 				unProbedNodeList.push(node);
 			}
 		}
+		scheduleCrawl();
 	}
 
 	public void initForCrawl()
@@ -159,9 +161,6 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 						}
 					});
 			getLOperation.scheduleImmediately();
-		}
-		if (bootstrapInfos.size() != 0) {
-			scheduleCrawl();
 		}
 	}
 

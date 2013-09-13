@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
+		actionsFile="config/visualization/zeroaccess/zeroaccess-actions.dat"
+		componentClass="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplication"
+		additionalClasses="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlOverlayNode" 
+		/>

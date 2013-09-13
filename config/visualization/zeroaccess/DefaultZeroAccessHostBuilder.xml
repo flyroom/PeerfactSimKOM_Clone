@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<HostBuilder
+	class="org.peerfact.impl.scenario.DefaultHostBuilder"
+	experimentSize="$size">
+	
+	<Host groupID="China">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessCrawlOverlayNode />
+			<CrawlApplication />
+			<Properties enableChurn="false" />
+		    <Properties enableIsolation="false" />
+		</Host>
+		
+		
+		<Group groupID="France" size="1500">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessOverlayNodeBootstrap />
+			<BootstrapFactory />
+			<Properties enableChurn="false" />
+			<Properties enableIsolation="false" />
+		</Group>
+
+		<Host groupID="Europe">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessOverlayNodeBootstrap />
+			<BootstrapFactory />
+			<Properties enableChurn="false" />
+			<Properties enableIsolation="false" />
+		</Host>
+		
+		<Group groupID="Idaho" size="300">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessOverlayNode20 />
+			<Application />
+			<Properties enableChurn="false" />
+			<Properties enableIsolation="false" />
+		</Group>
+
+		<Group groupID="Queensland" size="50">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessOverlayNode200 />
+			<Application />
+			<Properties enableChurn="false" />
+			<Properties enableIsolation="false" />
+		</Group>
+
+		<Group groupID="LatinAmerica" size="300">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessOverlayNode200 />
+			<Application />
+			<Properties enableChurn="false" />
+			<Properties enableIsolation="false" />
+		</Group>
+		
+		<Group groupID="Minnesota" size="100">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessOverlayNode200 />
+			<Application />
+			<Properties enableChurn="false" />
+			<Properties enableIsolation="false" />
+		</Group>
+</HostBuilder>
