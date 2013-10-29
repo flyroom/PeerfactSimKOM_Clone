@@ -7,4 +7,4 @@ Idaho 2s startScheduleGetL 10s
 Minnesota 5s startScheduleGetL 12s
 Queensland 10s startScheduleGetL 10s
 LatinAmerica 13s startScheduleGetL 10s
-#China 20s ZeroAccessCrawlOverlayNode:initForCrawl
+China 10m ZeroAccessCrawlOverlayNode:initForCrawl

@@ -277,8 +277,6 @@ public class ZeroAccessOverlayNode extends
 					}
 				});
 		getLOperation.scheduleImmediately();
-
-		getL_round_robin_counter = getL_round_robin_counter + 1;
 	}
 
 	@Override

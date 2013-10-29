@@ -137,7 +137,9 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 				unProbedNodeList.push(node);
 			}
 		}
+		log.warn("Current size of crawling: " + nodesMap.size());
 		scheduleCrawl();
+
 	}
 
 	public void initForCrawl()

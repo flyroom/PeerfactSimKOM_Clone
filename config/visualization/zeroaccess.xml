@@ -56,7 +56,7 @@
 		propUp="0.05" propDel="0.01" propDown="0.1" downloadDelay="20000000" />
 
 	
-	<CrawlApplication
+	<CrawlApplication 
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlApplicationFactory"
 		propUp="0.05" propDel="0.01" propDown="0.1" downloadDelay="20000000" />
 	
@@ -87,9 +87,8 @@
 			<ZeroAccessCrawlOverlayNode />
 			<CrawlApplication />
 		</Host>
-		
-		
-		<Group groupID="France" size="1500">
+				
+		<Group groupID="France" size="150">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNodeBootstrap />

@@ -105,9 +105,12 @@ public class ZeroAccessOverlayRoutingTable implements
 	{
 		LinkedList<ZeroAccessOverlayContact> latestContacts = new LinkedList<ZeroAccessOverlayContact>();
 		int read_count = num;
-		;
-		if (read_count > latestContacts.size()) {
-			read_count = latestContacts.size();
+
+		if (read_count > maximum_peer_list_size_in_getL) {
+			read_count = maximum_peer_list_size_in_getL;
+		}
+		if (read_count > Contacts.size()) {
+			read_count = Contacts.size();
 		}
 		for (int i = 0; i < read_count; i++)
 		{
