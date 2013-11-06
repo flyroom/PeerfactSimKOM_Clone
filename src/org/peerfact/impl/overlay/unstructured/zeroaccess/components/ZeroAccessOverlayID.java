@@ -86,6 +86,12 @@ public class ZeroAccessOverlayID implements OverlayID<BigInteger>, Serializable 
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return this.compareTo((OverlayID<BigInteger>) obj) == 0;
+	}
+
+	@Override
 	public String toString() {
 		return this.overlayID.toString();
 	}

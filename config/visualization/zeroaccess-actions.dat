@@ -1,10 +1,23 @@
 _ECHO 1s "Simulation Started"
 
-France 1s registerBootstrap
-Europe 7s registerBootstrap
+LatinAmerica 1s registerBootstrap
 
-Idaho 2s startScheduleGetL 10s
-Minnesota 5s startScheduleGetL 12s
-Queensland 10s startScheduleGetL 10s
-LatinAmerica 13s startScheduleGetL 10s
-China 10m ZeroAccessCrawlOverlayNode:initForCrawl
+NorthAmerica 2s startScheduleGetL 10s
+Europe 2s startScheduleGetL 10s
+LatinAmerica 2s startScheduleGetL 10s
+
+China 50m ZeroAccessCrawlOverlayNode:initForCrawl
+China 55m ZeroAccessCrawlOverlayNode:stopCrawl
+China 56m ZeroAccessCrawlOverlayNode:resetCrawl
+
+China 250m ZeroAccessCrawlOverlayNode:initForCrawl
+China 255m ZeroAccessCrawlOverlayNode:stopCrawl
+China 256m ZeroAccessCrawlOverlayNode:resetCrawl
+
+China 400m ZeroAccessCrawlOverlayNode:initForCrawl
+China 405m ZeroAccessCrawlOverlayNode:stopCrawl
+China 406m ZeroAccessCrawlOverlayNode:resetCrawl
+
+China 500m ZeroAccessCrawlOverlayNode:initForCrawl
+China 506m ZeroAccessCrawlOverlayNode:stopCrawl
+China 506m ZeroAccessCrawlOverlayNode:resetCrawl

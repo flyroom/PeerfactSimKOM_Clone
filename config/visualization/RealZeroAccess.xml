@@ -1,10 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Configuration>
+<Configuration xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Default>
 		<Variable name="seed" value="10" />
-		<Variable name="finishTime" value="60m" />
+		<Variable name="startTime" value="0m" />
+		<Variable name="finishTime" value="3000m" />
 		<Variable name="actions" value="config/visualization/zeroaccess-actions.dat" />
 		<Variable name="gnpDataFile" value="config/data/measured_data.xml"/>
+		<Variable name="churn_startTime" value="60m"/>
+		<Variable name="churn_finishTime" value="3000m"/>
+		
+		<!-- kad , Exponential zeroaccess -->
+		<Variable name="ChurnModel" value="zeroaccess" />
 	</Default>
 	<SimulatorCore class="org.peerfact.impl.simengine.Simulator"
 		static="getInstance" seed="$seed" finishAt="$finishTime" />
@@ -71,11 +77,14 @@
          	<OverlayAdapter class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.vis.ZeroAccessAdapter"/>
          </Analyzer>
           -->
+          
          <Analyzer class="org.peerfact.impl.overlay.unstructured.zeroaccess.analyzer.ZeroAccessMessageAnalyzer"/>
+         <Analyzer class="org.peerfact.impl.analyzer.DefaultConnectivityAnalyzer" />
+         <Analyzer class="org.peerfact.impl.analyzer.DefaultChurnAnalyzer" />
          <Analyzer class="org.peerfact.impl.analyzer.DefaultNetAnalyzer" />
-	     <Analyzer class="org.peerfact.impl.analyzer.DefaultOperationAnalyzer" />
 	     <Analyzer class="org.peerfact.impl.analyzer.DefaultTransAnalyzer" /> 
 	</Monitor>
+	
 	
 	<HostBuilder
 		class="org.peerfact.impl.scenario.DefaultHostBuilder"
@@ -87,53 +96,43 @@
 			<ZeroAccessCrawlOverlayNode />
 			<CrawlApplication />
 		</Host>
-				
-		<Group groupID="France" size="150">
+		
+		<Group groupID="LatinAmerica" size="100">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNodeBootstrap />
 			<BootstrapFactory />
 		</Group>
-
-		<Host groupID="Europe">
-			<NetLayer />
-			<TransLayer />
-			<ZeroAccessOverlayNodeBootstrap />
-			<BootstrapFactory />
-		</Host>
-		
-		<Group groupID="Idaho" size="300">
+				
+		<Group groupID="NorthAmerica" size="2600">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNode20 />
 			<Application />
+			<Properties enableChurn="true" />
 		</Group>
 
-		<Group groupID="Queensland" size="50">
+		<Group groupID="Europe" size="2000">
 			<NetLayer />
 			<TransLayer />
-			<ZeroAccessOverlayNode200 />
+			<ZeroAccessOverlayNode20 />
 			<Application />
-		</Group>
-
-		<Group groupID="LatinAmerica" size="300">
-			<NetLayer />
-			<TransLayer />
-			<ZeroAccessOverlayNode200 />
-			<Application />
-		</Group>
-		
-		<Group groupID="Minnesota" size="100">
-			<NetLayer />
-			<TransLayer />
-			<ZeroAccessOverlayNode200 />
-			<Application />
+			<Properties enableChurn="true" />
 		</Group>
 	</HostBuilder>
+		
+	<IfEqualStr arg0="$ChurnModel" arg1="kad">
+		<xi:include href="../includes/churn/KadChurn.xml" />
+	</IfEqualStr>
+	<IfEqualStr arg0="$ChurnModel" arg1="Exponential">
+		<xi:include href="../includes/churn/ExponentialChurn.xml" />
+	</IfEqualStr>
+	<IfEqualStr arg0="$ChurnModel" arg1="zeroaccess">
+		<xi:include href="../includes/churn/ZeroaccessChurn.xml" />
+	</IfEqualStr>
 	
-	<!-- 
 	<VisualizationHelper class="org.peerfact.impl.util.oracle.GlobalOracle" />
-	-->
+	
 
 	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
 		actionsFile="$actions"

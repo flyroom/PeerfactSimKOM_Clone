@@ -22,6 +22,7 @@
 
 package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,6 +38,7 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.message.BaseMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.GetLOperation;
+import org.peerfact.impl.simengine.Simulator;
 import org.peerfact.impl.transport.TransMsgEvent;
 
 /**
@@ -64,6 +66,14 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 	private ConcurrentHashMap<ZeroAccessOverlayID, ZeroAccessOverlayContact> nodesMap = new ConcurrentHashMap<ZeroAccessOverlayID, ZeroAccessOverlayContact>();
 
 	private LinkedList<ZeroAccessOverlayContact> unProbedNodeList = new LinkedList<ZeroAccessOverlayContact>();
+
+	private long crawl_start_time_int = 0;
+
+	private String crawl_start_time = null;
+
+	private String crawl_end_time = null;
+
+	private boolean crawling = false;
 
 	public ZeroAccessCrawlOverlayNode(TransLayer transLayer,
 			ZeroAccessOverlayID peerId,
@@ -121,7 +131,9 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 	}
 
 	private void processRetL(TransMsgEvent receivingEvent) {
-
+		if (!crawling) {
+			return;
+		}
 		RetLMessage retLMessage = (RetLMessage) receivingEvent
 				.getPayload();
 
@@ -131,19 +143,34 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		for (int i = 0; i < contact_list.size(); i++)
 		{
 			ZeroAccessOverlayContact node = contact_list.get(i);
-			if (!nodesMap.contains(node.getOverlayID()))
+			if (!nodesMap.containsKey(node.getOverlayID()))
 			{
-				nodesMap.putIfAbsent(node.getOverlayID(), node);
-				unProbedNodeList.push(node);
+				if (nodesMap.putIfAbsent(node.getOverlayID(), node) == null)
+				{
+					unProbedNodeList.push(node);
+					if (nodesMap.size() > 0 && nodesMap.size() % 100 == 0) {
+						String current_time = Simulator.getSimulatedRealtime();
+						log.warn(current_time + "Current size of crawling: "
+								+ nodesMap.size());
+					}
+				}
 			}
 		}
-		log.warn("Current size of crawling: " + nodesMap.size());
-		scheduleCrawl();
+		long current_time = Simulator.getCurrentTime();
+		long duration = (current_time - crawl_start_time_int) / 1000000;
+
+		if (nodesMap.size() < ZeroAccessBootstrapManager.getInstance()
+				.getSize() && duration < 300) {
+			scheduleCrawl();
+		}
 
 	}
 
 	public void initForCrawl()
 	{
+		crawling = true;
+		crawl_start_time = Simulator.getSimulatedRealtime();
+		crawl_start_time_int = Simulator.getCurrentTime();
 		List<TransInfo> bootstrapInfos = ZeroAccessBootstrapManager
 				.getInstance().getBootstrapInfo();
 		for (int i = 0; i < bootstrapInfos.size(); i++)
@@ -166,10 +193,43 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		}
 	}
 
+	public void resetCrawl()
+	{
+		crawling = false;
+		nodesMap.clear();
+		unProbedNodeList.clear();
+	}
+
+	public void stopCrawl()
+	{
+		if (crawling)
+		{
+			crawl_end_time = Simulator.getSimulatedRealtime();
+			log.warn("Crawling Finished from node " + this.toString()
+					+ " with size " + nodesMap.size() + " from "
+					+ crawl_start_time + " to " + crawl_end_time);
+			crawling = false;
+
+			for (int i = 1; i <= ZeroAccessBootstrapManager.getInstance()
+					.getSize(); i++)
+			{
+				ZeroAccessOverlayID search_id = new ZeroAccessOverlayID(
+						BigInteger.valueOf(i));
+				if (!nodesMap.containsKey(search_id))
+				{
+					log.warn("Lost Node " + search_id.toString());
+				}
+			}
+		}
+	}
+
 	public void scheduleCrawl() {
 		while (!unProbedNodeList.isEmpty())
 		{
 			ZeroAccessOverlayContact node = unProbedNodeList.pop();
+			if (node.getOverlayID() == this.getOverlayID()) {
+				continue;
+			}
 			GetLOperation getLOperation = new GetLOperation(this,
 					node.getTransInfo(), new OperationCallback<Object>() {
 						@Override

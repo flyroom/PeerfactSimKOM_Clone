@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ChurnGenerator
+	class="org.peerfact.impl.churn.DefaultChurnGenerator"
+	start="$churn_startTime"
+	stop="$churn_finishTime">
+	<ChurnModel
+		class="org.peerfact.impl.churn.model.ZeroAccessChurnModel" />
+</ChurnGenerator>

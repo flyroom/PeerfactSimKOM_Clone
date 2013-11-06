@@ -45,6 +45,7 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.GetLOperation;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.RetLOperation;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.ScheduleGetLOperation;
+import org.peerfact.impl.simengine.Simulator;
 import org.peerfact.impl.transport.TransMsgEvent;
 
 /**
@@ -97,7 +98,14 @@ public class ZeroAccessOverlayNode extends
 
 	@Override
 	public void connectivityChanged(ConnectivityEvent ce) {
-		//
+		if (ce.isOnline())
+		{
+			this.setPeerStatus(PeerStatus.PRESENT);
+		}
+		else if (ce.isOffline())
+		{
+			this.setPeerStatus(PeerStatus.ABSENT);
+		}
 	}
 
 	@Override
@@ -137,12 +145,29 @@ public class ZeroAccessOverlayNode extends
 			return;
 		}
 
+		if (source_contact.getOverlayID().toString().equals('1')) {
+			log.warn("Crawling GetL in ");
+		}
+
 		LinkedList<ZeroAccessOverlayContact> latestContacts = this
 				.getZeroAccessRoutingTable().getLatestContacts(16);
 
 		source_contact.refresh();
 
-		this.getZeroAccessRoutingTable().addContact(source_contact);
+		boolean sendGetLRequest = false;
+
+		if (this.getZeroAccessRoutingTable().getContact(
+				source_contact.getOverlayID()) == null) {
+			this.getZeroAccessRoutingTable().addContact(source_contact);
+			sendGetLRequest = true;
+		} else {
+			sendGetLRequest = false;
+		}
+
+		if (getLMessage.isRecheck())
+		{
+			sendGetLRequest = false;
+		}
 
 		RetLOperation retLOperation = new RetLOperation(this,
 				source_contact.getTransInfo(), latestContacts,
@@ -181,25 +206,37 @@ public class ZeroAccessOverlayNode extends
 		// this.getTransLayer().send(getLMessageToSend,
 		// getLMessage.getContact().getTransInfo(), this.getPort(),
 		// TransProtocol.UDP);
+		if (sendGetLRequest)
+		{
+			GetLOperation getLOperation = new GetLOperation(this,
+					source_contact.getTransInfo(),
+					new OperationCallback<Object>() {
+						@Override
+						public void calledOperationFailed(
+								Operation<Object> op) {
+							//
+						}
 
-		GetLOperation getLOperation = new GetLOperation(this,
-				source_contact.getTransInfo(), new OperationCallback<Object>() {
-					@Override
-					public void calledOperationFailed(
-							Operation<Object> op) {
-						//
-					}
+						@Override
+						public void calledOperationSucceeded(
+								Operation<Object> op) {
+							//
+						}
+					}, true);
+			getLOperation.scheduleWithDelay(2000);
 
-					@Override
-					public void calledOperationSucceeded(
-							Operation<Object> op) {
-						//
-					}
-				});
-		getLOperation.scheduleImmediately();
+		}
+		if (this.getOverlayID().toString().equals("10"))
+		{
+			String current_time = Simulator.getSimulatedRealtime();
+			// log.warn("Current Time " + current_time);
+
+		}
 	}
 
 	private void processRetL(TransMsgEvent receivingEvent) {
+
+		this.setPeerStatus(PeerStatus.PRESENT);
 
 		RetLMessage retLMessage = (RetLMessage) receivingEvent
 				.getPayload();
@@ -218,6 +255,13 @@ public class ZeroAccessOverlayNode extends
 			ScheduleGetLOperation scheduleOverlayOperation) {
 		TransInfo bootstrapInfo = null;
 		List<TransInfo> bootstrapInfos = null;
+		int count = 1;
+		if (this.getOverlayID().toString().equals("651"))
+		{
+			count += 1;
+			String current_time = Simulator.getSimulatedRealtime();
+			// log.warn("Current Time " + current_time);
+		}
 		if (this.getZeroAccessRoutingTable()
 				.numberOfContacts() == 0) {
 			bootstrapInfos = ZeroAccessBootstrapManager
@@ -277,6 +321,12 @@ public class ZeroAccessOverlayNode extends
 					}
 				});
 		getLOperation.scheduleImmediately();
+
+		if (this.getOverlayID().toString().equals("902"))
+		{
+			String current_time = Simulator.getSimulatedRealtime();
+			// log.warn("ScheduleGetL Current Time " + current_time);
+		}
 	}
 
 	@Override
@@ -296,6 +346,11 @@ public class ZeroAccessOverlayNode extends
 		routingTable.clearContacts();
 		ZeroAccessBootstrapManager.getInstance().unregisterNode(this);
 		ZeroAccessBootstrapManager.getInstance().unregisterPeer(this);
+	}
+
+	public void checkConnectivityToOthers()
+	{
+
 	}
 
 	public boolean isActive() {

@@ -40,7 +40,7 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOv
  * @version 05/06/2011
  * 
  */
-public class GetLMessage extends BaseMessage {
+public class GetFMessage extends BaseMessage {
 
 	/**
 	 * 
@@ -49,25 +49,11 @@ public class GetLMessage extends BaseMessage {
 
 	private OverlayContact<ZeroAccessOverlayID> contact;
 
-	private boolean recheck = false;
-
-	public GetLMessage(ZeroAccessOverlayID sender,
+	public GetFMessage(ZeroAccessOverlayID sender,
 			ZeroAccessOverlayID receiver,
 			OverlayContact<ZeroAccessOverlayID> contact) {
 		super(sender, receiver);
 		this.contact = contact;
-	}
-
-	public boolean isRecheck() {
-		return recheck;
-	}
-
-	public GetLMessage(ZeroAccessOverlayID sender,
-			ZeroAccessOverlayID receiver,
-			OverlayContact<ZeroAccessOverlayID> contact, boolean recheck_par) {
-		super(sender, receiver);
-		this.contact = contact;
-		this.recheck = recheck_par;
 	}
 
 	public OverlayContact<ZeroAccessOverlayID> getContact() {

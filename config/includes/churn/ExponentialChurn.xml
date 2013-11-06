@@ -5,6 +5,6 @@
 	stop="$finishTime">
 	<ChurnModel
 		class="org.peerfact.impl.churn.model.ExponentialChurnModel"
-		churnFactor=""
-		meanSessionLength="" />
+		churnFactor="0.1"
+		meanSessionLength="1" />
 </ChurnGenerator>

@@ -52,11 +52,21 @@ public class GetLOperation extends
 
 	private TransInfo connectInfo;
 
+	private boolean recheck = false;
+
 	public GetLOperation(ZeroAccessOverlayNode node, TransInfo connectInfo,
 			OperationCallback<Object> callback) {
 		super(node, callback);
 		this.connectInfo = connectInfo;
 		this.node = node;
+	}
+
+	public GetLOperation(ZeroAccessOverlayNode node, TransInfo connectInfo,
+			OperationCallback<Object> callback, boolean recheck_par) {
+		super(node, callback);
+		this.connectInfo = connectInfo;
+		this.node = node;
+		this.recheck = recheck_par;
 	}
 
 	@Override
@@ -65,7 +75,7 @@ public class GetLOperation extends
 				node.getOverlayID(), node.getTransLayer()
 						.getLocalTransInfo(node.getPort()));
 		GetLMessage message = new GetLMessage(
-				this.node.getOverlayID(), null, contact);
+				this.node.getOverlayID(), null, contact, this.recheck);
 		node.getTransLayer().send(message, connectInfo, node.getPort(),
 				TransProtocol.UDP);
 	}
