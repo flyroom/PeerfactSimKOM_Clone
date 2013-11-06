@@ -78,6 +78,8 @@ public class ZeroAccessOverlayNode extends
 
 	boolean active = false;
 
+	long last_route_update_time = 0;
+
 	public ZeroAccessOverlayNode(TransLayer transLayer,
 			ZeroAccessOverlayID peerId,
 			int numConn, long delayAcceptConnection, long refresh,
@@ -143,10 +145,6 @@ public class ZeroAccessOverlayNode extends
 				.getContact();
 		if (source_contact.getOverlayID() == this.getOverlayID()) {
 			return;
-		}
-
-		if (source_contact.getOverlayID().toString().equals('1')) {
-			log.warn("Crawling GetL in ");
 		}
 
 		LinkedList<ZeroAccessOverlayContact> latestContacts = this
@@ -238,6 +236,8 @@ public class ZeroAccessOverlayNode extends
 
 		this.setPeerStatus(PeerStatus.PRESENT);
 
+		last_route_update_time = Simulator.getCurrentTime();
+
 		RetLMessage retLMessage = (RetLMessage) receivingEvent
 				.getPayload();
 
@@ -327,6 +327,8 @@ public class ZeroAccessOverlayNode extends
 			String current_time = Simulator.getSimulatedRealtime();
 			// log.warn("ScheduleGetL Current Time " + current_time);
 		}
+
+		updateConnectivityToOthers();
 	}
 
 	@Override
@@ -348,8 +350,38 @@ public class ZeroAccessOverlayNode extends
 		ZeroAccessBootstrapManager.getInstance().unregisterPeer(this);
 	}
 
-	public void checkConnectivityToOthers()
+	public void updateConnectivityToOthers()
 	{
+		long time_elapsed_since_list_update = Simulator.getCurrentTime()
+				- last_route_update_time;
+		long time_out = 1000 * 1000 * 1800;
+		if (time_elapsed_since_list_update > time_out)
+		{
+			this.setPeerStatus(PeerStatus.ABSENT);
+		}
+		else
+		{
+			this.setPeerStatus(PeerStatus.PRESENT);
+		}
+
+		List<ZeroAccessOverlayContact> za_list = (List<ZeroAccessOverlayContact>) this.routingTable
+				.allContacts();
+		int fake_count = 0;
+		for (int i = 0; i < za_list.size(); i++)
+		{
+			ZeroAccessOverlayContact contact = za_list.get(i);
+			if (contact.getOverlayID().getUniqueValue().intValue() > ZeroAccessBootstrapManager
+					.getInstance().getSize())
+			{
+				fake_count += 1;
+			}
+		}
+		if (fake_count == 256)
+		{
+			log.warn("fake node : " + this.toString()
+					+ " with fake route entries size " + fake_count);
+			this.setPeerStatus(PeerStatus.ABSENT);
+		}
 
 	}
 

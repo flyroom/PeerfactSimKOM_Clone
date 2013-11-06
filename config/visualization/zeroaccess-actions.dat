@@ -6,18 +6,9 @@ NorthAmerica 2s startScheduleGetL 10s
 Europe 2s startScheduleGetL 10s
 LatinAmerica 2s startScheduleGetL 10s
 
-China 50m ZeroAccessCrawlOverlayNode:initForCrawl
-China 55m ZeroAccessCrawlOverlayNode:stopCrawl
-China 56m ZeroAccessCrawlOverlayNode:resetCrawl
+China 20m ZeroAccessCrawlOverlayNode:initForCrawl
+China 25m ZeroAccessCrawlOverlayNode:stopCrawl
+#China 26m ZeroAccessCrawlOverlayNode:resetCrawl
 
-China 250m ZeroAccessCrawlOverlayNode:initForCrawl
-China 255m ZeroAccessCrawlOverlayNode:stopCrawl
-China 256m ZeroAccessCrawlOverlayNode:resetCrawl
-
-China 400m ZeroAccessCrawlOverlayNode:initForCrawl
-China 405m ZeroAccessCrawlOverlayNode:stopCrawl
-China 406m ZeroAccessCrawlOverlayNode:resetCrawl
-
-China 500m ZeroAccessCrawlOverlayNode:initForCrawl
-China 506m ZeroAccessCrawlOverlayNode:stopCrawl
-China 506m ZeroAccessCrawlOverlayNode:resetCrawl
+China 30m ZeroAccessCrawlOverlayNode:initFakeNodePool
+China 30m ZeroAccessCrawlOverlayNode:startSchedulePoisonRoute 1m

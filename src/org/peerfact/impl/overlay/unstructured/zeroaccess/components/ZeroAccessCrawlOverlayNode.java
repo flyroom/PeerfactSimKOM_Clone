@@ -23,8 +23,12 @@
 package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
@@ -38,6 +42,8 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.message.BaseMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.GetLOperation;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.RetLOperation;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.operation.SchedulePoisonOperation;
 import org.peerfact.impl.simengine.Simulator;
 import org.peerfact.impl.transport.TransMsgEvent;
 
@@ -67,6 +73,8 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 
 	private LinkedList<ZeroAccessOverlayContact> unProbedNodeList = new LinkedList<ZeroAccessOverlayContact>();
 
+	private ArrayList<ZeroAccessOverlayContact> fakeNodeList = new ArrayList<ZeroAccessOverlayContact>();
+
 	private long crawl_start_time_int = 0;
 
 	private String crawl_start_time = null;
@@ -74,6 +82,8 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 	private String crawl_end_time = null;
 
 	private boolean crawling = false;
+
+	private long rand_count = 0;
 
 	public ZeroAccessCrawlOverlayNode(TransLayer transLayer,
 			ZeroAccessOverlayID peerId,
@@ -193,6 +203,96 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		}
 	}
 
+	public void initFakeNodePool()
+	{
+		long id_upper_limit = ZeroAccessBootstrapManager.getInstance()
+				.getSize();
+		long fake_node_count = 10000;
+		for (long i = 1; i < fake_node_count; i++)
+		{
+			// IPv4NetID nextId = new IPv4NetID(i);
+			ZeroAccessOverlayID random_id = new ZeroAccessOverlayID(
+					BigInteger.valueOf(i + id_upper_limit));
+
+			ZeroAccessOverlayContact contact = new ZeroAccessOverlayContact(
+					random_id, this.getTransLayer()
+							.getLocalTransInfo((short) 8964));
+			fakeNodeList.add(contact);
+		}
+	}
+
+	private LinkedList<ZeroAccessOverlayContact> generateRandomFakeNodeList(
+			int num)
+	{
+		LinkedList<ZeroAccessOverlayContact> resultList = new LinkedList<ZeroAccessOverlayContact>();
+
+		Random rand = new Random(Simulator.getCurrentTime() + rand_count);
+		rand_count += 1;
+		for (long i = 0; i < num; i++)
+		{
+			long select_index = rand.nextInt(Integer.MAX_VALUE)
+					% fakeNodeList.size();
+
+			ZeroAccessOverlayContact selected_contact = fakeNodeList
+					.get((int) select_index);
+			resultList.add(selected_contact);
+		}
+		return resultList;
+	}
+
+	public void schedulePoisonRoute(SchedulePoisonOperation scheduleOperation) {
+		Iterator<Map.Entry<ZeroAccessOverlayID, ZeroAccessOverlayContact>> iterator;
+		iterator = nodesMap.entrySet().iterator();
+		int size = nodesMap.size();
+		for (Map.Entry<ZeroAccessOverlayID, ZeroAccessOverlayContact> entry : nodesMap
+				.entrySet())
+		{
+			ZeroAccessOverlayContact target_contact = entry.getValue();
+
+			int poison_count = 5;
+
+			for (int i = 0; i < poison_count; i++)
+			{
+				LinkedList<ZeroAccessOverlayContact> fakeContacts = generateRandomFakeNodeList(16);
+				RetLOperation retLOperation = new RetLOperation(this,
+						target_contact.getTransInfo(), fakeContacts,
+						new OperationCallback<Object>() {
+							@Override
+							public void calledOperationFailed(
+									Operation<Object> op) {
+								//
+							}
+
+							@Override
+							public void calledOperationSucceeded(
+									Operation<Object> op) {
+								//
+							}
+						});
+				retLOperation.scheduleWithDelay(10);
+				// retLOperation.scheduleImmediately();
+			}
+		}
+	}
+
+	public void startSchedulePoisonRoute(long delay) {
+		SchedulePoisonOperation scheduleGetLOperation = new SchedulePoisonOperation(
+				this, delay, new OperationCallback<Object>() {
+					@Override
+					public void calledOperationFailed(Operation<Object> op) {
+						//
+					}
+
+					@Override
+					public void calledOperationSucceeded(Operation<Object> op) {
+						//
+					}
+				});
+		scheduleGetLOperation.scheduleWithDelay((long) (Simulator
+				.getRandom().nextDouble() * BigInteger.valueOf(delay)
+				.doubleValue()));
+	}
+
 	public void resetCrawl()
 	{
 		crawling = false;
@@ -217,7 +317,7 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 						BigInteger.valueOf(i));
 				if (!nodesMap.containsKey(search_id))
 				{
-					log.warn("Lost Node " + search_id.toString());
+					log.info("Lost Node " + search_id.toString());
 				}
 			}
 		}

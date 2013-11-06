@@ -3,11 +3,11 @@
 	<Default>
 		<Variable name="seed" value="10" />
 		<Variable name="startTime" value="0m" />
-		<Variable name="finishTime" value="3000m" />
+		<Variable name="finishTime" value="120m" />
 		<Variable name="actions" value="config/visualization/zeroaccess-actions.dat" />
 		<Variable name="gnpDataFile" value="config/data/measured_data.xml"/>
-		<Variable name="churn_startTime" value="60m"/>
-		<Variable name="churn_finishTime" value="3000m"/>
+		<Variable name="churn_startTime" value="119m"/>
+		<Variable name="churn_finishTime" value="120m"/>
 		
 		<!-- kad , Exponential zeroaccess -->
 		<Variable name="ChurnModel" value="zeroaccess" />
@@ -17,7 +17,7 @@
 
 	<NetLayer
 		class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
-		downBandwidth="500" upBandwidth="250" gnpFile="$gnpDataFile" PbaPeriod="1">
+		downBandwidth="500" upBandwidth="500" gnpFile="$gnpDataFile" PbaPeriod="1">
 		<LatencyModel 
 			class="org.peerfact.impl.network.gnp.GnpLatencyModel" 
 			usePingErRttData="false" 
@@ -26,6 +26,18 @@
 		<BandwidthManager 
 			class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerPeriodical" />   
 	</NetLayer>
+	
+	<CrawlNetLayer
+		class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
+		downBandwidth="50000" upBandwidth="50000" gnpFile="$gnpDataFile" PbaPeriod="1">
+		<LatencyModel 
+			class="org.peerfact.impl.network.gnp.GnpLatencyModel" 
+			usePingErRttData="false" 
+			usePingErJitter="true" 
+			usePingErPacketLoss="true" />
+		<BandwidthManager 
+			class="org.peerfact.impl.network.gnp.GnpNetBandwidthManagerPeriodical" />   
+	</CrawlNetLayer>
 
 	<TransLayer
 		class="org.peerfact.impl.transport.DefaultTransLayerFactory" />
@@ -104,7 +116,7 @@
 			<BootstrapFactory />
 		</Group>
 				
-		<Group groupID="NorthAmerica" size="2600">
+		<Group groupID="NorthAmerica" size="260">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNode20 />
@@ -112,7 +124,7 @@
 			<Properties enableChurn="true" />
 		</Group>
 
-		<Group groupID="Europe" size="2000">
+		<Group groupID="Europe" size="200">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNode20 />
