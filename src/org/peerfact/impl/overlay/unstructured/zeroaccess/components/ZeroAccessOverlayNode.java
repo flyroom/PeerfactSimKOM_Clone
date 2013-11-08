@@ -375,17 +375,24 @@ public class ZeroAccessOverlayNode extends
 			}
 			this.setPeerStatus(PeerStatus.ABSENT);
 		}
-
-		long time_elapsed_since_list_update = Simulator.getCurrentTime()
-				- last_route_update_time;
-		long time_out = 1000 * 1000 * 1800;
-		if (time_elapsed_since_list_update > time_out)
-		{
-			this.setPeerStatus(PeerStatus.ABSENT);
-		}
 		else
 		{
 			this.setPeerStatus(PeerStatus.PRESENT);
+		}
+
+		if (this.getPeerStatus() == PeerStatus.PRESENT)
+		{
+			long time_elapsed_since_list_update = Simulator.getCurrentTime()
+					- last_route_update_time;
+			long time_out = 1000 * 1000 * 1800;
+			if (time_elapsed_since_list_update > time_out)
+			{
+				this.setPeerStatus(PeerStatus.ABSENT);
+			}
+			else
+			{
+				this.setPeerStatus(PeerStatus.PRESENT);
+			}
 		}
 	}
 
