@@ -46,7 +46,7 @@ public abstract class BaseMessage extends
 
 	private static final long serialVersionUID = 6693895995991755180L;
 
-	private final static long ZEROACCESS_BASE_MESSAGE_SIZE = 23;
+	private final static long ZEROACCESS_BASE_MESSAGE_SIZE = 16;
 
 	public BaseMessage(ZeroAccessOverlayID sender,
 			ZeroAccessOverlayID receiver) {

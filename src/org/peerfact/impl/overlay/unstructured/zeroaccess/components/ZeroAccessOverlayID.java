@@ -103,6 +103,7 @@ public class ZeroAccessOverlayID implements OverlayID<BigInteger>, Serializable 
 
 	@Override
 	public long getTransmissionSize() {
-		return getBytes().length;
+		// 4 bytes IP + 4 bytes timestamp
+		return 6;
 	}
 }

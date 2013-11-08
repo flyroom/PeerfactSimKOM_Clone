@@ -63,12 +63,22 @@ public class ZeroAccessCrawlOverlayNodeFactory implements ComponentFactory {
 
 	private long descriptorTimeout;
 
+	private String poison;
+
+	public String getPoison() {
+		return poison;
+	}
+
+	public void setPoison(String poison) {
+		this.poison = poison;
+	}
+
 	@Override
 	public Component createComponent(Host host) {
 		return new ZeroAccessCrawlOverlayNode(host.getTransLayer(),
 				newZeroAccessOverlayID(), this.numConn,
 				this.delayAcceptConnection, this.refresh, this.contactTimeout,
-				this.descriptorTimeout, port);
+				this.descriptorTimeout, port, this.poison);
 	}
 
 	public static ZeroAccessOverlayID newZeroAccessOverlayID() {

@@ -42,7 +42,6 @@ import org.peerfact.impl.network.gnp.topology.PingErLookup;
 import org.peerfact.impl.simengine.Simulator;
 import org.peerfact.impl.util.logging.SimLogger;
 
-
 /**
  * 
  * @author <info@peerfact.org>
@@ -119,11 +118,12 @@ public class GnpNetLayerFactory extends AbstractNetLayerFactory {
 
 		Document configuration = null;
 		try {
+			log.info("Begin Read hosts from file complete " + gnpFile);
 			configuration = reader.read(gnpFile);
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
-
+		log.info("Read hosts from file complete " + gnpFile);
 		Element root = configuration.getRootElement();
 		assert root.getName().equals("gnp");
 
@@ -149,7 +149,7 @@ public class GnpNetLayerFactory extends AbstractNetLayerFactory {
 					if (namedGroups.containsKey(id)) {
 						throw new IllegalStateException(
 								"Multiple Group Definition in " + gnpFileName
-								+ " ( Group: " + id + " )");
+										+ " ( Group: " + id + " )");
 					} else {
 						namedGroups.put(id, group);
 					}

@@ -80,8 +80,8 @@ public class ZeroAccessMessageAnalyzer implements TransAnalyzer {
 
 	}
 
-	@Override
-	public void stop(Writer output) {
+	private void writeToFile()
+	{
 		NumberFormat n = NumberFormat.getInstance();
 		n.setMaximumFractionDigits(2);
 
@@ -125,7 +125,11 @@ public class ZeroAccessMessageAnalyzer implements TransAnalyzer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	@Override
+	public void stop(Writer output) {
+		// writeToFile();
 	}
 
 	@Override

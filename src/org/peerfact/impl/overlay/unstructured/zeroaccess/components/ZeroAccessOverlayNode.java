@@ -352,18 +352,6 @@ public class ZeroAccessOverlayNode extends
 
 	public void updateConnectivityToOthers()
 	{
-		long time_elapsed_since_list_update = Simulator.getCurrentTime()
-				- last_route_update_time;
-		long time_out = 1000 * 1000 * 1800;
-		if (time_elapsed_since_list_update > time_out)
-		{
-			this.setPeerStatus(PeerStatus.ABSENT);
-		}
-		else
-		{
-			this.setPeerStatus(PeerStatus.PRESENT);
-		}
-
 		List<ZeroAccessOverlayContact> za_list = (List<ZeroAccessOverlayContact>) this.routingTable
 				.allContacts();
 		int fake_count = 0;
@@ -378,11 +366,27 @@ public class ZeroAccessOverlayNode extends
 		}
 		if (fake_count == 256)
 		{
-			log.warn("fake node : " + this.toString()
-					+ " with fake route entries size " + fake_count);
+			if (this.getPeerStatus() == PeerStatus.PRESENT)
+			{
+				log.warn(Simulator.getSimulatedRealtime() + " node : "
+						+ this.toString()
+						+ " poisoned with fake route entries size "
+						+ fake_count);
+			}
 			this.setPeerStatus(PeerStatus.ABSENT);
 		}
 
+		long time_elapsed_since_list_update = Simulator.getCurrentTime()
+				- last_route_update_time;
+		long time_out = 1000 * 1000 * 1800;
+		if (time_elapsed_since_list_update > time_out)
+		{
+			this.setPeerStatus(PeerStatus.ABSENT);
+		}
+		else
+		{
+			this.setPeerStatus(PeerStatus.PRESENT);
+		}
 	}
 
 	public boolean isActive() {

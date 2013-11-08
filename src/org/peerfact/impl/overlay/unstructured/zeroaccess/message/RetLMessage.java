@@ -60,7 +60,15 @@ public class RetLMessage extends BaseMessage {
 
 	@Override
 	public long getSize() {
-		return super.getSize();
+		long total_size = super.getSize();
+		if (contacts.size() != 0) {
+			long payload_size = contacts.get(0).getTransmissionSize()
+					* contacts.size();
+			total_size += payload_size;
+			return total_size;
+		} else {
+			return total_size;
+		}
 	}
 
 	public LinkedList<ZeroAccessOverlayContact> getContacts()

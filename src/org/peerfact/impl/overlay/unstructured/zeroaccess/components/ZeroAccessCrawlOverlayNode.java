@@ -83,12 +83,17 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 
 	private boolean crawling = false;
 
+	private boolean poison_permitted = false;
+
+	private boolean poisoning = false;
+
 	private long rand_count = 0;
 
 	public ZeroAccessCrawlOverlayNode(TransLayer transLayer,
 			ZeroAccessOverlayID peerId,
 			int numConn, long delayAcceptConnection, long refresh,
-			long contactTimeout, long descriptorTimeout, short port) {
+			long contactTimeout, long descriptorTimeout, short port,
+			String bool_poison) {
 		super(transLayer, peerId, numConn, delayAcceptConnection, refresh,
 				contactTimeout, descriptorTimeout, port);
 
@@ -96,7 +101,10 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		transLayer.addTransMsgListener(this, this.getPort());
 
 		this.routingTable = new ZeroAccessOverlayRoutingTable(peerId);
-
+		if (bool_poison.equals("true"))
+		{
+			poison_permitted = true;
+		}
 	}
 
 	@Override
@@ -241,12 +249,22 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 	}
 
 	public void schedulePoisonRoute(SchedulePoisonOperation scheduleOperation) {
+
+		if (this.poisoning != true) {
+			return;
+		}
+
 		Iterator<Map.Entry<ZeroAccessOverlayID, ZeroAccessOverlayContact>> iterator;
 		iterator = nodesMap.entrySet().iterator();
 		int size = nodesMap.size();
+		long attack_limit = (long) (size * 0.9);
+		long count = 0;
 		for (Map.Entry<ZeroAccessOverlayID, ZeroAccessOverlayContact> entry : nodesMap
 				.entrySet())
 		{
+			if (count > attack_limit) {
+				break;
+			}
 			ZeroAccessOverlayContact target_contact = entry.getValue();
 
 			int poison_count = 5;
@@ -272,10 +290,15 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 				retLOperation.scheduleWithDelay(10);
 				// retLOperation.scheduleImmediately();
 			}
+			count += 1;
 		}
 	}
 
 	public void startSchedulePoisonRoute(long delay) {
+		if (poison_permitted != true) {
+			return;
+		}
+		poisoning = true;
 		SchedulePoisonOperation scheduleGetLOperation = new SchedulePoisonOperation(
 				this, delay, new OperationCallback<Object>() {
 					@Override
@@ -291,6 +314,12 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		scheduleGetLOperation.scheduleWithDelay((long) (Simulator
 				.getRandom().nextDouble() * BigInteger.valueOf(delay)
 				.doubleValue()));
+	}
+
+	public void stopPoisonRoute()
+	{
+		this.poisoning = false;
+		log.warn(Simulator.getSimulatedRealtime() + " Poisoning Stopped");
 	}
 
 	public void resetCrawl()
