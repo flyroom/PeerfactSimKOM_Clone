@@ -8,7 +8,7 @@
 		<Variable name="gnpDataFile" value="config/data/measured_data.xml"/>
 		<Variable name="churn_startTime" value="20m"/>
 		<Variable name="churn_finishTime" value="600m"/>
-		<Variable name="poison" value="false"/>
+		<Variable name="poison" value="true"/>
 		
 		<!-- kad , Exponential zeroaccess -->
 		<Variable name="ChurnModel" value="zeroaccess" />
@@ -50,25 +50,20 @@
 		descriptorTimeout="1000000" numConn="5" poison="$poison"/>
 		
 
-	<ZeroAccessOverlayNode20
+	<ZeroAccessOverlayNodeSuper
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
 		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
-		descriptorTimeout="1000000" numConn="5" />
+		descriptorTimeout="1000000" numConn="5" reply="true"/>
 		
-	<ZeroAccessOverlayNode200
+	<ZeroAccessOverlayNodeNAT
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
 		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
-		descriptorTimeout="1000000" numConn="10" />
-		
-	<ZeroAccessOverlayNode2000
-		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
-		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
-		descriptorTimeout="1000000" numConn="40" />
+		descriptorTimeout="1000000" numConn="10" reply="false"/>
 		
 	<ZeroAccessOverlayNodeBootstrap
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
 		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
-		descriptorTimeout="1000000" numConn="1000" />
+		descriptorTimeout="1000000" numConn="1000" reply="true"/>
 
 	<Application
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplicationFactory"
@@ -110,7 +105,7 @@
 			<CrawlApplication />
 		</Host>
 		
-		<Group groupID="LatinAmerica" size="100">
+		<Group groupID="LatinAmerica" size="1000">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNodeBootstrap />
@@ -120,15 +115,15 @@
 		<Group groupID="NorthAmerica" size="2600">
 			<NetLayer />
 			<TransLayer />
-			<ZeroAccessOverlayNode20 />
+			<ZeroAccessOverlayNodeNAT />
 			<Application />
 			<Properties enableChurn="true" />
 		</Group>
 
-		<Group groupID="Europe" size="2000">
+		<Group groupID="Europe" size="1200">
 			<NetLayer />
 			<TransLayer />
-			<ZeroAccessOverlayNode20 />
+			<ZeroAccessOverlayNodeSuper />
 			<Application />
 			<Properties enableChurn="true" />
 		</Group>

@@ -63,12 +63,18 @@ public class ZeroAccessOverlayNodeFactory implements ComponentFactory {
 
 	private long descriptorTimeout;
 
+	private String reply;
+
 	@Override
 	public Component createComponent(Host host) {
 		return new ZeroAccessOverlayNode(host.getTransLayer(),
 				newZeroAccessOverlayID(), this.numConn,
 				this.delayAcceptConnection, this.refresh, this.contactTimeout,
-				this.descriptorTimeout, port);
+				this.descriptorTimeout, port, this.reply);
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
 	}
 
 	public static ZeroAccessOverlayID newZeroAccessOverlayID() {

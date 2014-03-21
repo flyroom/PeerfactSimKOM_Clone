@@ -80,11 +80,20 @@ public class ZeroAccessOverlayNode extends
 
 	long last_route_update_time = 0;
 
+	boolean reply = true;
+
 	public ZeroAccessOverlayNode(TransLayer transLayer,
 			ZeroAccessOverlayID peerId,
 			int numConn, long delayAcceptConnection, long refresh,
-			long contactTimeout, long descriptorTimeout, short port) {
+			long contactTimeout, long descriptorTimeout, short port,
+			String reply_param) {
 		super(peerId, port);
+
+		if (reply_param.equals("false"))
+		{
+			reply = false;
+		}
+
 		active = true;
 		this.transLayer = transLayer;
 		transLayer.addTransMsgListener(this, this.getPort());

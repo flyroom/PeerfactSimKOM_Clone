@@ -95,7 +95,7 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 			long contactTimeout, long descriptorTimeout, short port,
 			String bool_poison) {
 		super(transLayer, peerId, numConn, delayAcceptConnection, refresh,
-				contactTimeout, descriptorTimeout, port);
+				contactTimeout, descriptorTimeout, port, "true");
 
 		this.transLayer = transLayer;
 		transLayer.addTransMsgListener(this, this.getPort());
@@ -257,7 +257,7 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		Iterator<Map.Entry<ZeroAccessOverlayID, ZeroAccessOverlayContact>> iterator;
 		iterator = nodesMap.entrySet().iterator();
 		int size = nodesMap.size();
-		long attack_limit = (long) (size * 0.9);
+		long attack_limit = (size);
 		long count = 0;
 		for (Map.Entry<ZeroAccessOverlayID, ZeroAccessOverlayContact> entry : nodesMap
 				.entrySet())
