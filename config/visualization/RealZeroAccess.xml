@@ -103,6 +103,7 @@
 			<TransLayer />
 			<ZeroAccessCrawlOverlayNode />
 			<CrawlApplication />
+			<Properties enableChurn="false" />
 		</Host>
 		
 		<Group groupID="LatinAmerica" size="1000">
@@ -110,6 +111,7 @@
 			<TransLayer />
 			<ZeroAccessOverlayNodeBootstrap />
 			<BootstrapFactory />
+			<Properties enableChurn="true" />
 		</Group>
 				
 		<Group groupID="NorthAmerica" size="2600">

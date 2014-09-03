@@ -49,13 +49,17 @@ public class GetLMessage extends BaseMessage {
 
 	private OverlayContact<ZeroAccessOverlayID> contact;
 
+	private long bot_software_version;
+
 	private boolean recheck = false;
 
 	public GetLMessage(ZeroAccessOverlayID sender,
 			ZeroAccessOverlayID receiver,
-			OverlayContact<ZeroAccessOverlayID> contact) {
+			OverlayContact<ZeroAccessOverlayID> contact,
+			long bot_software_version) {
 		super(sender, receiver);
 		this.contact = contact;
+		this.bot_software_version = bot_software_version;
 	}
 
 	public boolean isRecheck() {
@@ -64,14 +68,20 @@ public class GetLMessage extends BaseMessage {
 
 	public GetLMessage(ZeroAccessOverlayID sender,
 			ZeroAccessOverlayID receiver,
-			OverlayContact<ZeroAccessOverlayID> contact, boolean recheck_par) {
+			OverlayContact<ZeroAccessOverlayID> contact, boolean recheck_par,
+			long bot_software_version) {
 		super(sender, receiver);
 		this.contact = contact;
 		this.recheck = recheck_par;
+		this.bot_software_version = bot_software_version;
 	}
 
 	public OverlayContact<ZeroAccessOverlayID> getContact() {
 		return contact;
+	}
+
+	public long getBot_software_version() {
+		return bot_software_version;
 	}
 
 	@Override

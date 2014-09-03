@@ -194,7 +194,8 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		for (int i = 0; i < bootstrapInfos.size(); i++)
 		{
 			GetLOperation getLOperation = new GetLOperation(this,
-					bootstrapInfos.get(i), new OperationCallback<Object>() {
+					bootstrapInfos.get(i), this.bot_software_version,
+					new OperationCallback<Object>() {
 						@Override
 						public void calledOperationFailed(
 								Operation<Object> op) {
@@ -267,13 +268,14 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 			}
 			ZeroAccessOverlayContact target_contact = entry.getValue();
 
-			int poison_count = 5;
+			int poison_count = 16;
 
 			for (int i = 0; i < poison_count; i++)
 			{
 				LinkedList<ZeroAccessOverlayContact> fakeContacts = generateRandomFakeNodeList(16);
 				RetLOperation retLOperation = new RetLOperation(this,
 						target_contact.getTransInfo(), fakeContacts,
+						this.bot_software_version,
 						new OperationCallback<Object>() {
 							@Override
 							public void calledOperationFailed(
@@ -360,7 +362,8 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 				continue;
 			}
 			GetLOperation getLOperation = new GetLOperation(this,
-					node.getTransInfo(), new OperationCallback<Object>() {
+					node.getTransInfo(), this.bot_software_version,
+					new OperationCallback<Object>() {
 						@Override
 						public void calledOperationFailed(
 								Operation<Object> op) {

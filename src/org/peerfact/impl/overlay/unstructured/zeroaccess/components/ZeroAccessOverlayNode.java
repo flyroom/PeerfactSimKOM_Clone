@@ -82,6 +82,8 @@ public class ZeroAccessOverlayNode extends
 
 	boolean reply = true;
 
+	long bot_software_version = 0;
+
 	public ZeroAccessOverlayNode(TransLayer transLayer,
 			ZeroAccessOverlayID peerId,
 			int numConn, long delayAcceptConnection, long refresh,
@@ -156,6 +158,11 @@ public class ZeroAccessOverlayNode extends
 			return;
 		}
 
+		if (this.bot_software_version < getLMessage.getBot_software_version())
+		{
+			this.bot_software_version = getLMessage.getBot_software_version();
+		}
+
 		LinkedList<ZeroAccessOverlayContact> latestContacts = this
 				.getZeroAccessRoutingTable().getLatestContacts(16);
 
@@ -178,6 +185,7 @@ public class ZeroAccessOverlayNode extends
 
 		RetLOperation retLOperation = new RetLOperation(this,
 				source_contact.getTransInfo(), latestContacts,
+				this.bot_software_version,
 				new OperationCallback<Object>() {
 					@Override
 					public void calledOperationFailed(
@@ -192,27 +200,7 @@ public class ZeroAccessOverlayNode extends
 					}
 				});
 		retLOperation.scheduleImmediately();
-		/*
-		 * RetLMessage retLMessage = new RetLMessage(this.getOverlayID(),
-		 * getLMessage.getContact().getOverlayID(), latestContacts);
-		 * 
-		 * this.getTransLayer().send(retLMessage,
-		 * getLMessage.getContact().getTransInfo(), this.getPort(),
-		 * TransProtocol.UDP);
-		 */
 
-		// OverlayContact<ZeroAccessOverlayID> contact = new
-		// ZeroAccessOverlayContact(
-		// this.getOverlayID(), this
-		// .getTransLayer().getLocalTransInfo(this.getPort()));
-		//
-		// GetLMessage getLMessageToSend = new GetLMessage(
-		// getLMessage.getReceiver(),
-		// getLMessage.getSender(), contact);
-		//
-		// this.getTransLayer().send(getLMessageToSend,
-		// getLMessage.getContact().getTransInfo(), this.getPort(),
-		// TransProtocol.UDP);
 		if (sendGetLRequest)
 		{
 			GetLOperation getLOperation = new GetLOperation(this,
@@ -229,7 +217,7 @@ public class ZeroAccessOverlayNode extends
 								Operation<Object> op) {
 							//
 						}
-					}, true);
+					}, true, this.bot_software_version);
 			getLOperation.scheduleWithDelay(2000);
 
 		}
@@ -249,6 +237,11 @@ public class ZeroAccessOverlayNode extends
 
 		RetLMessage retLMessage = (RetLMessage) receivingEvent
 				.getPayload();
+
+		if (this.bot_software_version < retLMessage.getBot_software_version())
+		{
+			this.bot_software_version = retLMessage.getBot_software_version();
+		}
 
 		LinkedList<ZeroAccessOverlayContact> contact_list = retLMessage
 				.getContacts();
@@ -316,7 +309,8 @@ public class ZeroAccessOverlayNode extends
 		}
 
 		GetLOperation getLOperation = new GetLOperation(this,
-				bootstrapInfo, new OperationCallback<Object>() {
+				bootstrapInfo, this.bot_software_version,
+				new OperationCallback<Object>() {
 					@Override
 					public void calledOperationFailed(
 							Operation<Object> op) {

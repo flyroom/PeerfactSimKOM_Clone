@@ -49,13 +49,25 @@ public class RetLMessage extends BaseMessage {
 	 */
 	private static final long serialVersionUID = 6242668576201187183L;
 
+	private long bot_software_version;
+
 	private LinkedList<ZeroAccessOverlayContact> contacts = new LinkedList<ZeroAccessOverlayContact>();
 
 	public RetLMessage(ZeroAccessOverlayID sender,
 			ZeroAccessOverlayID receiver,
-			LinkedList<ZeroAccessOverlayContact> contacts) {
+			LinkedList<ZeroAccessOverlayContact> contacts,
+			long bot_software_version) {
 		super(sender, receiver);
 		this.contacts = contacts;
+		this.bot_software_version = bot_software_version;
+	}
+
+	public long getBot_software_version() {
+		return bot_software_version;
+	}
+
+	public void setBot_software_version(long bot_software_version) {
+		this.bot_software_version = bot_software_version;
 	}
 
 	@Override

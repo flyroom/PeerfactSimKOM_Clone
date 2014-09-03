@@ -56,13 +56,17 @@ public class RetLOperation extends
 
 	private LinkedList<ZeroAccessOverlayContact> contact_list;
 
+	private long bot_software_version;
+
 	public RetLOperation(ZeroAccessOverlayNode node, TransInfo connectInfo,
 			LinkedList<ZeroAccessOverlayContact> contact_list,
+			long bot_software_version,
 			OperationCallback<Object> callback) {
 		super(node, callback);
 		this.connectInfo = connectInfo;
 		this.node = node;
 		this.contact_list = contact_list;
+		this.bot_software_version = bot_software_version;
 	}
 
 	@Override
@@ -71,7 +75,8 @@ public class RetLOperation extends
 				node.getOverlayID(), node.getTransLayer()
 						.getLocalTransInfo(node.getPort()));
 		RetLMessage message = new RetLMessage(
-				this.node.getOverlayID(), null, this.contact_list);
+				this.node.getOverlayID(), null, this.contact_list,
+				this.bot_software_version);
 		node.getTransLayer().send(message, connectInfo, node.getPort(),
 				TransProtocol.UDP);
 	}

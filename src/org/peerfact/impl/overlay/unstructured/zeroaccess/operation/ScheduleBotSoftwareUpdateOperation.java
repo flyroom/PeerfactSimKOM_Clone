@@ -23,12 +23,8 @@
 package org.peerfact.impl.overlay.unstructured.zeroaccess.operation;
 
 import org.peerfact.api.common.OperationCallback;
-import org.peerfact.api.transport.TransInfo;
-import org.peerfact.api.transport.TransProtocol;
 import org.peerfact.impl.common.AbstractOperation;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayContact;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNode;
-import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
+import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessBotmasterOverlayNode;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -45,51 +41,46 @@ import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
  * @version 05/06/2011
  * 
  */
-public class GetLOperation extends
-		AbstractOperation<ZeroAccessOverlayNode, Object> {
+public class ScheduleBotSoftwareUpdateOperation extends
+		AbstractOperation<ZeroAccessBotmasterOverlayNode, Object> {
 
-	private ZeroAccessOverlayNode node;
+	private boolean active = true;
 
-	private TransInfo connectInfo;
+	private long delay;
 
-	private boolean recheck = false;
-
-	private long bot_software_version;
-
-	public GetLOperation(ZeroAccessOverlayNode node, TransInfo connectInfo,
-			long bot_software_version,
+	public ScheduleBotSoftwareUpdateOperation(
+			ZeroAccessBotmasterOverlayNode component,
+			long delay,
 			OperationCallback<Object> callback) {
-		super(node, callback);
-		this.connectInfo = connectInfo;
-		this.node = node;
-		this.bot_software_version = bot_software_version;
-	}
-
-	public GetLOperation(ZeroAccessOverlayNode node, TransInfo connectInfo,
-			OperationCallback<Object> callback, boolean recheck_par,
-			long bot_software_version) {
-		super(node, callback);
-		this.connectInfo = connectInfo;
-		this.node = node;
-		this.recheck = recheck_par;
-		this.bot_software_version = bot_software_version;
+		super(component, callback);
+		this.delay = delay;
 	}
 
 	@Override
 	protected void execute() {
-		ZeroAccessOverlayContact contact = new ZeroAccessOverlayContact(
-				node.getOverlayID(), node.getTransLayer()
-						.getLocalTransInfo(node.getPort()));
-		GetLMessage message = new GetLMessage(
-				this.node.getOverlayID(), null, contact, this.recheck,
-				this.bot_software_version);
-		node.getTransLayer().send(message, connectInfo, node.getPort(),
-				TransProtocol.UDP);
+		if (active) {
+			this.getComponent().upgradeBotSoftwarePackage(this);
+		}
+		if (active) {
+			this.scheduleWithDelay(delay);
+		}
 	}
 
 	@Override
 	public Object getResult() {
 		return this;
+	}
+
+	public void start() {
+		active = true;
+	}
+
+	public void stop() {
+		active = false;
+	}
+
+	public void setDelay(long delay) {
+		this.delay = delay;
 	}
 
 }
