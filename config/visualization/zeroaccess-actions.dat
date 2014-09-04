@@ -5,11 +5,14 @@ LatinAmerica 1s registerBootstrap
 NorthAmerica 2s startScheduleGetL 10s
 Europe 2s startScheduleGetL 10s
 LatinAmerica 2s startScheduleGetL 10s
+Japan 2s ZeroAccessBotmasterOverlayNode:startScheduleGetL 5s
 
-China 100m ZeroAccessCrawlOverlayNode:initForCrawl
-China 105m ZeroAccessCrawlOverlayNode:stopCrawl
+China 10m ZeroAccessCrawlOverlayNode:initForCrawl
+China 15m ZeroAccessCrawlOverlayNode:stopCrawl
 #China 26m ZeroAccessCrawlOverlayNode:resetCrawl
 
-China 150m ZeroAccessCrawlOverlayNode:initFakeNodePool
-China 151m ZeroAccessCrawlOverlayNode:startSchedulePoisonRoute 1m
-China 300m ZeroAccessCrawlOverlayNode:stopPoisonRoute
+Japan 10m ZeroAccessBotmasterOverlayNode:startScheduleSoftwareUpdates 10m
+
+China 20m ZeroAccessCrawlOverlayNode:initFakeNodePool
+China 21m ZeroAccessCrawlOverlayNode:startSchedulePoisonRoute 1m
+China 150m ZeroAccessCrawlOverlayNode:stopPoisonRoute

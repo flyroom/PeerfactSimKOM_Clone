@@ -147,6 +147,10 @@ public class ZeroAccessOverlayNode extends
 		}
 	}
 
+	public long getBot_software_version() {
+		return bot_software_version;
+	}
+
 	private void processGetL(TransMsgEvent receivingEvent) {
 
 		GetLMessage getLMessage = (GetLMessage) receivingEvent
@@ -227,6 +231,10 @@ public class ZeroAccessOverlayNode extends
 			// log.warn("Current Time " + current_time);
 
 		}
+	}
+
+	public void setBot_software_version(long bot_software_version) {
+		this.bot_software_version = bot_software_version;
 	}
 
 	private void processRetL(TransMsgEvent receivingEvent) {

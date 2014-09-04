@@ -3,11 +3,11 @@
 	<Default>
 		<Variable name="seed" value="10" />
 		<Variable name="startTime" value="0m" />
-		<Variable name="finishTime" value="600m" />
+		<Variable name="finishTime" value="200m" />
 		<Variable name="actions" value="config/visualization/zeroaccess-actions.dat" />
 		<Variable name="gnpDataFile" value="config/data/measured_data.xml"/>
 		<Variable name="churn_startTime" value="20m"/>
-		<Variable name="churn_finishTime" value="600m"/>
+		<Variable name="churn_finishTime" value="200m"/>
 		<Variable name="poison" value="true"/>
 		
 		<!-- kad , Exponential zeroaccess -->
@@ -49,6 +49,11 @@
 		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
 		descriptorTimeout="1000000" numConn="5" poison="$poison"/>
 		
+	<ZeroAccessBotmasterOverlayNode
+		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessBotMasterOverlayNodeFactory"
+		delayAcceptConnection="60000000" refresh="60000000" contactTimeout="70000000" 
+		descriptorTimeout="1000000" numConn="5"/>
+		
 
 	<ZeroAccessOverlayNodeSuper
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
@@ -86,14 +91,14 @@
          </Analyzer>
           -->
           
+         <Analyzer class="org.peerfact.impl.overlay.unstructured.zeroaccess.analyzer.ZeroAccessBotSoftwareUpdatesAnalyzer"/>
          <Analyzer class="org.peerfact.impl.overlay.unstructured.zeroaccess.analyzer.ZeroAccessMessageAnalyzer"/>
          <Analyzer class="org.peerfact.impl.analyzer.DefaultConnectivityAnalyzer" />
          <Analyzer class="org.peerfact.impl.analyzer.DefaultChurnAnalyzer" />
          <Analyzer class="org.peerfact.impl.analyzer.DefaultNetAnalyzer" />
 	     <Analyzer class="org.peerfact.impl.analyzer.DefaultTransAnalyzer" /> 
 	</Monitor>
-	
-	
+		
 	<HostBuilder
 		class="org.peerfact.impl.scenario.DefaultHostBuilder"
 		experimentSize="5000">
@@ -106,6 +111,13 @@
 			<Properties enableChurn="false" />
 		</Host>
 		
+		<Host groupID="Japan">
+			<NetLayer />
+			<TransLayer />
+			<ZeroAccessBotmasterOverlayNode />
+			<Properties enableChurn="false" />
+		</Host>
+				
 		<Group groupID="LatinAmerica" size="1000">
 			<NetLayer />
 			<TransLayer />
@@ -146,6 +158,6 @@
 	<Scenario class="org.peerfact.impl.scenario.CSVScenarioFactory"
 		actionsFile="$actions"
 		componentClass="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplication"
-		additionalClasses="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlOverlayNode" 
+		additionalClasses="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlOverlayNode;org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessBotmasterOverlayNode" 
 		/>
 </Configuration>

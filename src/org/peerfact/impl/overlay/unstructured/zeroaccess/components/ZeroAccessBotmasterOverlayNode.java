@@ -24,7 +24,7 @@ package org.peerfact.impl.overlay.unstructured.zeroaccess.components;
 
 import java.math.BigInteger;
 import java.util.LinkedList;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.peerfact.api.common.ConnectivityEvent;
@@ -64,9 +64,9 @@ public class ZeroAccessBotmasterOverlayNode extends ZeroAccessOverlayNode {
 
 	private TransLayer transLayer;
 
-	private ConcurrentHashMap<ZeroAccessOverlayID, ZeroAccessOverlayContact> nodesMap = new ConcurrentHashMap<ZeroAccessOverlayID, ZeroAccessOverlayContact>();
+	private int getL_round_robin_counter = 0;
 
-	private long bot_software_id = 0;
+	private long last_route_update_time = 0;
 
 	public ZeroAccessBotmasterOverlayNode(TransLayer transLayer,
 			ZeroAccessOverlayID peerId,
@@ -148,7 +148,7 @@ public class ZeroAccessBotmasterOverlayNode extends ZeroAccessOverlayNode {
 
 		RetLOperation retLOperation = new RetLOperation(this,
 				source_contact.getTransInfo(), latestContacts,
-				this.bot_software_id,
+				this.getBot_software_version(),
 				new OperationCallback<Object>() {
 					@Override
 					public void calledOperationFailed(
@@ -194,11 +194,91 @@ public class ZeroAccessBotmasterOverlayNode extends ZeroAccessOverlayNode {
 
 	private void processRetL(TransMsgEvent receivingEvent) {
 
+		last_route_update_time = Simulator.getCurrentTime();
+
+		RetLMessage retLMessage = (RetLMessage) receivingEvent
+				.getPayload();
+
+		LinkedList<ZeroAccessOverlayContact> contact_list = retLMessage
+				.getContacts();
+
+		for (int i = 0; i < contact_list.size(); i++)
+		{
+			((ZeroAccessOverlayRoutingTable) this.routingTable)
+					.addContact(contact_list.get(i));
+		}
+	}
+
+	public void startScheduleGetL(long delay) {
+		TransInfo bootstrapInfo = null;
+		List<TransInfo> bootstrapInfos = null;
+		int count = 1;
+
+		if (this.getZeroAccessRoutingTable()
+				.numberOfContacts() == 0) {
+			bootstrapInfos = ZeroAccessBootstrapManager
+					.getInstance().getBootstrapInfo();
+		}
+		else
+		{
+			List<ZeroAccessOverlayContact> contactList = (List<ZeroAccessOverlayContact>) this.routingTable
+					.allContacts();
+			bootstrapInfos = new LinkedList<TransInfo>();
+			for (int i = 0; i < contactList.size(); i++)
+			{
+				ZeroAccessOverlayContact znode = contactList.get(i);
+				bootstrapInfos.add(znode.getTransInfo());
+			}
+		}
+
+		if (getL_round_robin_counter >= bootstrapInfos.size()) {
+			getL_round_robin_counter = 0;
+		}
+
+		bootstrapInfo = bootstrapInfos
+				.get(getL_round_robin_counter);
+
+		if (bootstrapInfo.equals(this.getTransLayer()
+				.getLocalTransInfo(this.getPort()))) {
+			if (bootstrapInfos.size() == 1) {
+				return;
+			}
+			else
+			{
+				getL_round_robin_counter = (getL_round_robin_counter + 1)
+						% bootstrapInfos.size();
+				bootstrapInfo = bootstrapInfos
+						.get(getL_round_robin_counter);
+				log.debug("could not send request to itself, turn to next one in bootstrap list with size: "
+						+ bootstrapInfos.size() + " current index: "
+						+ getL_round_robin_counter);
+			}
+		} else {
+			getL_round_robin_counter = (getL_round_robin_counter + 1)
+					% bootstrapInfos.size();
+		}
+
+		GetLOperation getLOperation = new GetLOperation(this,
+				bootstrapInfo, this.bot_software_version,
+				new OperationCallback<Object>() {
+					@Override
+					public void calledOperationFailed(
+							Operation<Object> op) {
+						//
+					}
+
+					@Override
+					public void calledOperationSucceeded(
+							Operation<Object> op) {
+						//
+					}
+				});
+		getLOperation.scheduleImmediately();
 	}
 
 	public void upgradeBotSoftwarePackage(
 			ScheduleBotSoftwareUpdateOperation operation) {
-		this.bot_software_id += 1;
+		this.setBot_software_version(this.getBot_software_version() + 1);
 	}
 
 	public void startScheduleSoftwareUpdates(long delay) {

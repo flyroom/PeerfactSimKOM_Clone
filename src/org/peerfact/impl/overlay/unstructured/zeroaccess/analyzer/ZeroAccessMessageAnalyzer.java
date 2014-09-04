@@ -32,6 +32,7 @@ import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.peerfact.api.analyzer.TransAnalyzer;
 import org.peerfact.api.common.Message;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
@@ -56,6 +57,9 @@ import org.peerfact.impl.transport.AbstractTransMessage;
  */
 public class ZeroAccessMessageAnalyzer implements TransAnalyzer {
 
+	final public Logger log = Logger
+			.getLogger(ZeroAccessMessageAnalyzer.class);
+
 	private List<BigInteger> queryIds = new LinkedList<BigInteger>();
 
 	private List<BigInteger> queryHitIds = new LinkedList<BigInteger>();
@@ -77,10 +81,18 @@ public class ZeroAccessMessageAnalyzer implements TransAnalyzer {
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
-
+		log.info("ZeroAccess Message Analyzer Started !!!");
 	}
 
 	private void writeToFile()
+	{
+		// write statistics of all observed messages to file, including getL
+		// message and retL message
+		writeTotalMessageStatisticsToFile();
+
+	}
+
+	private void writeTotalMessageStatisticsToFile()
 	{
 		NumberFormat n = NumberFormat.getInstance();
 		n.setMaximumFractionDigits(2);
@@ -129,7 +141,7 @@ public class ZeroAccessMessageAnalyzer implements TransAnalyzer {
 
 	@Override
 	public void stop(Writer output) {
-		// writeToFile();
+		writeToFile();
 	}
 
 	@Override
