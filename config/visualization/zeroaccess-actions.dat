@@ -5,7 +5,7 @@ LatinAmerica 1s registerBootstrap
 NorthAmerica 2s startScheduleGetL 10s
 Europe 2s startScheduleGetL 10s
 LatinAmerica 2s startScheduleGetL 10s
-Japan 2s ZeroAccessBotmasterOverlayNode:startScheduleGetL 5s
+Japan 2s ZeroAccessBotmasterOverlayNode:startScheduleGetL 2s
 
 China 10m ZeroAccessCrawlOverlayNode:initForCrawl
 China 15m ZeroAccessCrawlOverlayNode:stopCrawl

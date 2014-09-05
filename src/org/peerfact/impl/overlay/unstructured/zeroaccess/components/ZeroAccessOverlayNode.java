@@ -379,7 +379,7 @@ public class ZeroAccessOverlayNode extends
 		{
 			if (this.getPeerStatus() == PeerStatus.PRESENT)
 			{
-				log.warn(Simulator.getSimulatedRealtime() + " node : "
+				log.debug(Simulator.getSimulatedRealtime() + " node : "
 						+ this.toString()
 						+ " poisoned with fake route entries size "
 						+ fake_count);
@@ -388,6 +388,13 @@ public class ZeroAccessOverlayNode extends
 		}
 		else
 		{
+			if (this.getPeerStatus() == PeerStatus.ABSENT)
+			{
+				log.debug(Simulator.getSimulatedRealtime() + " node : "
+						+ this.toString()
+						+ " recovered with fake count: "
+						+ fake_count);
+			}
 			this.setPeerStatus(PeerStatus.PRESENT);
 		}
 
@@ -398,6 +405,10 @@ public class ZeroAccessOverlayNode extends
 			long time_out = 1000 * 1000 * 1800;
 			if (time_elapsed_since_list_update > time_out)
 			{
+				log.debug(Simulator.getSimulatedRealtime() + " node : "
+						+ this.toString()
+						+ " update timeout, deemed absent with fake count --> "
+						+ fake_count);
 				this.setPeerStatus(PeerStatus.ABSENT);
 			}
 			else

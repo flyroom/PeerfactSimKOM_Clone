@@ -34,6 +34,7 @@ import org.peerfact.impl.overlay.AbstractOverlayNode.PeerStatus;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessBotmasterOverlayNode;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayID;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNode;
+import org.peerfact.impl.simengine.Simulator;
 import org.peerfact.impl.util.oracle.GlobalOracle;
 
 /**
@@ -72,12 +73,35 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 	protected List<String> generateEvaluationMetrics(long currentTime) {
 
 		List<String> measurements = new LinkedList<String>();
-		measurements.add(Integer.valueOf(getNumOfLiveNodes()).toString());
-		measurements.add(Integer.valueOf(getNumOfNodesSuccesfullyUpdated())
-				.toString());
-		measurements.add(Long.valueOf(get_current_software_id())
-				.toString());
 
+		long current_software_id = get_current_software_id();
+
+		Map<ZeroAccessOverlayID, ZeroAccessOverlayNode> nodes_map = getAllPresentZeroAccessNodes();
+
+		double software_version_sum = 0;
+		long live_count = 0;
+		long software_updated_nodes_size = 0;
+		for (ZeroAccessOverlayID id : nodes_map.keySet())
+		{
+			ZeroAccessOverlayNode node = nodes_map.get(id);
+			long node_software_version = node.getBot_software_version();
+			software_version_sum += node_software_version;
+			if (current_software_id == node_software_version)
+			{
+				software_updated_nodes_size++;
+			}
+			if (node.isPresent()) {
+				live_count += 1;
+			}
+		}
+
+		measurements.add(Long.valueOf(live_count).toString());
+		measurements.add(Long.valueOf(software_updated_nodes_size)
+				.toString());
+		measurements.add(Long.valueOf(current_software_id)
+				.toString());
+		measurements.add(Double.valueOf(software_version_sum / live_count)
+				.toString());
 		return measurements;
 	}
 
@@ -117,7 +141,7 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 		return numOfLiveNodes;
 	}
 
-	private static long get_current_software_id() {
+	private long get_current_software_id() {
 		long current_bot_software_id = 0;
 		List<Host> hosts = GlobalOracle.getHosts();
 		for (Host host : hosts) {
@@ -126,6 +150,11 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 			if (olNode != null
 					&& olNode instanceof ZeroAccessBotmasterOverlayNode) {
 				ZeroAccessBotmasterOverlayNode cNode = olNode;
+				if (cNode.getPeerStatus() != PeerStatus.ABSENT)
+				{
+					log.warn(Simulator.getSimulatedRealtime()
+							+ " : God damm wrong, God is dead");
+				}
 				current_bot_software_id = cNode.getBot_software_version();
 			}
 		}

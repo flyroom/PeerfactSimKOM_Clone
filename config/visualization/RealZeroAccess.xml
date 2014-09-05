@@ -3,11 +3,11 @@
 	<Default>
 		<Variable name="seed" value="10" />
 		<Variable name="startTime" value="0m" />
-		<Variable name="finishTime" value="200m" />
+		<Variable name="finishTime" value="500m" />
 		<Variable name="actions" value="config/visualization/zeroaccess-actions.dat" />
 		<Variable name="gnpDataFile" value="config/data/measured_data.xml"/>
 		<Variable name="churn_startTime" value="20m"/>
-		<Variable name="churn_finishTime" value="200m"/>
+		<Variable name="churn_finishTime" value="500m"/>
 		<Variable name="poison" value="true"/>
 		
 		<!-- kad , Exponential zeroaccess -->

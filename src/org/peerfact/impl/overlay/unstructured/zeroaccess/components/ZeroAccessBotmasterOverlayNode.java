@@ -86,7 +86,7 @@ public class ZeroAccessBotmasterOverlayNode extends ZeroAccessOverlayNode {
 
 	@Override
 	public void connectivityChanged(ConnectivityEvent ce) {
-		//
+
 	}
 
 	@Override
@@ -107,9 +107,9 @@ public class ZeroAccessBotmasterOverlayNode extends ZeroAccessOverlayNode {
 			// accept messages only if connection to peer exists
 			if (message instanceof BaseMessage) {
 				if (message instanceof GetLMessage) {
-					processGetL(receivingEvent);
+					this.processGetL(receivingEvent);
 				} else if (message instanceof RetLMessage) {
-					processRetL(receivingEvent);
+					this.processRetL(receivingEvent);
 				}
 			}
 		}
