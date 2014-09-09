@@ -31,6 +31,8 @@ import org.peerfact.api.common.ConnectivityEvent;
 import org.peerfact.api.common.Message;
 import org.peerfact.api.common.Operation;
 import org.peerfact.api.common.OperationCallback;
+import org.peerfact.api.network.Bandwidth;
+import org.peerfact.api.network.NetLayer;
 import org.peerfact.api.overlay.NeighborDeterminator;
 import org.peerfact.api.overlay.OverlayContact;
 import org.peerfact.api.overlay.unstructured.HomogeneousOverlayNode;
@@ -38,6 +40,7 @@ import org.peerfact.api.transport.TransInfo;
 import org.peerfact.api.transport.TransLayer;
 import org.peerfact.api.transport.TransMessageCallback;
 import org.peerfact.api.transport.TransMessageListener;
+import org.peerfact.impl.network.gnp.GnpNetLayer;
 import org.peerfact.impl.overlay.AbstractOverlayNode;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.BaseMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
@@ -74,6 +77,8 @@ public class ZeroAccessOverlayNode extends
 
 	private TransLayer transLayer;
 
+	private NetLayer netLayer;
+
 	private int getL_round_robin_counter = 0;
 
 	boolean active = false;
@@ -84,11 +89,9 @@ public class ZeroAccessOverlayNode extends
 
 	long bot_software_version = 0;
 
-	public ZeroAccessOverlayNode(TransLayer transLayer,
-			ZeroAccessOverlayID peerId,
-			int numConn, long delayAcceptConnection, long refresh,
-			long contactTimeout, long descriptorTimeout, short port,
-			String reply_param) {
+	public ZeroAccessOverlayNode(NetLayer netLayer, TransLayer transLayer,
+			ZeroAccessOverlayID peerId, short port, long downBandwidth,
+			long upBandwidth, String reply_param) {
 		super(peerId, port);
 
 		if (reply_param.equals("false"))
@@ -99,6 +102,14 @@ public class ZeroAccessOverlayNode extends
 		active = true;
 		this.transLayer = transLayer;
 		transLayer.addTransMsgListener(this, this.getPort());
+
+		this.netLayer = netLayer;
+		if (this.netLayer instanceof GnpNetLayer)
+		{
+			Bandwidth currentBandwidth = new Bandwidth(downBandwidth,
+					upBandwidth);
+			((GnpNetLayer) this.netLayer).setCurrentBandwidth(currentBandwidth);
+		}
 
 		this.routingTable = new ZeroAccessOverlayRoutingTable(peerId);
 		ZeroAccessBootstrapManager.getInstance().registerPeer(this);

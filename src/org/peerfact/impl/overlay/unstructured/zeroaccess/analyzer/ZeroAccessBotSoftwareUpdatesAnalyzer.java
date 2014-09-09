@@ -85,12 +85,12 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 		{
 			ZeroAccessOverlayNode node = nodes_map.get(id);
 			long node_software_version = node.getBot_software_version();
-			software_version_sum += node_software_version;
 			if (current_software_id == node_software_version)
 			{
 				software_updated_nodes_size++;
 			}
 			if (node.isPresent()) {
+				software_version_sum += node_software_version;
 				live_count += 1;
 			}
 		}

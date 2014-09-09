@@ -31,8 +31,11 @@ import org.peerfact.api.common.ConnectivityEvent;
 import org.peerfact.api.common.Message;
 import org.peerfact.api.common.Operation;
 import org.peerfact.api.common.OperationCallback;
+import org.peerfact.api.network.Bandwidth;
+import org.peerfact.api.network.NetLayer;
 import org.peerfact.api.transport.TransInfo;
 import org.peerfact.api.transport.TransLayer;
+import org.peerfact.impl.network.gnp.GnpNetLayer;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.BaseMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.GetLMessage;
 import org.peerfact.impl.overlay.unstructured.zeroaccess.message.RetLMessage;
@@ -68,14 +71,25 @@ public class ZeroAccessBotmasterOverlayNode extends ZeroAccessOverlayNode {
 
 	private long last_route_update_time = 0;
 
-	public ZeroAccessBotmasterOverlayNode(TransLayer transLayer,
-			ZeroAccessOverlayID peerId,
-			int numConn, long delayAcceptConnection, long refresh,
-			long contactTimeout, long descriptorTimeout, short port) {
-		super(transLayer, peerId, numConn, delayAcceptConnection, refresh,
-				contactTimeout, descriptorTimeout, port, "true");
+	private NetLayer netLayer;
 
+	public ZeroAccessBotmasterOverlayNode(NetLayer netLayer,
+			TransLayer transLayer,
+			ZeroAccessOverlayID peerId, short port, long downBandwidth,
+			long upBandwidth) {
+		super(netLayer, transLayer, peerId, port, downBandwidth, upBandwidth,
+				"true");
+		this.netLayer = netLayer;
 		this.transLayer = transLayer;
+
+		this.netLayer = netLayer;
+		if (this.netLayer instanceof GnpNetLayer)
+		{
+			Bandwidth currentBandwidth = new Bandwidth(downBandwidth,
+					upBandwidth);
+			((GnpNetLayer) this.netLayer).setCurrentBandwidth(currentBandwidth);
+		}
+
 		transLayer.addTransMsgListener(this, this.getPort());
 	}
 

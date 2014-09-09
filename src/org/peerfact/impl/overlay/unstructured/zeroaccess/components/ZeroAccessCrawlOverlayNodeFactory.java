@@ -53,17 +53,19 @@ public class ZeroAccessCrawlOverlayNodeFactory implements ComponentFactory {
 
 	private static long id = 0;
 
-	private int numConn;
-
-	private long delayAcceptConnection;
-
-	private long refresh;
-
-	private long contactTimeout;
-
-	private long descriptorTimeout;
-
 	private String poison;
+
+	private long downBandwidth;
+
+	public void setDownBandwidth(long downBandwidth) {
+		this.downBandwidth = downBandwidth;
+	}
+
+	public void setUpBandwidth(long upBandwidth) {
+		this.upBandwidth = upBandwidth;
+	}
+
+	private long upBandwidth;
 
 	public String getPoison() {
 		return poison;
@@ -75,10 +77,10 @@ public class ZeroAccessCrawlOverlayNodeFactory implements ComponentFactory {
 
 	@Override
 	public Component createComponent(Host host) {
-		return new ZeroAccessCrawlOverlayNode(host.getTransLayer(),
-				newZeroAccessOverlayID(), this.numConn,
-				this.delayAcceptConnection, this.refresh, this.contactTimeout,
-				this.descriptorTimeout, port, this.poison);
+		return new ZeroAccessCrawlOverlayNode(host.getNetLayer(),
+				host.getTransLayer(),
+				newZeroAccessOverlayID(), port, this.downBandwidth,
+				this.upBandwidth, this.poison);
 	}
 
 	public static ZeroAccessOverlayID newZeroAccessOverlayID() {
@@ -87,25 +89,5 @@ public class ZeroAccessCrawlOverlayNodeFactory implements ComponentFactory {
 				.valueOf(ZeroAccessCrawlOverlayNodeFactory.id)));
 		return new ZeroAccessOverlayID(
 				BigInteger.valueOf(ZeroAccessCrawlOverlayNodeFactory.id));
-	}
-
-	public void setNumConn(int numConn) {
-		this.numConn = numConn;
-	}
-
-	public void setDelayAcceptConnection(long delayAcceptConnection) {
-		this.delayAcceptConnection = delayAcceptConnection;
-	}
-
-	public void setRefresh(long refresh) {
-		this.refresh = refresh;
-	}
-
-	public void setContactTimeout(long contactTimeout) {
-		this.contactTimeout = contactTimeout;
-	}
-
-	public void setDescriptorTimeout(long descriptorTimeout) {
-		this.descriptorTimeout = descriptorTimeout;
 	}
 }

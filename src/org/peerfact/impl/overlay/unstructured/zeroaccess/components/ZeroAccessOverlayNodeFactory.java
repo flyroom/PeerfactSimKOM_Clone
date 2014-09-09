@@ -53,24 +53,18 @@ public class ZeroAccessOverlayNodeFactory implements ComponentFactory {
 
 	private static long id = 0;
 
-	private int numConn;
+	private long downBandwidth;
 
-	private long delayAcceptConnection;
-
-	private long refresh;
-
-	private long contactTimeout;
-
-	private long descriptorTimeout;
+	private long upBandwidth;
 
 	private String reply;
 
 	@Override
 	public Component createComponent(Host host) {
-		return new ZeroAccessOverlayNode(host.getTransLayer(),
-				newZeroAccessOverlayID(), this.numConn,
-				this.delayAcceptConnection, this.refresh, this.contactTimeout,
-				this.descriptorTimeout, port, this.reply);
+		return new ZeroAccessOverlayNode(host.getNetLayer(),
+				host.getTransLayer(),
+				newZeroAccessOverlayID(), port, this.downBandwidth,
+				this.upBandwidth, this.reply);
 	}
 
 	public void setReply(String reply) {
@@ -85,23 +79,12 @@ public class ZeroAccessOverlayNodeFactory implements ComponentFactory {
 				BigInteger.valueOf(ZeroAccessOverlayNodeFactory.id));
 	}
 
-	public void setNumConn(int numConn) {
-		this.numConn = numConn;
+	public void setDownBandwidth(long downBandwidth) {
+		this.downBandwidth = downBandwidth;
 	}
 
-	public void setDelayAcceptConnection(long delayAcceptConnection) {
-		this.delayAcceptConnection = delayAcceptConnection;
+	public void setUpBandwidth(long upBandwidth) {
+		this.upBandwidth = upBandwidth;
 	}
 
-	public void setRefresh(long refresh) {
-		this.refresh = refresh;
-	}
-
-	public void setContactTimeout(long contactTimeout) {
-		this.contactTimeout = contactTimeout;
-	}
-
-	public void setDescriptorTimeout(long descriptorTimeout) {
-		this.descriptorTimeout = descriptorTimeout;
-	}
 }
