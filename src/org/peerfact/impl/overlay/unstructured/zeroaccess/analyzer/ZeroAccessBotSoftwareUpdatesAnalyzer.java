@@ -84,12 +84,12 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 		for (ZeroAccessOverlayID id : nodes_map.keySet())
 		{
 			ZeroAccessOverlayNode node = nodes_map.get(id);
-			long node_software_version = node.getBot_software_version();
-			if (current_software_id == node_software_version)
-			{
-				software_updated_nodes_size++;
-			}
 			if (node.isPresent()) {
+				long node_software_version = node.getBot_software_version();
+				if (current_software_id == node_software_version)
+				{
+					software_updated_nodes_size++;
+				}
 				software_version_sum += node_software_version;
 				live_count += 1;
 			}
@@ -100,8 +100,14 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 				.toString());
 		measurements.add(Long.valueOf(current_software_id)
 				.toString());
-		measurements.add(Double.valueOf(software_version_sum / live_count)
-				.toString());
+		if (live_count == 0)
+		{
+			measurements.add(Double.valueOf(0)
+					.toString());
+		} else {
+			measurements.add(Double.valueOf(software_version_sum / live_count)
+					.toString());
+		}
 		return measurements;
 	}
 

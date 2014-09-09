@@ -87,8 +87,8 @@ public class ZeroAccessOverlayRoutingTable implements
 
 		if (this.Contacts.size() > maximum_peer_list_size)
 		{
-			Contacts.pollFirst();
-			overlayIDs.remove(contact.getOverlayID());
+			ZeroAccessOverlayContact contact_to_remove = Contacts.pollFirst();
+			overlayIDs.remove(contact_to_remove.getOverlayID());
 		}
 	}
 

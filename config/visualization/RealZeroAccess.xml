@@ -18,7 +18,7 @@
 
 	<NetLayer
 		class="org.peerfact.impl.network.gnp.GnpNetLayerFactory"
-		downBandwidth="500000" upBandwidth="50000" gnpFile="$gnpDataFile" PbaPeriod="1">
+		downBandwidth="50000" upBandwidth="50000" gnpFile="$gnpDataFile" PbaPeriod="1">
 		<LatencyModel 
 			class="org.peerfact.impl.network.gnp.GnpLatencyModel" 
 			usePingErRttData="false" 
@@ -45,7 +45,7 @@
 			 
 	<ZeroAccessCrawlOverlayNode
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessCrawlOverlayNodeFactory"
-		downBandwidth="500000" upBandwidth="500000" poison="$poison"/>
+		downBandwidth="500000" upBandwidth="50000" poison="$poison"/>
 		
 	<ZeroAccessBotmasterOverlayNode
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessBotMasterOverlayNodeFactory"
@@ -53,15 +53,15 @@
 		
 	<ZeroAccessOverlayNodeSuper
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
-		downBandwidth="500000" upBandwidth="50000" reply="true"/>
+		downBandwidth="50000" upBandwidth="50000" reply="true"/>
 		
 	<ZeroAccessOverlayNodeNAT
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
-		downBandwidth="500000" upBandwidth="50000" reply="false"/>
+		downBandwidth="50000" upBandwidth="50000" reply="false"/>
 		
 	<ZeroAccessOverlayNodeBootstrap
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
-		downBandwidth="500000" upBandwidth="500000" reply="true"/>
+		downBandwidth="50000" upBandwidth="50000" reply="true"/>
 
 	<Application
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplicationFactory"
