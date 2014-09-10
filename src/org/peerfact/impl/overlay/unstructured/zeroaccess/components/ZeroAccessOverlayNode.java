@@ -89,6 +89,8 @@ public class ZeroAccessOverlayNode extends
 
 	long bot_software_version = 0;
 
+	private boolean poisoned_with_fakes = false;
+
 	public ZeroAccessOverlayNode(NetLayer netLayer, TransLayer transLayer,
 			ZeroAccessOverlayID peerId, short port, long downBandwidth,
 			long upBandwidth, String reply_param) {
@@ -251,6 +253,14 @@ public class ZeroAccessOverlayNode extends
 		this.bot_software_version = bot_software_version;
 	}
 
+	public boolean isPoisoned_with_fakes() {
+		return poisoned_with_fakes;
+	}
+
+	public void setPoisoned_with_fakes(boolean poisoned_with_fakes) {
+		this.poisoned_with_fakes = poisoned_with_fakes;
+	}
+
 	private void processRetL(TransMsgEvent receivingEvent) {
 
 		this.setPeerStatus(PeerStatus.PRESENT);
@@ -397,6 +407,7 @@ public class ZeroAccessOverlayNode extends
 						+ this.toString()
 						+ " poisoned with fake route entries size "
 						+ fake_count);
+				this.setPoisoned_with_fakes(true);
 			}
 			this.setPeerStatus(PeerStatus.ABSENT);
 		}
@@ -408,6 +419,7 @@ public class ZeroAccessOverlayNode extends
 						+ this.toString()
 						+ " recovered with fake count: "
 						+ fake_count);
+				this.setPoisoned_with_fakes(false);
 			}
 			this.setPeerStatus(PeerStatus.PRESENT);
 		}
@@ -424,10 +436,12 @@ public class ZeroAccessOverlayNode extends
 						+ " update timeout, deemed absent with fake count --> "
 						+ fake_count);
 				this.setPeerStatus(PeerStatus.ABSENT);
+				this.setPoisoned_with_fakes(true);
 			}
 			else
 			{
 				this.setPeerStatus(PeerStatus.PRESENT);
+				this.setPoisoned_with_fakes(false);
 			}
 		}
 	}

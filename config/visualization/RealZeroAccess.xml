@@ -120,7 +120,7 @@
 			<Properties enableChurn="true" />
 		</Group>
 				
-		<Group groupID="NorthAmerica" size="2600">
+		<Group groupID="NorthAmerica" size="3600">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNodeNAT />
@@ -128,7 +128,7 @@
 			<Properties enableChurn="true" />
 		</Group>
 
-		<Group groupID="Europe" size="1200">
+		<Group groupID="Europe" size="200">
 			<NetLayer />
 			<TransLayer />
 			<ZeroAccessOverlayNodeSuper />

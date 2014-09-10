@@ -61,6 +61,7 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 		fieldNames.add("updated peers");
 		fieldNames.add("current software version");
 		fieldNames.add("average software version");
+		fieldNames.add("poisoned nodes size");
 		return fieldNames;
 	}
 
@@ -81,9 +82,14 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 		double software_version_sum = 0;
 		long live_count = 0;
 		long software_updated_nodes_size = 0;
+		long nodes_poised_count = 0;
 		for (ZeroAccessOverlayID id : nodes_map.keySet())
 		{
 			ZeroAccessOverlayNode node = nodes_map.get(id);
+			if (node.isPoisoned_with_fakes())
+			{
+				nodes_poised_count++;
+			}
 			if (node.isPresent()) {
 				long node_software_version = node.getBot_software_version();
 				if (current_software_id == node_software_version)
@@ -105,9 +111,14 @@ public class ZeroAccessBotSoftwareUpdatesAnalyzer extends
 			measurements.add(Double.valueOf(0)
 					.toString());
 		} else {
-			measurements.add(Double.valueOf(software_version_sum / live_count)
-					.toString());
+			// measurements.add(Double.valueOf(software_version_sum /
+			// live_count)
+			// .toString());
+			measurements.add(String.format("%.2f", software_version_sum
+					/ live_count));
 		}
+		measurements.add(Long.valueOf(nodes_poised_count)
+				.toString());
 		return measurements;
 	}
 
