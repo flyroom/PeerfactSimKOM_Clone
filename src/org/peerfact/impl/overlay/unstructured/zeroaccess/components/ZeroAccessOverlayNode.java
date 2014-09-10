@@ -163,7 +163,10 @@ public class ZeroAccessOverlayNode extends
 	}
 
 	private void processGetL(TransMsgEvent receivingEvent) {
-
+		if (!reply)
+		{
+			return;
+		}
 		GetLMessage getLMessage = (GetLMessage) receivingEvent
 				.getPayload();
 

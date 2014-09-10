@@ -13,6 +13,6 @@ China 15m ZeroAccessCrawlOverlayNode:stopCrawl
 
 Japan 10m ZeroAccessBotmasterOverlayNode:startScheduleSoftwareUpdates 10m
 
-China 100m ZeroAccessCrawlOverlayNode:initFakeNodePool
-China 100m ZeroAccessCrawlOverlayNode:startSchedulePoisonRoute 1m
-China 200m ZeroAccessCrawlOverlayNode:stopPoisonRoute
+China 30m ZeroAccessCrawlOverlayNode:initFakeNodePool
+China 32m ZeroAccessCrawlOverlayNode:startSchedulePoisonRoute 1m
+China 60m ZeroAccessCrawlOverlayNode:stopPoisonRoute
