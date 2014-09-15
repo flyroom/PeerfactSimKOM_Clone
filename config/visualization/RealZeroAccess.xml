@@ -83,10 +83,11 @@
 		 <Analyzer class="org.peerfact.impl.analyzer.visualization2d.analyzer.VisAnalyzer">
          	<OverlayAdapter class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.vis.ZeroAccessAdapter"/>
          </Analyzer>
+         <Analyzer class="org.peerfact.impl.overlay.unstructured.zeroaccess.analyzer.ZeroAccessMessageAnalyzer"/>
           -->
           
          <Analyzer class="org.peerfact.impl.overlay.unstructured.zeroaccess.analyzer.ZeroAccessBotSoftwareUpdatesAnalyzer"/>
-         <Analyzer class="org.peerfact.impl.overlay.unstructured.zeroaccess.analyzer.ZeroAccessMessageAnalyzer"/>
+         
          <Analyzer class="org.peerfact.impl.analyzer.DefaultConnectivityAnalyzer" />
          <Analyzer class="org.peerfact.impl.analyzer.DefaultChurnAnalyzer" />
          <Analyzer class="org.peerfact.impl.analyzer.DefaultNetAnalyzer" />

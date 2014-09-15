@@ -114,7 +114,7 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		}
 
 		this.routingTable = new ZeroAccessOverlayRoutingTable(peerId);
-		if (double_poison_level.equals("0"))
+		if (double_poison_level.equals("-1"))
 		{
 			poison_permitted = false;
 		}
