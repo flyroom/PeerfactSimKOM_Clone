@@ -51,17 +51,25 @@ public class ZeroAccessOverlayContact implements
 
 	private long lastRefresh;
 
+	private long indegree;
+
+	private boolean bool_live;
+
 	// TODO clever ranking
 
 	public ZeroAccessOverlayContact(ZeroAccessOverlayID overlayID,
 			TransInfo transInfo) {
 		this.overlayID = overlayID;
 		this.transInfo = transInfo;
+		this.indegree = 0;
+		this.bool_live = false;
 	}
 
 	public ZeroAccessOverlayContact(OverlayContact<ZeroAccessOverlayID> contact) {
 		this.overlayID = contact.getOverlayID();
 		this.transInfo = contact.getTransInfo();
+		this.indegree = 0;
+		this.bool_live = false;
 	}
 
 	@Override
@@ -72,6 +80,22 @@ public class ZeroAccessOverlayContact implements
 	@Override
 	public TransInfo getTransInfo() {
 		return this.transInfo;
+	}
+
+	public long getIndegree() {
+		return indegree;
+	}
+
+	public void setIndegree(long indegree) {
+		this.indegree = indegree;
+	}
+
+	public boolean isBool_live() {
+		return bool_live;
+	}
+
+	public void setBool_live(boolean bool_live) {
+		this.bool_live = bool_live;
 	}
 
 	@Override

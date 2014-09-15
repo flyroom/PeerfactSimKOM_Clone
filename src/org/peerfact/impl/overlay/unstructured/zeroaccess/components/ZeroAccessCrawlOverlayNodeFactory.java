@@ -77,6 +77,7 @@ public class ZeroAccessCrawlOverlayNodeFactory implements ComponentFactory {
 
 	@Override
 	public Component createComponent(Host host) {
+
 		return new ZeroAccessCrawlOverlayNode(host.getNetLayer(),
 				host.getTransLayer(),
 				newZeroAccessOverlayID(), port, this.downBandwidth,

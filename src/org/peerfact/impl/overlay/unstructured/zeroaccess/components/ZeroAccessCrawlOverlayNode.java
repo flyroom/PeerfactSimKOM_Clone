@@ -86,6 +86,8 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 
 	private boolean crawling = false;
 
+	private double poison_level = 0;
+
 	private boolean poison_permitted = false;
 
 	private boolean poisoning = false;
@@ -96,9 +98,9 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 
 	public ZeroAccessCrawlOverlayNode(NetLayer netLayer, TransLayer transLayer,
 			ZeroAccessOverlayID peerId, short port, long downloadBandwidth,
-			long upBandwidth, String bool_poison) {
+			long upBandwidth, String double_poison_level) {
 		super(netLayer, transLayer, peerId, port, downloadBandwidth,
-				upBandwidth, "true");
+				upBandwidth, "0");
 
 		this.transLayer = transLayer;
 		transLayer.addTransMsgListener(this, this.getPort());
@@ -112,8 +114,13 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		}
 
 		this.routingTable = new ZeroAccessOverlayRoutingTable(peerId);
-		if (bool_poison.equals("true"))
+		if (double_poison_level.equals("0"))
 		{
+			poison_permitted = false;
+		}
+		else
+		{
+			poison_level = Double.parseDouble(double_poison_level);
 			poison_permitted = true;
 		}
 	}
@@ -165,7 +172,13 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 		}
 		RetLMessage retLMessage = (RetLMessage) receivingEvent
 				.getPayload();
+		if (nodesMap.containsKey(retLMessage.getSender()))
+		{
+			ZeroAccessOverlayContact node_sender = nodesMap.get(retLMessage
+					.getSender());
+			node_sender.setBool_live(true);
 
+		}
 		LinkedList<ZeroAccessOverlayContact> contact_list = retLMessage
 				.getContacts();
 
@@ -182,6 +195,17 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 						log.warn(current_time + "Current size of crawling: "
 								+ nodesMap.size());
 					}
+				}
+			}
+			else
+			{
+				ZeroAccessOverlayContact node_returned = nodesMap.get(node
+						.getOverlayID());
+				node_returned.setIndegree(node_returned.getIndegree() + 1);
+				if (node_returned.getIndegree() > 1)
+				{
+					int m = 0;
+					m++;
 				}
 			}
 		}
@@ -278,6 +302,14 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 				break;
 			}
 			ZeroAccessOverlayContact target_contact = entry.getValue();
+
+			// if indegree of target node's is below poison_level or status is
+			// dead, then we will not poison
+			if (target_contact.getIndegree() < poison_level
+					|| !target_contact.isBool_live())
+			{
+				continue;
+			}
 
 			int poison_count = 16;
 

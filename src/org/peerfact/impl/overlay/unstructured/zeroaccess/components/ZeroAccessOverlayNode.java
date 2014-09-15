@@ -96,7 +96,12 @@ public class ZeroAccessOverlayNode extends
 			long upBandwidth, String reply_param) {
 		super(peerId, port);
 
-		if (reply_param.equals("false"))
+		double reply_rate = Double.parseDouble(reply_param);
+		if (reply_rate > Math.random())
+		{
+			reply = true;
+		}
+		else
 		{
 			reply = false;
 		}

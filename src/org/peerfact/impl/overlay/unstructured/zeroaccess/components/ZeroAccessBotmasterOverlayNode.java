@@ -78,7 +78,7 @@ public class ZeroAccessBotmasterOverlayNode extends ZeroAccessOverlayNode {
 			ZeroAccessOverlayID peerId, short port, long downBandwidth,
 			long upBandwidth) {
 		super(netLayer, transLayer, peerId, port, downBandwidth, upBandwidth,
-				"true");
+				"0");
 		this.netLayer = netLayer;
 		this.transLayer = transLayer;
 

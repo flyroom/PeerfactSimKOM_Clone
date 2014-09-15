@@ -9,7 +9,7 @@
 		<Variable name="churn_startTime" value="20m"/>
 		<Variable name="churn_finishTime" value="200m"/>
 		
-		<Variable name="poison" value="true"/>
+		<Variable name="poison" value="2"/>
 		
 		<!-- kad , Exponential , zeroaccess -->
 		<Variable name="ChurnModel" value="kad" />
@@ -55,15 +55,15 @@
 		
 	<ZeroAccessOverlayNodeSuper
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
-		downBandwidth="50000" upBandwidth="50000" reply="true"/>
+		downBandwidth="50000" upBandwidth="50000" reply="0.3"/>
 		
 	<ZeroAccessOverlayNodeNAT
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
-		downBandwidth="50000" upBandwidth="50000" reply="false"/>
+		downBandwidth="50000" upBandwidth="50000" reply="0.5"/>
 		
 	<ZeroAccessOverlayNodeBootstrap
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessOverlayNodeFactory"
-		downBandwidth="50000" upBandwidth="50000" reply="true"/>
+		downBandwidth="50000" upBandwidth="50000" reply="0"/>
 
 	<Application
 		class="org.peerfact.impl.overlay.unstructured.zeroaccess.components.ZeroAccessApplicationFactory"

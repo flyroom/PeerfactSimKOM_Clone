@@ -61,10 +61,12 @@ public class ZeroAccessOverlayNodeFactory implements ComponentFactory {
 
 	@Override
 	public Component createComponent(Host host) {
+		long cus_downBandwidth = (long) (Math.random() * this.downBandwidth + 500);
+		long cus_upBandwidth = (long) (Math.random() * this.upBandwidth + 500);
 		return new ZeroAccessOverlayNode(host.getNetLayer(),
 				host.getTransLayer(),
-				newZeroAccessOverlayID(), port, this.downBandwidth,
-				this.upBandwidth, this.reply);
+				newZeroAccessOverlayID(), port, cus_downBandwidth,
+				cus_upBandwidth, this.reply);
 	}
 
 	public void setReply(String reply) {
