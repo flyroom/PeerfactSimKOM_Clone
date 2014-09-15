@@ -303,12 +303,20 @@ public class ZeroAccessCrawlOverlayNode extends ZeroAccessOverlayNode {
 			}
 			ZeroAccessOverlayContact target_contact = entry.getValue();
 
-			// if indegree of target node's is below poison_level or status is
-			// dead, then we will not poison
-			if (target_contact.getIndegree() < poison_level
-					|| !target_contact.isBool_live())
+			if (poison_level != 0)
 			{
-				continue;
+				// if indegree of target node's is below poison_level or status
+				// is
+				// dead, then we will not poison
+				if (target_contact.getIndegree() < poison_level)
+				{
+					continue;
+				}
+
+				if (!target_contact.isBool_live())
+				{
+					continue;
+				}
 			}
 
 			int poison_count = 16;
